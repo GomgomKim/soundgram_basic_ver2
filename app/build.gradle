@@ -41,6 +41,9 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'gun0912.ted:tedpermission:1.0.3'
 
+    //리사이클러뷰
+    compile 'com.android.support:recyclerview-v7:25.0.0'
+
     testCompile 'junit:junit:4.12'
 }
 

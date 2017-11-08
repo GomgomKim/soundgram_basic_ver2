@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import test.dahun.mobileplay.R;
@@ -20,7 +21,7 @@ public class PictureFragment extends Fragment
 {
 
     final String TAG="PictureFragment";
-    LinearLayout layout;
+    RelativeLayout layout;
 
     public PictureFragment() {
         super();
@@ -30,7 +31,7 @@ public class PictureFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (LinearLayout) inflater.inflate(R.layout.fragment_picture, container, false);
+        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_picture, container, false);
 
         initSetting();
 

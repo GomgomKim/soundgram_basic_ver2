@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d15d1c"
+    android:background="#fff"
     android:orientation="vertical"
     tools:context="test.dahun.mobileplay.main.MainActivity">
 
-    <SeekBar
-        android:id="@+id/musicProgress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/startBtn"
         android:text="start"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/restartBtn"
         android:text="restart"
+        android:visibility="gone"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/pauseBtn"
         android:text="pause"
+        android:visibility="gone"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -35,8 +36,199 @@
     <Button
         android:id="@+id/stopBtn"
         android:text="stop"
+        android:visibility="gone"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <!---->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/play_3_emptycd">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/play_2_trackimg_01"/>
+        </LinearLayout>
+            <!--
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="420dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="스물셋"
+                    android:textSize="20dp"
+                    android:textColor="#000"
+                    android:layout_gravity="center"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="02:45"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="#F361A6"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="03:23"
+                        android:layout_marginLeft="240dp"
+                        android:textColor="#8C8C8C"/>
+                </LinearLayout>
+                <SeekBar
+                    android:id="@+id/musicProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/play_ic_lyrics"/>
+                    <Button
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="50dp"
+                        android:background="@drawable/play_ic_random"/>
+                    <Button
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="50dp"
+                        android:background="@drawable/play_ic_sound"/>
+                    <Button
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="50dp"
+                        android:background="@drawable/play_ic_list"/>
+                </LinearLayout>
+            </LinearLayout>
+            -->
+    </RelativeLayout>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/play_1_bg"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/startBtn">
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/ic_home" />
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="280dp"
+            android:background="@drawable/ic_equalizer" />
+    </LinearLayout>
+    <!---->
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="스물셋"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:layout_gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02:45"
+                android:layout_marginLeft="15dp"
+                android:textColor="#F361A6"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="03:23"
+                android:layout_marginLeft="240dp"
+                android:textColor="#8C8C8C"/>
+        </LinearLayout>
+        <SeekBar
+            android:id="@+id/musicProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/play_ic_lyrics"/>
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="60dp"
+                android:background="@drawable/play_ic_random"/>
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="60dp"
+                android:background="@drawable/play_ic_sound"/>
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="60dp"
+                android:background="@drawable/play_ic_list"/>
+        </LinearLayout>
+        <ImageButton
+            android:id="@+id/navi"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/mn_default" />
+
+
+    </LinearLayout>
+    <!---->
+
+
+
+
+
+
+    <!---->
+
+
+</RelativeLayout>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import test.dahun.mobileplay.R;
@@ -22,7 +23,7 @@ public class MusicFragment extends Fragment
 {
 
     final String TAG="MusicFragment";
-    LinearLayout layout;
+    RelativeLayout layout;
 
     //음악 관련 변수
     static MediaPlayer mp; // 음악 재생을 위한 객체
@@ -56,7 +57,7 @@ public class MusicFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (LinearLayout) inflater.inflate(R.layout.fragment_music, container, false);
+        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_music, container, false);
 
         initSetting();
 

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class CoverFragment extends Fragment
 {
 
     final String TAG="CoverFragment";
-    LinearLayout layout;
+    RelativeLayout layout;
 
     public CoverFragment() {
         super();
@@ -34,7 +35,7 @@ public class CoverFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (LinearLayout) inflater.inflate(R.layout.fragment_cover, container, false);
+        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_cover, container, false);
 
         initSetting();
 

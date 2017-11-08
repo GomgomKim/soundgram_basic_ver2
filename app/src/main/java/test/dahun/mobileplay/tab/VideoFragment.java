@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import test.dahun.mobileplay.R;
@@ -20,7 +21,7 @@ public class VideoFragment extends Fragment
 {
 
     final String TAG="VideoFragment";
-    LinearLayout layout;
+    RelativeLayout layout;
 
     public VideoFragment() {
         super();
@@ -30,7 +31,7 @@ public class VideoFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (LinearLayout) inflater.inflate(R.layout.fragment_video, container, false);
+        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_video, container, false);
 
         initSetting();
 

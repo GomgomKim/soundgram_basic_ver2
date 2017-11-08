@@ -4,10 +4,134 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFC19E"
+    android:background="#fff"
     android:orientation="vertical"
     tools:context="test.dahun.mobileplay.main.MainActivity">
 
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.2">
+
+        <!--맨아래-->
+
+        <!--중간-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="320dp"
+                    android:layout_gravity="center_horizontal|top"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/comm_2_artist" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="93dp"
+                    android:layout_marginStart="33dp"
+                    android:orientation="horizontal"
+                    android:layout_alignBottom="@+id/imageView4"
+                    android:layout_alignParentStart="true">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:background="@drawable/comm_profile" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="IU (아이유)"
+                            android:textColor="#F361A6" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_margin="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="지금까지 함께 해주신 팬 여러분~~~
+기다려 주셔서 감사해요 올해는 콘서트를 할 수 있을 듯 해요"
+                        android:textColor="#000" />
+                </LinearLayout>
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2017.11.09 13:34"
+                    android:textColor="#8C8C8C"
+                    android:layout_marginBottom="25dp"
+                    android:layout_alignBottom="@+id/imageView4"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+        <!--맨위-->
+        <!--맨위 버튼들-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/ic_home" />
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="270dp"
+                android:background="@drawable/ic_equalizer" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/comm_ic_write" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_gravity="center_horizontal|top"
+            android:scaleType="fitXY"
+            android:src="@drawable/comm_1_bg" />
+    </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/navi"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/mn_default" />
 
 
 </LinearLayout>
