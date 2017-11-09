@@ -9,10 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
+import com.bumptech.glide.Glide;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 
 /**
@@ -22,8 +27,14 @@ import test.dahun.mobileplay.R;
 public class MusicFragment extends Fragment
 {
 
+    @BindView(R.id.play_2_trackImage) ImageView play_2_trackImage;
+    @BindView(R.id.ic_homeBtn) Button ic_homeBtn;
+    @BindView(R.id.ic_equalizerBtn) Button ic_equalizerBtn;
+
+
+
     final String TAG="MusicFragment";
-    RelativeLayout layout;
+    LinearLayout layout;
 
     //음악 관련 변수
     static MediaPlayer mp; // 음악 재생을 위한 객체
@@ -57,7 +68,10 @@ public class MusicFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_music, container, false);
+        layout = (LinearLayout) inflater.inflate(R.layout.fragment_music, container, false);
+
+
+        ButterKnife.bind(this, layout);
 
         initSetting();
 
@@ -67,6 +81,11 @@ public class MusicFragment extends Fragment
     public void initSetting() {
 
         sb = (SeekBar)layout.findViewById(R.id.musicProgress);
+        Glide.with(getContext()).load(R.drawable.play_2_trackimg_01).into(play_2_trackImage);
+        ic_homeBtn.setBackgroundResource(R.drawable.ic_home);
+        ic_equalizerBtn.setBackgroundResource(R.drawable.ic_equalizer);
+        play_2_trackImage.setImageResource(R.drawable.play_2_trackimg_01);
+
 
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {

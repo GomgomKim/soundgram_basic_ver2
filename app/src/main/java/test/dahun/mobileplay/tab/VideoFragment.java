@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 
 /**
@@ -21,7 +22,7 @@ public class VideoFragment extends Fragment
 {
 
     final String TAG="VideoFragment";
-    RelativeLayout layout;
+    LinearLayout layout;
 
     public VideoFragment() {
         super();
@@ -31,7 +32,9 @@ public class VideoFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_video, container, false);
+        layout = (LinearLayout) inflater.inflate(R.layout.fragment_video, container, false);
+
+        ButterKnife.bind(this, layout);
 
         initSetting();
 

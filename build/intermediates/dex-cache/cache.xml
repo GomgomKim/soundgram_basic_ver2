@@ -3,21 +3,48 @@
 
     <item
         is-multidex="true"
-        jar="/Users/gonghojin/AndroidStudioProjects/Music/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.1"
-        sha1="92f0f571767ebddcb0dc3c5aca5478cf31d9f2f2">
-        <dex dex="/Users/gonghojin/AndroidStudioProjects/Music/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_96b9c694b1f4e5e2fd8cb1ff7a034d8b9a8213b0/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/gonghojin/AndroidStudioProjects/Music/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/Users/gonghojin/AndroidStudioProjects/Music/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_e3bf94710580157fefc0046a3764e5ca09d5c650/classes.dex" />
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_c9ab96e6cc3cfe7b787a217f43c7018d615678ff/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="297913aeba888d912ae0abaf2ef11df0431bd909">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c7926aa68f0e22e6ef71b79b2c77977ffa312d5a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/jeongdahun/.android/build-cache/7c11a70cdc2da224086396680fd8578910944057/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="0b7d39c161cecdb6c2b52a1cdc71faf0ffd4626e">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_06a8dc8a5f2f5216db7e0e7b4581c6624f0a658d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.7.0/9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4/glide-3.7.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/dex/debug/folders/1000/10/glide-3.7.0_32cd78c80b236d442a5038204a51b4bd9c1fa8f7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.7.0/2637055420a2da406e3ea9920c2ff4aafd38c970/butterknife-annotations-8.7.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="2637055420a2da406e3ea9920c2ff4aafd38c970">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-annotations-8.7.0_f9bd09274fd7773b40498676adac933436f3c8d3/classes.dex" />
     </item>
 
 </items>

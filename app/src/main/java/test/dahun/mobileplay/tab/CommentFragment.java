@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.FanRecyclerviewAdapter;
 import test.dahun.mobileplay.model.Fan;
@@ -45,6 +46,8 @@ public class CommentFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (LinearLayout) inflater.inflate(R.layout.fragment_comment, container, false);
+
+        ButterKnife.bind(this, layout);
 
         initSetting();
 

@@ -9,12 +9,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 
 /**
@@ -23,9 +28,12 @@ import test.dahun.mobileplay.R;
 
 public class CoverFragment extends Fragment
 {
+    @BindView(R.id.mainImage) ImageView mainImage;
+    @BindView(R.id.maingBottomImage) ImageView mainBottomImage;
+
 
     final String TAG="CoverFragment";
-    RelativeLayout layout;
+    LinearLayout layout;
 
     public CoverFragment() {
         super();
@@ -35,7 +43,9 @@ public class CoverFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_cover, container, false);
+        layout = (LinearLayout) inflater.inflate(R.layout.fragment_cover, container, false);
+
+        ButterKnife.bind(this, layout);
 
         initSetting();
 
@@ -43,7 +53,8 @@ public class CoverFragment extends Fragment
     }
 
     public void initSetting() {
-
+        Glide.with(getContext()).load(R.drawable.main_1_bg).into(mainImage);
+        Glide.with(getContext()).load(R.drawable.bg_main_bottom).into(mainBottomImage);
 
     }
 

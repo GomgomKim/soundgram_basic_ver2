@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
     android:orientation="vertical"
     tools:context="test.dahun.mobileplay.main.MainActivity">
 
 
 
-    <LinearLayout
+
+    <RelativeLayout
+        android:background="#fff"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@drawable/mv_1_bg"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/ic_home" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@drawable/mv_1_bg"
+            android:orientation="horizontal">
 
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="280dp"
-            android:background="@drawable/ic_equalizer" />
-    </LinearLayout>
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/ic_home" />
 
-
-
-    <ImageButton
-        android:id="@+id/navi"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:scaleType="fitXY"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/mn_default" />
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="280dp"
+                android:background="@drawable/ic_equalizer" />
+        </LinearLayout>
 
 
 
-</RelativeLayout>
+        <ImageButton
+            android:id="@+id/navi"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/mn_default" />
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
