@@ -1,5 +1,6 @@
 package test.dahun.mobileplay.main;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     ViewPager mainPager;
     ViewPagerAdapter pagerAdapter;
+    public static Context context;
 
      @Override
     protected void onCreate(Bundle savedInstanceState) {

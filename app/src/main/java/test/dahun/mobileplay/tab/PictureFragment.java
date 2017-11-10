@@ -11,8 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.adapter.PictureCustomPagerAdapter;
+import test.dahun.mobileplay.main.MainActivity;
+import test.dahun.mobileplay.ui.VerticalViewPager;
 
 /**
  * Created by jeongdahun on 2017. 9. 11..
@@ -20,6 +24,7 @@ import test.dahun.mobileplay.R;
 
 public class PictureFragment extends Fragment
 {
+    @BindView(R.id.picturePager) VerticalViewPager picturePager;
 
     final String TAG="PictureFragment";
     LinearLayout layout;
@@ -42,10 +47,8 @@ public class PictureFragment extends Fragment
     }
 
     public void initSetting() {
-
-
-
-
+        MainActivity.context=getContext();
+        picturePager.setAdapter(new PictureCustomPagerAdapter());
     }
 
 

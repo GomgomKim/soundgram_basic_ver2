@@ -7,28 +7,45 @@
     android:orientation="vertical"
     tools:context="test.dahun.mobileplay.main.MainActivity">
 
+
+
     <RelativeLayout
         android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/titleLayout"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:background="@drawable/pt_1_bg"
-            android:orientation="horizontal">
+            android:background="@drawable/pt_1_bg">
 
             <Button
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true"
                 android:background="@drawable/ic_home" />
 
             <Button
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="280dp"
+                android:layout_alignParentRight="true"
                 android:background="@drawable/ic_equalizer" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_below="@id/titleLayout"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <test.dahun.mobileplay.ui.VerticalViewPager
+                android:id="@+id/picturePager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </test.dahun.mobileplay.ui.VerticalViewPager>
+
         </LinearLayout>
 
 
