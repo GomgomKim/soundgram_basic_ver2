@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -30,7 +32,9 @@ public class CoverFragment extends Fragment
 {
     @BindView(R.id.mainImage) ImageView mainImage;
     @BindView(R.id.maingBottomImage) ImageView mainBottomImage;
-
+    @BindView(R.id.cover_text) TextView maintext;
+    @BindView(R.id.cover_top) ImageView mainTopImage;
+    @BindView(R.id.ic_equalizerBtn) Button ic_equalizerBtn;
 
     final String TAG="CoverFragment";
     LinearLayout layout;
@@ -55,6 +59,8 @@ public class CoverFragment extends Fragment
     public void initSetting() {
         Glide.with(getContext()).load(R.drawable.main_1_bg).into(mainImage);
         Glide.with(getContext()).load(R.drawable.bg_main_bottom).into(mainBottomImage);
+        Glide.with(getContext()).load(R.drawable.main_3_info).into(mainTopImage);
+        ic_equalizerBtn.setBackgroundResource(R.drawable.ic_equalizer);
 
     }
 

@@ -83,31 +83,26 @@
                     android:layout_marginEnd="16dp" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
+                <ImageButton
+                    android:id="@+id/navi"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentBottom="true"
+                android:background="@drawable/mn_default" />
+        </RelativeLayout>
         </LinearLayout>
         <!--맨위-->
-        <!--맨위 버튼들-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/ic_home" />
-
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="270dp"
-                android:background="@drawable/ic_equalizer" />
-        </LinearLayout>
 
         <Button
             android:layout_width="50dp"
@@ -124,14 +119,33 @@
             android:layout_gravity="center_horizontal|top"
             android:scaleType="fitXY"
             android:src="@drawable/comm_1_bg" />
+
+        <!--맨위 버튼들-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/ic_homeBtn"
+                android:background="@drawable/ic_home" />
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/ic_equalizerBtn"
+                android:background="@drawable/ic_equalizer" />
+        </RelativeLayout>
+
     </FrameLayout>
 
-    <ImageButton
-        android:id="@+id/navi"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:scaleType="fitXY"
-        android:background="@drawable/mn_default" />
+
 
 
 </LinearLayout>

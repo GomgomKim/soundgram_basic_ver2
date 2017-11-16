@@ -9,11 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.FanRecyclerviewAdapter;
@@ -25,6 +27,8 @@ import test.dahun.mobileplay.model.Fan;
 
 public class CommentFragment extends Fragment
 {
+
+    @BindView(R.id.navi) ImageButton navibtn;
 
     final String TAG="CommentFragment";
     LinearLayout layout;
@@ -55,6 +59,7 @@ public class CommentFragment extends Fragment
     }
 
     public void initSetting() {
+        navibtn.setImageResource(R.drawable.mn_default);
 
         //List<Fan> items = new ArrayList<>();
         Fan[] item = new Fan[5];

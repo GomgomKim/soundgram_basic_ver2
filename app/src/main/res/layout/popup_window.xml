@@ -1,0 +1,164 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup_element"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#d1cccc"
+    android:orientation="vertical">
+
+
+   <LinearLayout
+       android:paddingLeft="30dp"
+       android:layout_margin="10dp"
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:textColor="#000000"
+          android:text="01     "
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+      <TextView
+          android:id="@+id/music1"
+          android:textColor="#000000"
+          android:text="새 신발"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+   </LinearLayout>
+
+
+   <LinearLayout
+       android:paddingLeft="30dp"
+       android:layout_margin="10dp"
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:textColor="#000000"
+          android:text="02     "
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+      <TextView
+          android:id="@+id/music2"
+          android:textColor="#000000"
+          android:text="ZeZe"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+   </LinearLayout>
+
+
+   <LinearLayout
+       android:paddingLeft="30dp"
+       android:layout_margin="10dp"
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:textColor="#000000"
+          android:text="03     "
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+      <TextView
+          android:id="@+id/music3"
+          android:textColor="#000000"
+          android:text="스물"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+   </LinearLayout>
+
+
+   <LinearLayout
+       android:paddingLeft="30dp"
+       android:layout_margin="10dp"
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:textColor="#000000"
+          android:text="04     "
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+      <TextView
+          android:id="@+id/music4"
+          android:textColor="#000000"
+          android:text="푸르던"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+   </LinearLayout>
+
+
+   <LinearLayout
+       android:paddingLeft="30dp"
+       android:layout_margin="10dp"
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:textColor="#000000"
+          android:text="05     "
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+      <TextView
+          android:id="@+id/music5"
+          android:textColor="#000000"
+          android:text="Red Queen(Feat. Zion.T)"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+   </LinearLayout>
+
+
+   <LinearLayout
+       android:paddingLeft="30dp"
+       android:layout_margin="10dp"
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:textColor="#000000"
+          android:text="06     "
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+      <TextView
+          android:id="@+id/music6"
+          android:textColor="#000000"
+          android:text="무릎"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+   </LinearLayout>
+
+
+   <LinearLayout
+       android:paddingLeft="30dp"
+       android:layout_margin="10dp"
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:textColor="#000000"
+          android:text="07     "
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+      <TextView
+          android:id="@+id/music7"
+          android:textColor="#000000"
+          android:text="안경"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+   </LinearLayout>
+
+
+
+</LinearLayout>

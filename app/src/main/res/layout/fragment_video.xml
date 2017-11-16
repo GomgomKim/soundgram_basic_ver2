@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/mv_top_image"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:background="@drawable/mv_1_bg"
@@ -25,21 +26,27 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
+                android:id="@+id/ic_homeBtn"
+                android:layout_alignParentLeft="true"
                 android:background="@drawable/ic_home" />
 
             <Button
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="280dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/ic_equalizerBtn"
                 android:background="@drawable/ic_equalizer" />
-        </LinearLayout>
+        </RelativeLayout>
 
 
 
         <ImageButton
             android:id="@+id/navi"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
             android:scaleType="fitXY"
             android:layout_alignParentBottom="true"
             android:background="@drawable/mn_default" />
