@@ -1,6 +1,7 @@
 package test.dahun.mobileplay.tab;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import test.dahun.mobileplay.BuildConfig;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.listener.ChangeMusicListener;
 import test.dahun.mobileplay.main.MainActivity;
@@ -31,34 +36,55 @@ public class SubMusicView extends LinearLayout {
 
   public void initSetting(int index){
 
-    ImageView imageView=(ImageView)view.findViewById(R.id.play_2_trackImage);
+    CircleImageView imageView=(CircleImageView) view.findViewById(R.id.play_2_trackImage);
 
     switch(index){
       case 0:
-        imageView.setImageResource(R.drawable.play_2_trackimg_01);
+//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
+//        imageView.setImageURI(path);
+        Glide.with(getContext()).load(R.drawable.play_2_trackimg_01).into(imageView);
         break;
+
       case 1:
-        imageView.setImageResource(R.drawable.play_2_trackimg_02);
+//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
+//        imageView.setImageURI(path);
+        Glide.with(getContext()).load(R.drawable.play_2_trackimg_02).into(imageView);
         break;
+
       case 2:
-        imageView.setImageResource(R.drawable.play_2_trackimg_03);
+//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
+//        imageView.setImageURI(path);
+        Glide.with(getContext()).load(R.drawable.play_2_trackimg_03).into(imageView);
         break;
+
       case 3:
-        imageView.setImageResource(R.drawable.play_2_trackimg_04);
+//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
+//        imageView.setImageURI(path);
+        Glide.with(getContext()).load(R.drawable.play_2_trackimg_04).into(imageView);
         break;
+
       case 4:
-        imageView.setImageResource(R.drawable.play_2_trackimg_05);
+//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
+//        imageView.setImageURI(path);
+        Glide.with(getContext()).load(R.drawable.play_2_trackimg_05).into(imageView);
         break;
+
       case 5:
-        imageView.setImageResource(R.drawable.play_2_trackimg_06);
+//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
+//        imageView.setImageURI(path);
+        Glide.with(getContext()).load(R.drawable.play_2_trackimg_06).into(imageView);
         break;
+
       case 6:
-        imageView.setImageResource(R.drawable.play_2_trackimg_07);
+//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
+//        imageView.setImageURI(path);
+        Glide.with(getContext()).load(R.drawable.play_2_trackimg_07).into(imageView);
         break;
     }
 
+    //imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-    changeMusicListener.chageMusic(index);
+     changeMusicListener.chageMusic(index);
   }
 
 }

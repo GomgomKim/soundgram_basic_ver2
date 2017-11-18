@@ -1,3 +1,4 @@
+
 package test.dahun.mobileplay.tab;
 
 import android.content.Context;
@@ -182,11 +183,11 @@ public class MusicFragment extends Fragment
                 maxTime.setText(time);
                 seekBar.setMax(total);// 씨크바의 최대 범위를 노래의 재생시간으로 설정
 
-                mp.setLooping(false); // true:무한반복
-                mp.start(); // 노래 재생 시작
-
-                isPlaying = true; // 씨크바 쓰레드 반복 하도록
-                new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
+//                mp.setLooping(false); // true:무한반복
+//                mp.start(); // 노래 재생 시작
+//
+//                isPlaying = true; // 씨크바 쓰레드 반복 하도록
+//                new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
 
 //        timer=new Timer();
 //        timer.start();

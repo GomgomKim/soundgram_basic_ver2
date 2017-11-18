@@ -1,3 +1,4 @@
+
 package test.dahun.mobileplay.tab;
 
 import android.os.Bundle;
@@ -77,3 +78,4 @@ public class CoverFragment extends Fragment
     }
 
 }
+

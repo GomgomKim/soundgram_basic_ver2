@@ -1,9 +1,15 @@
 package test.dahun.mobileplay.adapter;
 
+import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.tab.CommentFragment;
 import test.dahun.mobileplay.tab.CoverFragment;
 import test.dahun.mobileplay.tab.MusicFragment;
@@ -19,10 +25,12 @@ import test.dahun.mobileplay.tab.VideoFragment;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter
 {
 
-    public ViewPagerAdapter(FragmentManager fm) {
-        super(fm);
-    }
+    Context context;
 
+    public ViewPagerAdapter(FragmentManager fragmentManager){
+        super(fragmentManager);
+
+    }
 
     @Override
     public int getItemPosition(Object object) {
@@ -50,6 +58,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
         }
 
     }
+
     @Override
     public int getCount() {
         return 5;

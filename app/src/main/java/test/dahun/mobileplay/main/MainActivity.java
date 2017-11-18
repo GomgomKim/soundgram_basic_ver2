@@ -14,7 +14,7 @@ import test.dahun.mobileplay.adapter.ViewPagerAdapter;
 public class MainActivity extends AppCompatActivity {
 
     ViewPager mainPager;
-    ViewPagerAdapter pagerAdapter;
+    ViewPagerAdapter viewPagerAdapter;
     public static Context context;
 
      @Override
@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         context=getApplicationContext();
         mainPager=(ViewPager)findViewById(R.id.mainPager);
         mainPager.setOffscreenPageLimit(1);
-        pagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
-        mainPager.setAdapter(pagerAdapter);
+        viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
+        mainPager.setAdapter(viewPagerAdapter);
 
 
     }

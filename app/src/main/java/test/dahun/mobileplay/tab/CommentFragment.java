@@ -95,4 +95,3 @@ public class CommentFragment extends Fragment
     }
 
 }
-
