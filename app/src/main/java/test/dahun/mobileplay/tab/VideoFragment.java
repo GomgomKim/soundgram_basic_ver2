@@ -20,6 +20,9 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.adapter.MovieCustomPagerAdapter;
+import test.dahun.mobileplay.adapter.PictureCustomPagerAdapter;
+import test.dahun.mobileplay.ui.VerticalViewPager;
 
 /**
  * Created by jeongdahun on 2017. 9. 11..
@@ -28,9 +31,7 @@ import test.dahun.mobileplay.R;
 public class VideoFragment extends Fragment
 {
 
-    @BindView(R.id.mv_top_image) RelativeLayout mvTopImage;
-    @BindView(R.id.navi) ImageButton navibtn;
-
+    @BindView(R.id.moviePager) VerticalViewPager moviePager;
 
     final String TAG="VideoFragment";
     LinearLayout layout;
@@ -53,8 +54,7 @@ public class VideoFragment extends Fragment
     }
 
     public void initSetting() {
-        navibtn.setImageResource(R.drawable.mn_default);
-
+        moviePager.setAdapter(new MovieCustomPagerAdapter(getContext()));
     }
 
 
