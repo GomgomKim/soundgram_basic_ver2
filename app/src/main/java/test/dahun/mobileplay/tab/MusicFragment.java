@@ -2,6 +2,7 @@
 package test.dahun.mobileplay.tab;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +17,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -24,14 +24,15 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.internal.framed.FrameReader;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.MusicCustomPagerAdapter;
-import test.dahun.mobileplay.adapter.PictureCustomPagerAdapter;
 import test.dahun.mobileplay.ui.VerticalViewPager;
 
 /**
@@ -53,6 +54,7 @@ public class MusicFragment extends Fragment
     @BindView(R.id.musicProgress) SeekBar seekBar; // 음악 재생위치를 나타내는 시크바
     @BindView(R.id.navi) ImageButton navibtn;
 
+    @BindView(R.id.play_lyrics) Button lyricsBtn;
     @BindView(R.id.play_list) Button playlistBtn;
 
 
@@ -70,7 +72,10 @@ public class MusicFragment extends Fragment
     TimerHandler timerHandler;
     int time=0;
 
-    //Popup
+    //가사 Popup
+    TextView lyricsText;
+
+    //음악리스트 Popup
     PopupWindow popup;
     TextView music1;
     TextView music2;
@@ -133,7 +138,9 @@ public class MusicFragment extends Fragment
         ButterKnife.bind(this, layout);
 
         initSetting();
-        popupSetting();
+        lyrics_popupSetting();
+        songlist_popupSetting();
+
 
         return layout;
     }
@@ -150,7 +157,9 @@ public class MusicFragment extends Fragment
 
             @Override
             public void onPageSelected(int position) {
+                playBtn.setBackgroundResource(R.drawable.play_ic_pause);
                 changeMusic(position);
+                changeLyrics(position);
             }
 
             @Override
@@ -226,8 +235,8 @@ public class MusicFragment extends Fragment
                         isPlaying = true; // 씨크바 쓰레드 반복 하도록
                         new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
 
-                        timer=new Timer();
-                        timer.start();
+                        //timer=new Timer();
+                        //timer.start();
                     }
                 }
 
@@ -253,11 +262,55 @@ public class MusicFragment extends Fragment
     }
 
 
-    public void popupSetting() {
+
+    public void lyrics_popupSetting() {
 
         //팝업으로 띄울 커스텀뷰를 설정하고
         LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View popupView = inflater.inflate(R.layout.popup_window, null);
+        final View popupView = inflater.inflate(R.layout.popup_lyrics, null);
+
+        lyricsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //클릭시 팝업 윈도우 생성
+                popup = new PopupWindow(popupView, 1200, 1200, true);
+
+                RelativeLayout relativeLayout = (RelativeLayout)layout.findViewById(R.id.contentLayout);
+                popup.showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+            }
+        });
+
+        lyricsText=(TextView)popupView.findViewById(R.id.lyricsText);
+
+        AssetManager am = getContext().getAssets();
+        try {
+            InputStream inputStream = am.open("first.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+            BufferedReader br = new BufferedReader(inputStreamReader);
+
+            String read=null;
+            String lyrics="";
+
+            while((read=br.readLine())!=null){
+                lyrics+=read;
+                lyrics+="\n";
+            }
+
+            lyricsText.setText(lyrics);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void songlist_popupSetting() {
+
+        //팝업으로 띄울 커스텀뷰를 설정하고
+        LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View popupView = inflater.inflate(R.layout.popup_songlist, null);
 
         playlistBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,7 +337,6 @@ public class MusicFragment extends Fragment
         music1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeMusic(0);
                 musicPager.setCurrentItem(0);
                 popup.dismiss();
             }
@@ -292,7 +344,6 @@ public class MusicFragment extends Fragment
         music2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeMusic(1);
                 musicPager.setCurrentItem(1);
                 popup.dismiss();
 
@@ -302,7 +353,6 @@ public class MusicFragment extends Fragment
         music3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeMusic(2);
                 musicPager.setCurrentItem(2);
                 popup.dismiss();
 
@@ -312,7 +362,6 @@ public class MusicFragment extends Fragment
         music4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeMusic(3);
                 musicPager.setCurrentItem(3);
                 popup.dismiss();
 
@@ -322,7 +371,6 @@ public class MusicFragment extends Fragment
         music5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeMusic(4);
                 musicPager.setCurrentItem(4);
                 popup.dismiss();
 
@@ -332,7 +380,6 @@ public class MusicFragment extends Fragment
         music6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeMusic(5);
                 musicPager.setCurrentItem(5);
                 popup.dismiss();
 
@@ -343,7 +390,6 @@ public class MusicFragment extends Fragment
         music7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeMusic(6);
                 musicPager.setCurrentItem(6);
                 popup.dismiss();
 
@@ -401,6 +447,121 @@ public class MusicFragment extends Fragment
 //        timer=new Timer();
 //        timer.start();
     }
+
+    public void changeLyrics(int index){
+        AssetManager am = getContext().getAssets();
+        InputStream inputStream;
+        InputStreamReader inputStreamReader;
+        BufferedReader br;
+        String read=null;
+        String lyrics="";
+
+        switch(index){
+            case 0:
+                try {
+                    inputStream = am.open("first.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 1:
+                try {
+                    inputStream = am.open("second.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 2:
+                try {
+                    inputStream = am.open("third.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 3:
+                try {
+                    inputStream = am.open("fourth.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 4:
+                try {
+                    inputStream = am.open("fifth.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 5:
+                try {
+                    inputStream = am.open("sixth.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 6:
+                try {
+                    inputStream = am.open("seventh.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+
+        lyricsText.setText(lyrics);
+
+
+    }
+
     String timeTranslation(int time){
         int minutes=time/60;
         int second=time-minutes*60;
