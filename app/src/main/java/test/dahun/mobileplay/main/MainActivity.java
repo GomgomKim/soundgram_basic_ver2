@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     ViewPager mainPager;
     ViewPagerAdapter viewPagerAdapter;
-    public static Context context;
 
      @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +26,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initSetting(){
-        context=getApplicationContext();
         mainPager=(ViewPager)findViewById(R.id.mainPager);
-        mainPager.setOffscreenPageLimit(1);
+        mainPager.setOffscreenPageLimit(4);
         viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
         mainPager.setAdapter(viewPagerAdapter);
 

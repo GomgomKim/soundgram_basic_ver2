@@ -49,8 +49,7 @@ public class PictureFragment extends Fragment
     }
 
     public void initSetting() {
-        MainActivity.context=getContext();
-        picturePager.setAdapter(new PictureCustomPagerAdapter());
+        picturePager.setAdapter(new PictureCustomPagerAdapter(getContext()));
     }
 
 

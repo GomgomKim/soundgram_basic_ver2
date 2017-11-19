@@ -32,7 +32,6 @@ import okhttp3.internal.framed.FrameReader;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.MusicCustomPagerAdapter;
 import test.dahun.mobileplay.adapter.PictureCustomPagerAdapter;
-import test.dahun.mobileplay.listener.ChangeMusicListener;
 import test.dahun.mobileplay.ui.VerticalViewPager;
 
 /**
@@ -41,6 +40,7 @@ import test.dahun.mobileplay.ui.VerticalViewPager;
 
 public class MusicFragment extends Fragment
 {
+    @BindView(R.id.titleLayout) RelativeLayout titleLayout;
     @BindView(R.id.ic_homeBtn) Button ic_homeBtn;
     @BindView(R.id.ic_equalizerBtn) Button ic_equalizerBtn;
 
@@ -59,7 +59,6 @@ public class MusicFragment extends Fragment
 
     final String TAG="MusicFragment";
     LinearLayout layout;
-    ChangeMusicListener changeMusicListener;
 
     //음악 관련 변수
     static MediaPlayer mp; // 음악 재생을 위한 객체
@@ -139,62 +138,26 @@ public class MusicFragment extends Fragment
         return layout;
     }
 
+
     public void initSetting() {
 
-        changeMusicListener=new ChangeMusicListener() {
+        musicPager.setAdapter(new MusicCustomPagerAdapter(getContext()));
+        musicPager.setOnPageChangeListener(new VerticalViewPager.OnPageChangeListener() {
             @Override
-            public void chageMusic(int index) {
-                // 음악 종료
-                isPlaying = false; // 쓰레드 종료
-                restart = false;
-                mp.stop(); // 멈춤
-                mp.release(); // 자원 해제
-                seekBar.setProgress(0); // 씨크바 초기화
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                switch(index){
-                    case 0:
-                        mp = MediaPlayer.create(getContext(), R.raw.first);
-                        break;
-                    case 1:
-                        mp = MediaPlayer.create(getContext(), R.raw.second);
-                        break;
-                    case 2:
-                        mp = MediaPlayer.create(getContext(), R.raw.third);
-                        break;
-                    case 3:
-                        mp = MediaPlayer.create(getContext(), R.raw.fourth);
-                        break;
-                    case 4:
-                        mp = MediaPlayer.create(getContext(), R.raw.fifth);
-                        break;
-                    case 5:
-                        mp = MediaPlayer.create(getContext(), R.raw.sixth);
-                        break;
-                    case 6:
-                        mp = MediaPlayer.create(getContext(), R.raw.seventh);
-                        break;
-
-                }
-
-                Log.d(TAG,"START");
-
-                int total = mp.getDuration(); // 노래의 재생시간(miliSecond)
-                String time=timeTranslation(total/1000);
-                maxTime.setText(time);
-                seekBar.setMax(total);// 씨크바의 최대 범위를 노래의 재생시간으로 설정
-
-//                mp.setLooping(false); // true:무한반복
-//                mp.start(); // 노래 재생 시작
-//
-//                isPlaying = true; // 씨크바 쓰레드 반복 하도록
-//                new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
-
-//        timer=new Timer();
-//        timer.start();
             }
-        };
 
-        musicPager.setAdapter(new MusicCustomPagerAdapter(changeMusicListener));
+            @Override
+            public void onPageSelected(int position) {
+                changeMusic(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         // MediaPlayer 객체 초기화 , 재생
         mp = MediaPlayer.create(
@@ -321,13 +284,17 @@ public class MusicFragment extends Fragment
         music1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"1",Toast.LENGTH_SHORT).show();
+                changeMusic(0);
+                musicPager.setCurrentItem(0);
+                popup.dismiss();
             }
         });
         music2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"2",Toast.LENGTH_SHORT).show();
+                changeMusic(1);
+                musicPager.setCurrentItem(1);
+                popup.dismiss();
 
             }
         });
@@ -335,7 +302,9 @@ public class MusicFragment extends Fragment
         music3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"3",Toast.LENGTH_SHORT).show();
+                changeMusic(2);
+                musicPager.setCurrentItem(2);
+                popup.dismiss();
 
             }
         });
@@ -343,7 +312,9 @@ public class MusicFragment extends Fragment
         music4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"4",Toast.LENGTH_SHORT).show();
+                changeMusic(3);
+                musicPager.setCurrentItem(3);
+                popup.dismiss();
 
             }
         });
@@ -351,7 +322,9 @@ public class MusicFragment extends Fragment
         music5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"5",Toast.LENGTH_SHORT).show();
+                changeMusic(4);
+                musicPager.setCurrentItem(4);
+                popup.dismiss();
 
             }
         });
@@ -359,7 +332,10 @@ public class MusicFragment extends Fragment
         music6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"6",Toast.LENGTH_SHORT).show();
+                changeMusic(5);
+                musicPager.setCurrentItem(5);
+                popup.dismiss();
+
 
             }
         });
@@ -367,12 +343,64 @@ public class MusicFragment extends Fragment
         music7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"7",Toast.LENGTH_SHORT).show();
+                changeMusic(6);
+                musicPager.setCurrentItem(6);
+                popup.dismiss();
 
             }
         });
     }
 
+    void changeMusic(int index){
+
+        // 음악 종료
+        isPlaying = false; // 쓰레드 종료
+        restart = false;
+        mp.stop(); // 멈춤
+        mp.release(); // 자원 해제
+        seekBar.setProgress(0); // 씨크바 초기화
+
+        switch(index){
+            case 0:
+                mp = MediaPlayer.create(getContext(), R.raw.first);
+                break;
+            case 1:
+                mp = MediaPlayer.create(getContext(), R.raw.second);
+                break;
+            case 2:
+                mp = MediaPlayer.create(getContext(), R.raw.third);
+                break;
+            case 3:
+                mp = MediaPlayer.create(getContext(), R.raw.fourth);
+                break;
+            case 4:
+                mp = MediaPlayer.create(getContext(), R.raw.fifth);
+                break;
+            case 5:
+                mp = MediaPlayer.create(getContext(), R.raw.sixth);
+                break;
+            case 6:
+                mp = MediaPlayer.create(getContext(), R.raw.seventh);
+                break;
+
+        }
+
+        Log.d(TAG,"START");
+
+        int total = mp.getDuration(); // 노래의 재생시간(miliSecond)
+        String time=timeTranslation(total/1000);
+        maxTime.setText(time);
+        seekBar.setMax(total);// 씨크바의 최대 범위를 노래의 재생시간으로 설정
+
+        mp.setLooping(false); // true:무한반복
+        mp.start(); // 노래 재생 시작
+
+        isPlaying = true; // 씨크바 쓰레드 반복 하도록
+        new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
+
+//        timer=new Timer();
+//        timer.start();
+    }
     String timeTranslation(int time){
         int minutes=time/60;
         int second=time-minutes*60;

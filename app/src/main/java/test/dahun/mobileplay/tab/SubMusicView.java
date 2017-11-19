@@ -14,19 +14,18 @@ import com.bumptech.glide.Glide;
 import de.hdodenhof.circleimageview.CircleImageView;
 import test.dahun.mobileplay.BuildConfig;
 import test.dahun.mobileplay.R;
-import test.dahun.mobileplay.listener.ChangeMusicListener;
 import test.dahun.mobileplay.main.MainActivity;
 
 public class SubMusicView extends LinearLayout {
 
+  Context context;
   View view;
-  ChangeMusicListener changeMusicListener;
 
-  public SubMusicView(int index, ChangeMusicListener changeMusicListener) {
-    super(MainActivity.context);
+  public SubMusicView(Context context, int index) {
+    super(context);
 
-    this.changeMusicListener=changeMusicListener;
-    LayoutInflater li = (LayoutInflater) MainActivity.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    this.context=context;
+    LayoutInflater li = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     view = li.inflate(R.layout.layout_submusic, this, true);
 
     initSetting(index);
@@ -84,7 +83,6 @@ public class SubMusicView extends LinearLayout {
 
     //imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-     changeMusicListener.chageMusic(index);
   }
 
 }

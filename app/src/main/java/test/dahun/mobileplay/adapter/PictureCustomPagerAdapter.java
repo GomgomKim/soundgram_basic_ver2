@@ -9,14 +9,15 @@ import test.dahun.mobileplay.ui.PagerAdapter;
 
 public class PictureCustomPagerAdapter extends PagerAdapter {
 
-    public PictureCustomPagerAdapter() {
-
+    Context context;
+    public PictureCustomPagerAdapter(Context context) {
+        this.context=context;
     }
 
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-      View v = new SubPictureView(position);
+      View v = new SubPictureView(context, position);
       container.addView(v);
 
       return v;
@@ -29,7 +30,7 @@ public class PictureCustomPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-      return 2;
+      return 6;
     }
 
     @Override
@@ -38,4 +39,4 @@ public class PictureCustomPagerAdapter extends PagerAdapter {
     }
 
 
-  }
+}
