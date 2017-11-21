@@ -82,8 +82,7 @@ public class SubMovieView extends LinearLayout {
       public void onClick(View view) {
        // Toast.makeText(context,"비디오재생"+ index,Toast.LENGTH_SHORT).show();
         //mv_popup(view, "비디오 경로",mv_title.getText().toString());
-        //mv_dialog(mv_title.getText().toString());
-        popup();
+        mv_dialog(mv_title.getText().toString());
       }
     });
 
@@ -96,14 +95,6 @@ public class SubMovieView extends LinearLayout {
 
   }
 
-
-  public void popup(){
-
-    context.startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("https://www.youtube.com/watch?v=42Gtm4-Ax2U")));
-    Log.i("Video", "Video Playing....");
-
-
-  }
   public void mv_dialog(String title){
       final Dialog dialog = new Dialog(context,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
       //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

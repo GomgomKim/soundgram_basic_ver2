@@ -16,7 +16,7 @@ import test.dahun.mobileplay.model.Fan;
  */
 
 public class FanRecyclerviewAdapter extends RecyclerView.Adapter<FanRecyclerviewAdapter.ItemViewHolder> {
-
+//////
     ArrayList<Fan> mItems;
 
     public FanRecyclerviewAdapter(ArrayList<Fan> items){

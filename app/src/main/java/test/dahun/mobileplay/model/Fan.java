@@ -3,7 +3,7 @@ package test.dahun.mobileplay.model;
 /**
  * Created by gonghojin on 2017. 11. 8..
  */
-
+////////
 public class Fan {
     public String id;
     public String phone;

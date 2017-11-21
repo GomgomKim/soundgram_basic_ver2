@@ -22,7 +22,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                     <ImageView
-                        android:layout_marginTop="50dp"
                         android:id="@+id/cover_top"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
@@ -41,42 +40,11 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <SlidingDrawer
-                android:id="@+id/slidingDrawer1"
+            <test.dahun.mobileplay.ui.VerticalViewPager
+                android:id="@+id/coverpager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:content="@+id/content"
-                android:handle="@+id/handle"
-                android:orientation="vertical"
-                android:rotation="180"
-                >
-
-                <Button
-                    android:id="@+id/handle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50sp"
-                    android:background="@drawable/cover_handle"
-                    />
-
-                <LinearLayout
-                    android:id="@+id/content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#000"
-                    android:rotation="180"
-                    >
-
-
-                    <ImageView
-                        android:id="@+id/mainImage"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:scaleType="fitXY"
-                        />
-
-
-                </LinearLayout>
-            </SlidingDrawer>
+                android:layout_height="match_parent">
+            </test.dahun.mobileplay.ui.VerticalViewPager>
 
             <!--이퀄라이저 버튼-->
             <Button

@@ -29,6 +29,9 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.adapter.CoverCustomPagerAdapter;
+import test.dahun.mobileplay.adapter.MovieCustomPagerAdapter;
+import test.dahun.mobileplay.ui.VerticalViewPager;
 
 /**
  * Created by jeongdahun on 2017. 9. 11..
@@ -36,15 +39,19 @@ import test.dahun.mobileplay.R;
 
 public class CoverFragment extends Fragment
 {
-    @BindView(R.id.mainImage) ImageView mainImage;
+   // @BindView(R.id.mainImage) ImageView mainImage;
     @BindView(R.id.maingBottomImage) ImageView mainBottomImage;
     @BindView(R.id.cover_text) TextView maintext;
     @BindView(R.id.cover_top) ImageView mainTopImage;
     @BindView(R.id.ic_equalizerBtn) Button ic_equalizerBtn;
 
+
+    @BindView(R.id.coverpager)
+    VerticalViewPager coverPager;
+
     //
-    @BindView(R.id.handle) Button SlidingButton;
-    @BindView(R.id.slidingDrawer1) SlidingDrawer slidingdrawer;
+  //  @BindView(R.id.handle) Button SlidingButton;
+  //  @BindView(R.id.slidingDrawer1) SlidingDrawer slidingdrawer;
     boolean state= true;//커버
 
     final String TAG="CoverFragment";
@@ -72,9 +79,11 @@ public class CoverFragment extends Fragment
     }
 
     public void initSetting() {
-        Glide.with(getContext()).load(R.drawable.main_1_bg).into(mainImage);
+       // Glide.with(getContext()).load(R.drawable.main_1_bg).into(mainImage);
         Glide.with(getContext()).load(R.drawable.bg_main_bottom).into(mainBottomImage);
         Glide.with(getContext()).load(R.drawable.main_3_info).into(mainTopImage);
+
+       // mainImage.setImageResource(R.drawable.main_1_bg);
         ic_equalizerBtn.setBackgroundResource(R.drawable.ic_equalizer);
 
         //
@@ -102,59 +111,9 @@ public class CoverFragment extends Fragment
                 "일어날 수 있고 생각할 수 있는 일들. 그 모습을\n" +
                 "[CHAT-SHIRE]안에서 함께 이야기하고 소통하길 원한다.";
         maintext.setText(txt);
-        //sliding drawer
-
-        if(slidingdrawer.isMoving()){
-            Toast.makeText(getContext(), "moving", Toast.LENGTH_LONG).show();
-
-        }
-
-        slidingdrawer.setOnDrawerScrollListener(new SlidingDrawer.OnDrawerScrollListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onScrollStarted() {
-
-                if(SlidingButton.getBackground().getConstantState()==getResources().getDrawable(R.drawable.cover_handle_2).getConstantState()){
-                    SlidingButton.setBackground(getContext().getDrawable(R.drawable.cover_handle));
-
-                }
-            }
-
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onScrollEnded() {
-                if(state==false){
-                    SlidingButton.setBackground(getContext().getDrawable(R.drawable.cover_handle_2));
-                }
-            }
-        });
-
-        slidingdrawer.open();
-        slidingdrawer.setOnDrawerOpenListener(new SlidingDrawer.OnDrawerOpenListener() {
-
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onDrawerOpened() {
-                SlidingButton.setBackground(getContext().getDrawable(R.drawable.cover_handle));
-                //Toast.makeText(getContext(), "Sliding drawer open", Toast.LENGTH_LONG).show();
-                state=true;//열림
-            }
-        });
-
-        slidingdrawer.setOnDrawerCloseListener(new SlidingDrawer.OnDrawerCloseListener() {
-
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            public void onDrawerClosed() {
-                SlidingButton.setBackground(getContext().getDrawable(R.drawable.cover_handle_2));
-                //Toast.makeText(getContext(), "Sliding drawer close", Toast.LENGTH_LONG).show();
-                state=false;//닫힘
-
-            }
-
-        });
-
 
         //
+        coverPager.setAdapter(new CoverCustomPagerAdapter(getContext()));
 
     }
 

@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,12 +29,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.FanRecyclerviewAdapter;
 import test.dahun.mobileplay.model.Fan;
@@ -49,11 +52,17 @@ public class CommentFragment extends Fragment
 {
 
     @BindView(R.id.navi) ImageButton navibtn;
+    @BindView(R.id.mn_play) ImageButton playbtn;
+    @BindView(R.id.mn_movie) ImageButton moviebtn;
+    @BindView(R.id.mn_gallery) ImageButton galbtn;
+    @BindView(R.id.mn_comm) ImageButton commbtn;
+
     @BindView(R.id.newwrite_btn) Button newwritebtn;
     @BindView(R.id.artist_date) TextView ardate;
     @BindView(R.id.artist_text) TextView artxt;
     @BindView(R.id.artist_name) TextView arname;
-    @BindView(R.id.artist_img) ImageView arimg;
+    @BindView(R.id.artist_img)
+    CircleImageView arimg;
 
     final String TAG="CommentFragment";
     LinearLayout layout;
@@ -90,10 +99,75 @@ public class CommentFragment extends Fragment
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void initSetting() {
+        public void initSetting() {
+        ViewGroup.LayoutParams params = navibtn.getLayoutParams();
+        params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+        params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+        navibtn.requestLayout();
         navibtn.setImageResource(R.drawable.mn_default);
+        navibtn.setTag(R.drawable.mn_default);
+//navibutton
+        navibtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if((Integer)view.getTag() == R.drawable.mn_default){
+                    playbtn.setVisibility(View.VISIBLE);
+                    moviebtn.setVisibility(View.VISIBLE);
+                    galbtn.setVisibility(View.VISIBLE);
+                    commbtn.setVisibility(View.VISIBLE);
 
+                    ViewGroup.LayoutParams params = navibtn.getLayoutParams();
+                    params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                    params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 170, getResources().getDisplayMetrics());
+                    navibtn.requestLayout();
+                    navibtn.setImageResource(R.drawable.mn_click);
+                    navibtn.setTag(R.drawable.mn_click);
+                }else{
+                    playbtn.setVisibility(View.GONE);
+                    moviebtn.setVisibility(View.GONE);
+                    galbtn.setVisibility(View.GONE);
+                    commbtn.setVisibility(View.GONE);
+                    ViewGroup.LayoutParams params = navibtn.getLayoutParams();
+                    params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+                    params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                    navibtn.requestLayout();
+                    navibtn.setImageResource(R.drawable.mn_default);
+                    navibtn.setTag(R.drawable.mn_default);
+                }
+            }
+        });
 
+        playbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "music", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        moviebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), " movie", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        galbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "gallery", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        commbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "community", Toast.LENGTH_LONG).show();
+
+            }
+        });
+/////
         newwritebtn.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -141,7 +215,7 @@ public class CommentFragment extends Fragment
         recyclerView = (RecyclerView)layout.findViewById(R.id.recyclerView);
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-
+        recyclerView.setFocusable(false);
         recyclerView.setAdapter(adapter);
 
         //navibutton
@@ -169,7 +243,7 @@ public class CommentFragment extends Fragment
         pw.setFocusable(true);
         pw.showAtLocation(v, Gravity.CENTER, 0, 0);
 
-
+        pw.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         //popup 내용
         Button closebtn = (Button)popupView.findViewById(R.id.close_btn);
@@ -177,6 +251,10 @@ public class CommentFragment extends Fragment
         final Button writebtn = (Button)popupView.findViewById(R.id.write_btn);
         final EditText writenick = (EditText)popupView.findViewById(R.id.write_nick);
         final EditText writetxt = (EditText)popupView.findViewById(R.id.write_text);
+
+        writenick.requestFocus();
+
+
 
 
         /*InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -216,6 +294,7 @@ public class CommentFragment extends Fragment
 
         pw.showAsDropDown(v);
     }
+
 
 
 }
