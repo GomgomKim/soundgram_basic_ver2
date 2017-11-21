@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    android:orientation="vertical"
+    tools:context="test.dahun.mobileplay.main.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/mv_close_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/mn_click_ic_community"/>
+        <TextView
+            android:id="@+id/mv_pop_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13dp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <VideoView
+        android:id="@+id/mv_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/mv_pop_stopbtn"
+        android:layout_centerInParent="true"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/play_ic_pause"/>
+    </RelativeLayout>
+
+
+</LinearLayout>
