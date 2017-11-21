@@ -72,7 +72,7 @@ public class SubMovieView extends LinearLayout {
         mv_exp.setText("Album_ CHAT-SHIRE\n" +
                 "Release Date_ 2017.03.21\n" +
                 "Play Time_ 00:45");
-
+///////
         break;
 
     }
