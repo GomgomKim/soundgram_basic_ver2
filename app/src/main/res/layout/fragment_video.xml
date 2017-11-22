@@ -41,13 +41,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <test.dahun.mobileplay.ui.VerticalViewPager
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movieRecyclerView"
             android:layout_centerInParent="true"
-            android:id="@+id/moviePager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </test.dahun.mobileplay.ui.VerticalViewPager>
 
+        </android.support.v7.widget.RecyclerView>
 
         <ImageButton
             android:id="@+id/navi"
