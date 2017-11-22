@@ -2,49 +2,804 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-cast-10.0.1.aar/52b2eb1e033ef1ec660f0636cfa4c52d/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
         optimize="true"
-        revision="26.0.1"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_c9ab96e6cc3cfe7b787a217f43c7018d615678ff/classes.dex" />
+        revision="26.0.2"
+        sha1="771267c5b0c7a5b348d3205dcfa1f871af7e0177">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/5.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-location-10.0.1.aar/303c96dd07a5d57ec6717408f98433c6/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
         optimize="true"
-        revision="26.0.1"
-        sha1="297913aeba888d912ae0abaf2ef11df0431bd909">
-        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c7926aa68f0e22e6ef71b79b2c77977ffa312d5a/classes.dex" />
+        revision="26.0.2"
+        sha1="44a694d4095be84c2888764b1f7256b385c030ad">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/44.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/jeongdahun/.android/build-cache/7c11a70cdc2da224086396680fd8578910944057/output/jars/classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/tedpermission-1.0.3.aar/07e02d9b9e2700279d7aa3ab1ae2aea6/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
         optimize="true"
-        revision="26.0.1"
-        sha1="0b7d39c161cecdb6c2b52a1cdc71faf0ffd4626e">
-        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_06a8dc8a5f2f5216db7e0e7b4581c6624f0a658d/classes.dex" />
+        revision="26.0.2"
+        sha1="e0891a69f24747a6988698a57fd55825b31251fa">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/2.jar" />
     </item>
     <item
-        is-multidex="true"
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-appindexing-10.0.1.aar/33149d04e8d4cc6d39f9fb8b1089f2f0/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ae80d328a8548b4610ead6c624bab8c6a6984f5b">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/39.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-places-10.0.1.aar/5e3cd38b365e3c5eb708e8ae699ff8eb/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f3e51e9c5233b8897f61e08a6a27bc36283c2724">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/45.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/4bbfeca73dc3ec7256aaad09e842e7eb/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/72.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-vision-10.0.1.aar/f9a837b20729511bca948c21d26e105d/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ba6aa5e69ef31dee57208125323cee958fc67565">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/51.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/824f8804255de0c572212168ed671322/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-config-10.0.1.aar/6dcb97180d91a4aca8588584e3fd4345/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ffc15e965a9e8c28f24455eedd4cac215c45d1fc">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/32.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-25.3.1.aar/48bd40b43fc162048f05ea1bd55e9022/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/73.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/7f064836f7edabea6369c79befe7561f/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/71.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.squareup/otto/1.3.7/69d90fd7fb70e54746e26c10454c220e40a775ce/otto-1.3.7.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="69d90fd7fb70e54746e26c10454c220e40a775ce">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/80.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-wallet-10.0.1.aar/713098bd1fcc3afcb1b1f11c8f2c4fb9/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2d5d113b0352ab60946fc44c518cf68fd26cbb79">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/40.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-10.0.1.aar/97188f09123c9c5697329f281f1bb767/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6116e0e7069de7fc259aac8e08b84f32c2038231">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/60.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/multidex-1.0.0.aar/7d65a9909383da3ec58490e68ce07d66/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6666dd525c3da197e7d07f4f23ef5fc7881a697b">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/13.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-tasks-10.0.1.aar/3a48ca6b7f57abca7387ca00d3b3f009/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6addaba208e21c6da776d0ca75b6b23a6ccd5499">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/66.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-crash-10.0.1.aar/eb2e2e4426066a93731733d501595dd4/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="de29a39f9260f88151b1ef453140e71c76b6c415">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/54.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/329e1e89036b52c41d1bef7d24e2a420/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/76.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/design-25.3.1.aar/8b531ffec4ec25bec8fb1ef324be7be1/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-auth-base-10.0.1.aar/4ed2a23a0946451312205e6255e8ded5/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e96c6974cf924e7ee3b230e6847d5731423388c9">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/support-fragment-25.3.1.aar/336d2c685062ca9814835606f0b7ab99/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/70.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-auth-10.0.1.aar/343eaa9fb522c32802950204680ec4a8/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9cca2818594cc5348806d6662133491e7ea0fa8d">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/36.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-gcm-10.0.1.aar/8454c2bd27e4fc82d86ecdbaac07cb6e/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8308ed003522a2ee8958311afcc4cfd0470377cd">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/38.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-instantapps-10.0.1.aar/15b2db64f584ea14143bc91956e88be4/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="45305e6af414dab5aba6c3225081c2f15c3bdd1e">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/43.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-drive-10.0.1.aar/b94f4ee6b2ff5a5f997fb04c27c41bd8/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="028f8255cb977b29cdffbfcf05caa0459686120c">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-clearcut-10.0.1.aar/32d5e873311524a8fda0bf486d3c1375/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1d193729baf37df3d902a423291423a0df7e3779">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/31.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/palette-v7-24.0.0.aar/19baf7eb5102b4db8b99adff57b24197/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="734e80dffea7bd76c18ae256822a124c30d85850">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/68.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.8.0/5ea7af56cc7c567ed9856d99efb30740e9b17ff/okio-1.8.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/81.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/Typekit-1.0.0.aar/0adf332d276c9f9c883a2656ccda7026/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="bbf90181fea46399a9e3d0f4326883a505f71952">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/14.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-auth-10.0.1.aar/5cb4755ac13aa46350141de935123373/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e2185aff89caeb337b1ffc36d5e525d8318e7cfe">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/29.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-database-connection-10.0.1.aar/8cf5f8101afbad567158e8dc049450a3/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8010ae6ed32828a145b25ec97bc07b7a83c6318f">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/56.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.7.0/9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4/glide-3.7.0.jar"
-        jumboMode="true"
+        jumboMode="false"
+        min-sdk-version="19"
         optimize="true"
-        revision="26.0.1"
+        revision="26.0.2"
         sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
-        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/dex/debug/folders/1000/10/glide-3.7.0_32cd78c80b236d442a5038204a51b4bd9c1fa8f7/classes.dex" />
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/17.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.7.0/2637055420a2da406e3ea9920c2ff4aafd38c970/butterknife-annotations-8.7.0.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-analytics-10.0.1.aar/a4398f371db5880110b655d3b20b25c9/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
         optimize="true"
-        revision="26.0.1"
+        revision="26.0.2"
+        sha1="4c829ff0ccfecb28a999ee46d9e75948dfc777a4">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-gass-10.0.1.aar/7f7b990dbd5248ecfe8ca37394b53f11/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="57c2eceb8548de84509d1ebc293fedec53231f6c">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/65.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-tagmanager-v4-impl-10.0.1.aar/41d78ad5326a30b51af7c3caf37d7d40/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f23ad0f8e58713ff4b55f61c0bbde3830378347c">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/26.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/support-media-compat-25.3.1.aar/ef207e639ed1b72451a6167b84c8cebf/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/74.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-nearby-10.0.1.aar/f045b7b1779ab602c710f4d245e3fb5a/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c6e1f361e9d61aece9dac39b77fcc98a337a144d">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/47.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-analytics-impl-10.0.1.aar/b87b637e2071ab5766b2e08840d53893/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e871881b36b32e6bfd271a830c6eeb54ff0fc185">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-analytics-10.0.1.aar/9956691ab0d773237d46855fbc2c9869/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="433f4d6aa5f21f19552afe0e6c5eff0fedba73ad">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/59.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/mediarouter-v7-24.0.0.aar/06a3532f23e07455f7bfcceb2d2d176d/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/77.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-panorama-10.0.1.aar/fd17a764a7c85f453fddc3a2adc6a6e6/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="92c871a22463a247e8a77a9f3fd231c278788c4a">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/48.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-tagmanager-api-10.0.1.aar/ba56a8874302165844fe93df8eb3b398/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b1df8fa3d372a27e4e969ce00b00689ee1eed031">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/58.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/Library/Android/sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/78.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-storage-common-10.0.1.aar/71364f02561a49d935558058f1114282/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="09cf6aa1390f95157e8295d02be7868f568825fc">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/63.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/fe5a64ee6bba6c2fda6ab77c8ba5a8f9/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/75.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.1.0/aa557d71ead91cbf26e0c316a0f593d168303309/converter-gson-2.1.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="aa557d71ead91cbf26e0c316a0f593d168303309">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/transition-25.3.1.aar/2bcde87bfe972a27f893d05f27406fe5/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-25.3.1.aar/36d68fade68b06b7392cbdcfc184bc03/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="95519720620b553f63afc789beba9ad582807f7c">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-ads-lite-10.0.1.aar/a34dabc405a5348dc14d75b52ea65529/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b955cb3a1ad6f1b6ff728ce1e0cd592c1717b440">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-common-10.0.1.aar/0e13e655e9008935353955e7a991017c/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="eb0d830e3eabb9deb9ec44869cf7ac7ea1ad794c">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/64.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-ads-10.0.1.aar/c0718a60c2109b40b171467350acdc6d/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d0460bf07cc3657e0be518ca01c174493951c6b8">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-identity-10.0.1.aar/7d6e099314b7c69b93f285efe2b6b36c/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a48dc0b148059764d32500be558702d5ff932058">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/41.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-wearable-10.0.1.aar/dd94f5f147d242217982b112f8346712/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="408a599ac77cd17fe8e8919326bec617b3d005bd">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/52.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/a6b5db94f002212ad8634088cc8738ac/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.7.0/2637055420a2da406e3ea9920c2ff4aafd38c970/butterknife-annotations-8.7.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
         sha1="2637055420a2da406e3ea9920c2ff4aafd38c970">
-        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-annotations-8.7.0_f9bd09274fd7773b40498676adac933436f3c8d3/classes.dex" />
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/21.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-iid-10.0.1.aar/206c0d1bf07d5495bf1c09a519568b70/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="486371f97baad8e607f332f20fee1d3dd00a731a">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/61.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/butterknife-8.7.0.aar/13e4b308939add1a77650eb850da4ebb/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0b7d39c161cecdb6c2b52a1cdc71faf0ffd4626e">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/mediarouter-v7-24.0.0.aar/06a3532f23e07455f7bfcceb2d2d176d/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b6763651ec29b4c95e7bbe63fc393ffcc8c4c2c5">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-awareness-10.0.1.aar/b7a57befad5f7382e8f1530af9c19b30/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4385ccc0a88b33d182a836eadb47be55c8eb1107">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/33.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-safetynet-10.0.1.aar/044eeabbab8fb316c237ae9a854f82e7/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f6cf557be4dbd0282ea2388633e5378634423226">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/50.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-appinvite-10.0.1.aar/e24ed10aec861207bcc8ed6813f52b1c/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="39907d5c8f5902fffef30160ca7447c93b82405c">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/28.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/circleimageview-2.0.0.aar/63ddb6372eadf8418daeacd07aaa18bf/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="031e8b3ab2df4ab43b1017f84417d7e10dfbb8d2">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-database-10.0.1.aar/83f67bca465babbf1272e60468dea8f4/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8f128aeeb7e31271b28a7adb9dac1f3a6ed9f5e7">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/55.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-messaging-10.0.1.aar/8110ec684f79362ada634d97865426cc/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4b17463c814bdc562fb0392fa3494063623a0904">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/57.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.3.0/2b802460eea20f8f2ad9c08c74e0f14718e88aa9/okhttp-3.3.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2b802460eea20f8f2ad9c08c74e0f14718e88aa9">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/79.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-base-10.0.1.aar/5db74c4cc69f118eb45d19916edd50ca/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="25438f55fc6d906a0e72f30b21487541430ede43">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/53.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-plus-10.0.1.aar/1044695157257ac5a28dafe42bf5fd4e/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c14f0c89f28cf782e42581ab0aba5f63af39b3d2">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/49.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-iid-10.0.1.aar/729ebac006e89ae2d597ab72f6ef867b/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6bb5d347ebc0c6ef3c83a905222a688da5d2f7b4">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/42.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/firebase-storage-10.0.1.aar/e067674da5f0ad9a5cda28d06d0ed557/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="dd39827d2067497e60e21da48a7926000b6d4b0c">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/62.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-basement-10.0.1.aar/f872666904862338cca2f99d8aaee0ee/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="756f6297eef79784f5e356dcd4f39865028b2bd0">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/67.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-fitness-10.0.1.aar/2381134a794fd31088c3ee4f664345b7/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7a64bf6dc775198eed9db9468a133adf7dfe6562">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/37.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/support-v4-25.3.1.aar/29bba8d7a97b435d6bd45b19f74578d7/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/69.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.0.1.aar/6020b85f03bc496264438c1efd29b7ec/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="27777b3cad3c20b1acab19f6e37fe3e03371bf6e">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/46.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-tagmanager-10.0.1.aar/9fa4fae13023ecf2293aef02e7b16ddd/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="971509bbe30bb7b971fc1c49d7b23d0d818830ac">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-games-10.0.1.aar/516cce5277dde13872ded24f2735f23f/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1e11c68fec92a17c84dd8d1dd80e74c4e67b12e2">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/jeongdahun/.gradle/caches/transforms-1/files-1.1/play-services-cast-framework-10.0.1.aar/b555e440c78ec275ec277c3bdf7ae9c7/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="df1cb17511aabbb63264a0024949d1e42502a512">
+        <dex dex="/Users/jeongdahun/Desktop/앱/MobilePlay/app/build/intermediates/transforms/preDex/release/4.jar" />
     </item>
 
 </items>
