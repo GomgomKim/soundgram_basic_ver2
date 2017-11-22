@@ -50,8 +50,10 @@ dependencies {
     //butter knife
     compile 'com.jakewharton:butterknife:8.7.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
-
+    //CircleImage
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    //Vertical Image Pager
+    compile 'com.azoft.carousellayoutmanager:carousel:1.2.1'
 
     testCompile 'junit:junit:4.12'
 }

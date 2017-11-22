@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import test.dahun.mobileplay.tab.SubMusicView;
-import test.dahun.mobileplay.tab.SubPictureView;
 import test.dahun.mobileplay.ui.PagerAdapter;
 
 public class MusicCustomPagerAdapter extends PagerAdapter {

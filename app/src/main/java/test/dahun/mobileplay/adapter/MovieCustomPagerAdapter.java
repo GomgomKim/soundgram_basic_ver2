@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import test.dahun.mobileplay.tab.SubMovieView;
-import test.dahun.mobileplay.tab.SubPictureView;
 import test.dahun.mobileplay.ui.PagerAdapter;
 
 public class MovieCustomPagerAdapter extends PagerAdapter {

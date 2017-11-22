@@ -178,6 +178,7 @@
     <orderEntry type="library" name="com.google.android.gms:play-services-clearcut-10.0.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-analytics-10.0.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-cast-10.0.1" level="project" />
+    <orderEntry type="library" name="com.azoft.carousellayoutmanager:carousel-1.2.1" level="project" />
     <orderEntry type="library" scope="TEST" name="junit:junit:4.12@jar" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-places-10.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="javax.inject:javax.inject:1@jar" level="project" />

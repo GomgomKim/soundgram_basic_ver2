@@ -21,7 +21,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.MovieCustomPagerAdapter;
-import test.dahun.mobileplay.adapter.PictureCustomPagerAdapter;
 import test.dahun.mobileplay.ui.VerticalViewPager;
 
 /**
