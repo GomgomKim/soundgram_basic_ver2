@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.tab.CommentFragment;
 import test.dahun.mobileplay.tab.CoverFragment;
 import test.dahun.mobileplay.tab.MusicFragment;
@@ -25,11 +26,11 @@ import test.dahun.mobileplay.tab.VideoFragment;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter
 {
 
-    Context context;
+    public static MainActivity.SetViewPagerTabListener setViewPagerTabListener;
 
-    public ViewPagerAdapter(FragmentManager fragmentManager){
+    public ViewPagerAdapter(FragmentManager fragmentManager, MainActivity.SetViewPagerTabListener setViewPagerTabListener){
         super(fragmentManager);
-
+        this.setViewPagerTabListener=setViewPagerTabListener;
     }
 
     @Override

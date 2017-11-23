@@ -39,6 +39,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.FanRecyclerviewAdapter;
+import test.dahun.mobileplay.adapter.ViewPagerAdapter;
 import test.dahun.mobileplay.model.Fan;
 
 import static test.dahun.mobileplay.R.drawable.comm_profileimg;
@@ -140,14 +141,16 @@ public class CommentFragment extends Fragment
         playbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "music", Toast.LENGTH_LONG).show();
+                ViewPagerAdapter.setViewPagerTabListener.setTab(1);
+                //Toast.makeText(getContext(), "music", Toast.LENGTH_LONG).show();
             }
         });
 
         moviebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), " movie", Toast.LENGTH_LONG).show();
+                ViewPagerAdapter.setViewPagerTabListener.setTab(2);
+          //      Toast.makeText(getContext(), " movie", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -155,7 +158,8 @@ public class CommentFragment extends Fragment
         galbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "gallery", Toast.LENGTH_LONG).show();
+                ViewPagerAdapter.setViewPagerTabListener.setTab(3);
+      //          Toast.makeText(getContext(), "gallery", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -163,7 +167,8 @@ public class CommentFragment extends Fragment
         commbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "community", Toast.LENGTH_LONG).show();
+                ViewPagerAdapter.setViewPagerTabListener.setTab(4);
+      //          Toast.makeText(getContext(), "community", Toast.LENGTH_LONG).show();
 
             }
         });
