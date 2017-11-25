@@ -63,14 +63,16 @@ public class MusicFragment extends Fragment
     LinearLayout layout;
 
     //음악 관련 변수
+    int index=0;
     static MediaPlayer mp; // 음악 재생을 위한 객체
     int pos; // 재생 멈춘 시점
     boolean isPlaying = false; // 재생중인지 확인할 변수
     boolean restart = false; // 재생중인지 확인할 변수
 
-    Timer timer;
+    Timer timer=null;
     TimerHandler timerHandler;
-    int time=0;
+    int time=1;
+    String totalTime=null;
 
     //가사 Popup
     TextView lyricsText;
@@ -101,18 +103,24 @@ public class MusicFragment extends Fragment
 
         @Override
         public void run() { // 쓰레드가 시작되면 콜백되는 메서드
-            while (!this.isInterrupted()) {
-                try {
-                    Log.d(TAG,"TIME");
-                    // 스레드에게 수행시킬 동작들 구현
-                    Thread.sleep(1000); // 1초간 Thread를 잠재운다
-                    message=timerHandler.obtainMessage();
-                    message.arg1=time;
-                    timerHandler.sendMessage(message);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                time++;
+           // while (!this.isInterrupted()) {
+
+            while(true){
+                 if(mp.isPlaying()){
+                     Log.d(TAG,"TIME");
+                     // 스레드에게 수행시킬 동작들 구현
+                     message=timerHandler.obtainMessage();
+                     message.arg1=time;
+                     timerHandler.sendMessage(message);
+                     time++;
+
+                     try {
+                         Thread.sleep(1000); // 1초간 Thread를 잠재운다
+                     } catch (InterruptedException e) {
+                         e.printStackTrace();
+                     }
+                 }
+
             }
         }
     }
@@ -158,6 +166,9 @@ public class MusicFragment extends Fragment
             @Override
             public void onPageSelected(int position) {
                 playBtn.setBackgroundResource(R.drawable.play_ic_pause);
+                time=0;
+                index=position;
+
                 changeMusic(position);
                 changeLyrics(position);
             }
@@ -175,26 +186,75 @@ public class MusicFragment extends Fragment
 
         timerHandler=new TimerHandler();
 
+        currentTime.setText("00:00");
         final int total = mp.getDuration(); // 노래의 재생시간(miliSecond)
-        String time=timeTranslation(total/1000);
-        maxTime.setText(time);
+        totalTime=timeTranslation(total/1000);
+        maxTime.setText(totalTime);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {
+                playBtn.setBackgroundResource(R.drawable.play_ic_pause);
+
                 isPlaying = true;
                 int ttt = seekBar.getProgress(); // 사용자가 움직여놓은 위치
                 mp.seekTo(ttt);
                 mp.start();
+                time=mp.getCurrentPosition()/1000;
+                currentTime.setText(timeTranslation(time));
                 new MusicThread().start();
+
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
+                if(timer==null){
+                    timer=new Timer();
+                    timer.start();
+                }
+
                 isPlaying = false;
                 mp.pause();
             }
             public void onProgressChanged(SeekBar seekBar,int progress,boolean fromUser) {
+
                 if (seekBar.getMax()==progress) {
+                    Toast.makeText(getContext(),"finish",Toast.LENGTH_SHORT).show();
+
+
                     isPlaying = false;
+                    restart = true;
                     mp.stop();
+                    mp.release();
+
+                    time=0;
+                    pos=0;
+                    seekBar.setProgress(0);
+                    currentTime.setText("00:00");
+                    playBtn.setBackgroundResource(R.drawable.play_ic_play);
+
+                    switch(index){
+                        case 0:
+                            mp = MediaPlayer.create(getContext(), R.raw.first);
+                            break;
+                        case 1:
+                            mp = MediaPlayer.create(getContext(), R.raw.second);
+                            break;
+                        case 2:
+                            mp = MediaPlayer.create(getContext(), R.raw.third);
+                            break;
+                        case 3:
+                            mp = MediaPlayer.create(getContext(), R.raw.fourth);
+                            break;
+                        case 4:
+                            mp = MediaPlayer.create(getContext(), R.raw.fifth);
+                            break;
+                        case 5:
+                            mp = MediaPlayer.create(getContext(), R.raw.sixth);
+                            break;
+                        case 6:
+                            mp = MediaPlayer.create(getContext(), R.raw.seventh);
+                            break;
+
+                    }
+
                 }
             }
         });
@@ -235,8 +295,8 @@ public class MusicFragment extends Fragment
                         isPlaying = true; // 씨크바 쓰레드 반복 하도록
                         new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
 
-                        //timer=new Timer();
-                        //timer.start();
+                        timer=new Timer();
+                        timer.start();
                     }
                 }
 
@@ -402,8 +462,11 @@ public class MusicFragment extends Fragment
         // 음악 종료
         isPlaying = false; // 쓰레드 종료
         restart = false;
-        mp.stop(); // 멈춤
-        mp.release(); // 자원 해제
+        if(mp.isPlaying()){
+            mp.stop(); // 멈춤
+            mp.release(); // 자원 해제
+        }
+
         seekBar.setProgress(0); // 씨크바 초기화
 
         switch(index){
@@ -433,6 +496,7 @@ public class MusicFragment extends Fragment
 
         Log.d(TAG,"START");
 
+        currentTime.setText("00:00");
         int total = mp.getDuration(); // 노래의 재생시간(miliSecond)
         String time=timeTranslation(total/1000);
         maxTime.setText(time);
