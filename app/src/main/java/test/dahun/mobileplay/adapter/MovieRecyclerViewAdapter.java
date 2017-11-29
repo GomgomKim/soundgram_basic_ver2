@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeThumbnailLoader;
+import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.tab.VideoFragment;
@@ -23,6 +26,9 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHold
 
     Context context;
     VideoFragment.YoutubeListener youtubeListener;
+
+    public static final String API_KEY = "AIzaSyDi54gnjDssDmXAfG1X-rJs4OmuYjH8iGM";
+
 
     public MovieRecyclerViewAdapter(Context context, VideoFragment.YoutubeListener youtubeListener){
         this.context=context;
@@ -40,12 +46,61 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHold
     public void onBindViewHolder(final MovieViewHolder holder, final int position) {
         switch(position){
             case 0:
+                //
+
+
+                holder.mv_thumb.initialize(API_KEY, new YouTubeThumbnailView.OnInitializedListener() {
+                    @Override
+                    public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, final YouTubeThumbnailLoader youTubeThumbnailLoader) {
+                        youTubeThumbnailLoader.setVideo("42Gtm4-Ax2U");
+                        youTubeThumbnailLoader.setOnThumbnailLoadedListener(new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
+                            @Override
+                            public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
+                                youTubeThumbnailLoader.release();
+                            }
+
+                            @Override
+                            public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
+
+                    }
+                });
+                //
                 holder.mv_title.setText("[Teaser 1] IU(아이유)_The shower(푸르던)");
                 holder.mv_exp.setText("Album_ CHAT-SHIRE\n" +
                         "Release Date_ 2017.03.21\n" +
                         "Play Time_ 00:45");
                 break;
             case 1:
+
+                holder.mv_thumb.initialize(API_KEY, new YouTubeThumbnailView.OnInitializedListener() {
+                    @Override
+                    public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, final YouTubeThumbnailLoader youTubeThumbnailLoader) {
+                        youTubeThumbnailLoader.setVideo("Dtt0Gp78uuE");
+                        youTubeThumbnailLoader.setOnThumbnailLoadedListener(new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
+                            @Override
+                            public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
+                                youTubeThumbnailLoader.release();
+                            }
+
+                            @Override
+                            public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
+
+                    }
+                });
                 holder.mv_title.setText("[Teaser 1] IU(아이유)_The shower(푸르던2)");
                 holder.mv_exp.setText("Album_ CHAT-SHIRE\n" +
                         "Release Date_ 2017.03.21\n" +

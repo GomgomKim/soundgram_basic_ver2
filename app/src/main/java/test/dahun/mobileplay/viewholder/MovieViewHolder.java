@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.google.android.youtube.player.YouTubeThumbnailView;
+
 import test.dahun.mobileplay.R;
 
 
@@ -16,7 +18,7 @@ import test.dahun.mobileplay.R;
 
 public class MovieViewHolder extends RecyclerView.ViewHolder {
     public TextView mv_title;
-    public VideoView mv_video;
+    public YouTubeThumbnailView mv_thumb;
     public TextView mv_exp;
     public Button mv_share_btn;
     public Button mv_play_btn;
@@ -24,7 +26,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
     public MovieViewHolder(View itemView) {
         super(itemView);
         mv_title = (TextView)itemView.findViewById(R.id.movie_title);
-        mv_video = (VideoView)itemView.findViewById(R.id.movie_video);
+        mv_thumb = (YouTubeThumbnailView) itemView.findViewById(R.id.movie_thumbnail);
         mv_exp = (TextView)itemView.findViewById(R.id.movie_exp);
         mv_share_btn = (Button)itemView.findViewById(R.id.movie_share_btn);
         mv_play_btn = (Button)itemView.findViewById(R.id.movie_play_btn);

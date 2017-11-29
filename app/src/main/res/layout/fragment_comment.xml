@@ -34,7 +34,7 @@
                     <ImageView
                         android:id="@+id/commentimg"
                         android:layout_width="match_parent"
-                        android:layout_height="400dp"
+                        android:layout_height="350dp"
                         android:layout_gravity="center_horizontal|top"
                         android:scaleType="fitXY"
                         android:focusable="true"
@@ -44,7 +44,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="33dp"
-                        android:layout_marginTop="160dp"
+                        android:layout_marginTop="135dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
@@ -76,7 +76,7 @@
                             android:id="@+id/artist_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="8dp"
                             android:layout_marginLeft="20dp"
                             android:textColor="#000" />
                     </LinearLayout>
@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/commentimg"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginBottom="25dp"
+                        android:layout_marginBottom="40dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginLeft="20dp"
                         android:textColor="#8C8C8C" />
@@ -152,7 +152,7 @@
                 android:background="@drawable/ic_equalizer" />
         </RelativeLayout>
 
-
+<!--Navi-->
             <ImageButton
                 android:id="@+id/navi"
                 android:layout_width="90dp"
@@ -167,8 +167,8 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="103dp"
@@ -178,8 +178,8 @@
 
             <ImageButton
                 android:id="@+id/mn_movie"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_alignBottom="@+id/mn_gallery"
                 android:layout_marginBottom="12dp"
                 android:layout_marginEnd="14dp"
@@ -189,8 +189,8 @@
 
             <ImageButton
                 android:id="@+id/mn_gallery"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_alignEnd="@+id/mn_comm"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="25dp"
@@ -201,15 +201,24 @@
 
             <ImageButton
                 android:id="@+id/mn_comm"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="88dp"
                 android:layout_toEndOf="@+id/mn_play"
                 android:visibility="gone"
                 android:background="@drawable/mn_click_ic_community" />
-        </RelativeLayout>
+            <ImageView
+                android:id="@+id/ic_mn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:src="@drawable/mn_click_ic"/>
 
+        </RelativeLayout>
+        <!---->
     </FrameLayout>
 
 

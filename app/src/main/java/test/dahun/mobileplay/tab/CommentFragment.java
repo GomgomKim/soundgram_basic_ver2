@@ -57,6 +57,7 @@ public class CommentFragment extends Fragment
     @BindView(R.id.mn_movie) ImageButton moviebtn;
     @BindView(R.id.mn_gallery) ImageButton galbtn;
     @BindView(R.id.mn_comm) ImageButton commbtn;
+    @BindView(R.id.ic_mn) ImageView btn;
 
     @BindView(R.id.newwrite_btn) Button newwritebtn;
     @BindView(R.id.artist_date) TextView ardate;
@@ -99,6 +100,7 @@ public class CommentFragment extends Fragment
         return layout;
     }
 
+    //navibutton
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public void initSetting() {
         ViewGroup.LayoutParams params = navibtn.getLayoutParams();
@@ -107,7 +109,7 @@ public class CommentFragment extends Fragment
         navibtn.requestLayout();
         navibtn.setImageResource(R.drawable.mn_default);
         navibtn.setTag(R.drawable.mn_default);
-//navibutton
+
         navibtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,6 +118,7 @@ public class CommentFragment extends Fragment
                     moviebtn.setVisibility(View.VISIBLE);
                     galbtn.setVisibility(View.VISIBLE);
                     commbtn.setVisibility(View.VISIBLE);
+                    btn.setVisibility(View.VISIBLE);
 
                     ViewGroup.LayoutParams params = navibtn.getLayoutParams();
                     params.width = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -128,6 +131,7 @@ public class CommentFragment extends Fragment
                     moviebtn.setVisibility(View.GONE);
                     galbtn.setVisibility(View.GONE);
                     commbtn.setVisibility(View.GONE);
+                    btn.setVisibility(View.GONE);
                     ViewGroup.LayoutParams params = navibtn.getLayoutParams();
                     params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
                     params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
@@ -141,6 +145,18 @@ public class CommentFragment extends Fragment
         playbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playbtn.setVisibility(View.GONE);
+                moviebtn.setVisibility(View.GONE);
+                galbtn.setVisibility(View.GONE);
+                commbtn.setVisibility(View.GONE);
+                btn.setVisibility(View.GONE);
+
+                ViewGroup.LayoutParams params = navibtn.getLayoutParams();
+                params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                navibtn.requestLayout();
+                navibtn.setImageResource(R.drawable.mn_default);
+                navibtn.setTag(R.drawable.mn_default);
                 ViewPagerAdapter.setViewPagerTabListener.setTab(1);
                 //Toast.makeText(getContext(), "music", Toast.LENGTH_LONG).show();
             }
@@ -149,6 +165,18 @@ public class CommentFragment extends Fragment
         moviebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playbtn.setVisibility(View.GONE);
+                moviebtn.setVisibility(View.GONE);
+                galbtn.setVisibility(View.GONE);
+                commbtn.setVisibility(View.GONE);
+                btn.setVisibility(View.GONE);
+
+                ViewGroup.LayoutParams params = navibtn.getLayoutParams();
+                params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                navibtn.requestLayout();
+                navibtn.setImageResource(R.drawable.mn_default);
+                navibtn.setTag(R.drawable.mn_default);
                 ViewPagerAdapter.setViewPagerTabListener.setTab(2);
           //      Toast.makeText(getContext(), " movie", Toast.LENGTH_LONG).show();
 
@@ -158,6 +186,18 @@ public class CommentFragment extends Fragment
         galbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playbtn.setVisibility(View.GONE);
+                moviebtn.setVisibility(View.GONE);
+                galbtn.setVisibility(View.GONE);
+                commbtn.setVisibility(View.GONE);
+                btn.setVisibility(View.GONE);
+
+                ViewGroup.LayoutParams params = navibtn.getLayoutParams();
+                params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                navibtn.requestLayout();
+                navibtn.setImageResource(R.drawable.mn_default);
+                navibtn.setTag(R.drawable.mn_default);
                 ViewPagerAdapter.setViewPagerTabListener.setTab(3);
       //          Toast.makeText(getContext(), "gallery", Toast.LENGTH_LONG).show();
 
@@ -167,6 +207,18 @@ public class CommentFragment extends Fragment
         commbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playbtn.setVisibility(View.GONE);
+                moviebtn.setVisibility(View.GONE);
+                galbtn.setVisibility(View.GONE);
+                commbtn.setVisibility(View.GONE);
+                btn.setVisibility(View.GONE);
+
+                ViewGroup.LayoutParams params = navibtn.getLayoutParams();
+                params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                navibtn.requestLayout();
+                navibtn.setImageResource(R.drawable.mn_default);
+                navibtn.setTag(R.drawable.mn_default);
                 ViewPagerAdapter.setViewPagerTabListener.setTab(4);
       //          Toast.makeText(getContext(), "community", Toast.LENGTH_LONG).show();
 

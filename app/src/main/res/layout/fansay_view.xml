@@ -9,6 +9,9 @@
     android:layout_margin="10dp"
     tools:context="test.dahun.mobileplay.main.MainActivity">
 <!---->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,35 +33,28 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:textColor="#BDBDBD" />
+
+    </LinearLayout>
         <ImageButton
             android:id="@+id/etcbtn"
             android:layout_width="30dp"
             android:layout_height="20dp"
-            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
             android:background="@drawable/comm_etc"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="40dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal"
-        android:background="@drawable/comm_bubble">
-        <!--<ImageView
-            android:id="@+id/fan_img"
-            android:layout_width="100dp"
-            android:layout_height="150dp" />-->
+    </RelativeLayout>
+
         <TextView
             android:id="@+id/fantext"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000000"
             android:layout_margin="5dp"
+            android:background="@drawable/comm_bubble"
             />
-    </LinearLayout>
 
 </LinearLayout>
+
+
+
+

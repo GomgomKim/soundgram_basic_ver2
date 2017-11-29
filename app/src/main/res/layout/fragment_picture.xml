@@ -11,7 +11,7 @@
     <LinearLayout
         android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="140dp">
+        android:layout_height="150dp">
 
         <RelativeLayout
             android:id="@+id/titleLayout"
@@ -35,28 +35,114 @@
         </RelativeLayout>
     </LinearLayout>
 
-
     <RelativeLayout
         android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:layout_weight="0.8">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/pictureRecyclerView"
             android:layout_centerInParent="true"
             android:layout_width="300dp"
             android:layout_height="300dp">
-
         </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:id="@+id/num"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:text="/"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
 
+            android:id="@+id/totalnum"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <!--Navi-->
         <ImageButton
             android:id="@+id/navi"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
             android:scaleType="fitXY"
-            android:background="@drawable/mn_default" />
+            android:src="@drawable/mn_default"
+            android:background="@null" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="103dp"
+                android:visibility="gone"
+                android:background="@drawable/mn_click_ic_play"
+                android:id="@+id/mn_play" />
+
+            <ImageButton
+                android:id="@+id/mn_movie"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignBottom="@+id/mn_gallery"
+                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="14dp"
+                android:visibility="gone"
+                android:layout_toStartOf="@+id/mn_gallery"
+                android:background="@drawable/mn_click_ic_movie" />
+
+            <ImageButton
+                android:id="@+id/mn_gallery"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignEnd="@+id/mn_comm"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="25dp"
+                android:layout_marginEnd="37dp"
+                android:visibility="gone"
+
+                android:background="@drawable/mn_click_ic_gallery" />
+
+            <ImageButton
+                android:id="@+id/mn_comm"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="88dp"
+                android:layout_toEndOf="@+id/mn_play"
+                android:visibility="gone"
+                android:background="@drawable/mn_click_ic_community" />
+            <ImageView
+                android:id="@+id/ic_mn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:src="@drawable/mn_click_ic"/>
+
+        </RelativeLayout>
+        <!---->
     </RelativeLayout>
 
 

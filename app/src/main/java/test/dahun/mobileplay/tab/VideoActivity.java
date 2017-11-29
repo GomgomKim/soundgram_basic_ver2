@@ -42,6 +42,7 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
             //초기화 성공시
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+
                 youTubePlayer.loadVideo("QadSVWXF_ks");//url의 맨 뒷부분 ID값만 넣으면 됨
             }
 
@@ -53,6 +54,7 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
         };
 
         youTubePlayerView.initialize(API_KEY,this);
+
     }
 
     @Override
