@@ -2,7 +2,8 @@
     android:id="@+id/popup_element"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d1cccc"
+    android:padding="10dp"
+    android:background="@drawable/play_ic_popup"
     android:orientation="vertical">
 
    <ScrollView
@@ -13,6 +14,7 @@
           android:gravity="center"
           android:id="@+id/lyricsText"
           android:layout_width="match_parent"
+          android:textColor="#000"
           android:layout_height="match_parent" />
    </ScrollView>
 

@@ -30,7 +30,7 @@ public class MusicCustomPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-      return 7;
+      return 5;
     }
 
     @Override

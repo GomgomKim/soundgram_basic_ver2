@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,6 +43,9 @@ import test.dahun.mobileplay.ui.VerticalViewPager;
 public class PictureFragment extends Fragment
 {
 
+    @BindView(R.id.ic_homeBtn)
+    Button ic_homeBtn;
+    @BindView(R.id.ic_equalizerBtn) Button equalbtn;
     @BindView(R.id.navi)
     ImageButton navibtn;
     @BindView(R.id.mn_play) ImageButton playbtn;
@@ -78,10 +82,26 @@ public class PictureFragment extends Fragment
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 
     public void initSetting() {
+        //homebtn
+        ic_homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewPagerAdapter.setViewPagerTabListener.setTab(0);
+            }
+        });
+        //
+        //equalbtn
+        equalbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewPagerAdapter.setViewPagerTabListener.setTab(1);
+            }
+        });
+
         //navibutton
             ViewGroup.LayoutParams params = navibtn.getLayoutParams();
             params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
-            params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+            params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
             navibtn.requestLayout();
             navibtn.setImageResource(R.drawable.mn_default);
             navibtn.setTag(R.drawable.mn_default);
@@ -94,11 +114,11 @@ public class PictureFragment extends Fragment
                         moviebtn.setVisibility(View.VISIBLE);
                         galbtn.setVisibility(View.VISIBLE);
                         commbtn.setVisibility(View.VISIBLE);
-                        btn.setVisibility(View.VISIBLE);
+                        //btn.setVisibility(View.VISIBLE);
 
                         ViewGroup.LayoutParams params = navibtn.getLayoutParams();
                         params.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                        params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 170, getResources().getDisplayMetrics());
+                        params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, getResources().getDisplayMetrics());
                         navibtn.requestLayout();
                         navibtn.setImageResource(R.drawable.mn_click);
                         navibtn.setTag(R.drawable.mn_click);
@@ -110,7 +130,7 @@ public class PictureFragment extends Fragment
                         btn.setVisibility(View.GONE);
                         ViewGroup.LayoutParams params = navibtn.getLayoutParams();
                         params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
-                        params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                        params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
                         navibtn.requestLayout();
                         navibtn.setImageResource(R.drawable.mn_default);
                         navibtn.setTag(R.drawable.mn_default);
@@ -201,14 +221,20 @@ public class PictureFragment extends Fragment
                 }
             });
 /////
-        CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.VERTICAL);
+        final CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.VERTICAL);
         layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
-        PictureRecyclerViewAdapter pictureRecyclerViewAdapter=new PictureRecyclerViewAdapter(getContext());
+        final PictureRecyclerViewAdapter pictureRecyclerViewAdapter=new PictureRecyclerViewAdapter(getContext());
         pictureRecyclerView.setAdapter(pictureRecyclerViewAdapter);
         pictureRecyclerView.setLayoutManager(layoutManager);
         pictureRecyclerView.setHasFixedSize(true);
         pictureRecyclerView.addOnScrollListener(new CenterScrollListener());
 
+        layoutManager.addOnItemSelectionListener(new CarouselLayoutManager.OnCenterItemSelectionListener() {
+            @Override
+            public void onCenterItemChanged(int adapterPosition) {
+                imgnum.setText(String.valueOf(adapterPosition+1));
+            }
+        });
 
         //
         totalimgnum.setText(Integer.toString(pictureRecyclerViewAdapter.getItemCount()));

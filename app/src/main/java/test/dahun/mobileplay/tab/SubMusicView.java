@@ -67,7 +67,7 @@ public class SubMusicView extends LinearLayout {
 //        imageView.setImageURI(path);
         Glide.with(getContext()).load(R.drawable.play_2_trackimg_05).into(imageView);
         break;
-
+/*
       case 5:
 //        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
 //        imageView.setImageURI(path);
@@ -78,7 +78,7 @@ public class SubMusicView extends LinearLayout {
 //        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
 //        imageView.setImageURI(path);
         Glide.with(getContext()).load(R.drawable.play_2_trackimg_07).into(imageView);
-        break;
+        break;*/
     }
 
     //imageView.setScaleType(ImageView.ScaleType.FIT_XY);

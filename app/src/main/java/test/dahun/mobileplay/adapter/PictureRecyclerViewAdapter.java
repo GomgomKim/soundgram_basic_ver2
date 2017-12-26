@@ -55,4 +55,6 @@ public class PictureRecyclerViewAdapter extends RecyclerView.Adapter<PictureView
     public int getItemCount() {
        return 6;
     }
+
+
 }

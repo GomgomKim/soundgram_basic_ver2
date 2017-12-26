@@ -5,19 +5,127 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#ffff"
     tools:context="test.dahun.mobileplay.main.MainActivity">
 
 
-    <LinearLayout
-        android:background="#ffffff"
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/contentLayout"
         android:layout_width="match_parent"
-        android:layout_height="140dp">
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/play_3_emptycd">
+
+        <test.dahun.mobileplay.ui.VerticalViewPager
+            android:id="@+id/musicPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"></test.dahun.mobileplay.ui.VerticalViewPager>
+
+        <Button
+            android:id="@+id/playBtn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/play_ic_play" />
+
+
+        <LinearLayout
+            android:id="@+id/containButtonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="70dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/play_lyrics"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/play_ic_lyrics" />
+
+            <Button
+                android:id="@+id/play_mode"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="60dp"
+                android:background="@drawable/play_ic_random" />
+
+            <Button
+                android:id="@+id/play_sound"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="60dp"
+                android:background="@drawable/play_ic_sound" />
+
+            <Button
+                android:id="@+id/play_list"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="60dp"
+                android:background="@drawable/play_ic_list" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/musictitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/musicProgress"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="15dp"
+            android:textColor="#000"
+            android:text="애월"
+            android:textSize="15dp" />
+
+        <SeekBar
+            android:id="@+id/musicProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/containButtonLayout" />
 
         <RelativeLayout
-            android:id="@+id/titleLayout"
-            android:background="@drawable/main_3_info"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_above="@id/musicProgress"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/currentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:textColor="#F361A6" />
+
+            <TextView
+                android:id="@+id/maxTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:textColor="#8C8C8C" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/titleLayout"
+            android:background="@drawable/play_1_bg"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
             <Button
                 android:id="@+id/ic_homeBtn"
                 android:background="@drawable/ic_home"
@@ -32,124 +140,89 @@
                 android:layout_height="40dp"
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true" />
-        </RelativeLayout>
-    </LinearLayout>
 
-
-
-    <RelativeLayout
-        android:id="@+id/contentLayout"
-        android:background="@drawable/play_3_emptycd"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <test.dahun.mobileplay.ui.VerticalViewPager
-            android:layout_centerInParent="true"
-            android:id="@+id/musicPager"
-            android:layout_width="match_parent"
-            android:layout_height="350dp">
-        </test.dahun.mobileplay.ui.VerticalViewPager>
-
-        <Button
-            android:layout_centerInParent="true"
-            android:id="@+id/playBtn"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@drawable/play_ic_play" />
-
-        <ImageButton
-            android:id="@+id/navi"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:scaleType="fitXY"
-            android:background="@drawable/mn_default" />
-
-        <LinearLayout
-            android:id="@+id/containButtonLayout"
-            android:layout_above="@id/navi"
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/play_lyrics"
-                android:background="@drawable/play_ic_lyrics"/>
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="60dp"
-                android:id="@+id/paly_mode"
-                android:background="@drawable/play_ic_random"/>
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="60dp"
-                android:id="@+id/play_sound"
-                android:background="@drawable/play_ic_sound"/>
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="60dp"
-                android:id="@+id/play_list"
-                android:background="@drawable/play_ic_list"/>
-        </LinearLayout>
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/ic_equalizerBtn"
+            android:layout_marginTop="87dp"
+            android:visibility="gone"
+            android:src="@drawable/play_ic_lp" />
 
-        <SeekBar
-            android:layout_above="@id/containButtonLayout"
-            android:id="@+id/musicProgress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+        <!--Navi-->
+        <!--Navi-->
         <RelativeLayout
-            android:layout_above="@id/musicProgress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/currentTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_alignParentLeft="true"
-                android:textColor="#F361A6"/>
-            <TextView
-                android:id="@+id/maxTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                android:textColor="#8C8C8C"/>
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/navi"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/mn_default" />
+
+            <ImageButton
+                android:id="@+id/mn_play"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="110dp"
+                android:layout_toEndOf="@+id/ic_mn"
+                android:background="@drawable/mn_click_ic_play"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/mn_comm"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="96dp"
+                android:layout_toEndOf="@+id/mn_play"
+                android:background="@drawable/mn_click_ic_community"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/mn_movie"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/mn_play"
+                android:layout_marginBottom="27dp"
+                android:layout_marginStart="33dp"
+                android:background="@drawable/mn_click_ic_movie"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/mn_gallery"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignTop="@+id/mn_movie"
+                android:layout_marginStart="31dp"
+                android:layout_toEndOf="@+id/mn_movie"
+                android:background="@drawable/mn_click_ic_gallery"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/ic_mn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/mn_click_ic"
+                android:visibility="gone" />
+
         </RelativeLayout>
-
-
-
-
     </RelativeLayout>
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="horizontal">-->
 
 
 
-        <!--&lt;!&ndash;<Button&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/pauseBtn"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="80dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="80dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_margin="5dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:background="@drawable/play_ic_pause"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:text="pause" />&ndash;&gt;-->
-    <!--</LinearLayout>-->
 
-
-
+</FrameLayout>
 
 </LinearLayout>

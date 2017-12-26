@@ -52,7 +52,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHold
                 holder.mv_thumb.initialize(API_KEY, new YouTubeThumbnailView.OnInitializedListener() {
                     @Override
                     public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, final YouTubeThumbnailLoader youTubeThumbnailLoader) {
-                        youTubeThumbnailLoader.setVideo("42Gtm4-Ax2U");
+                        youTubeThumbnailLoader.setVideo("0Hwmtk_bVrk");
                         youTubeThumbnailLoader.setOnThumbnailLoadedListener(new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
                             @Override
                             public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
@@ -72,17 +72,17 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHold
                     }
                 });
                 //
-                holder.mv_title.setText("[Teaser 1] IU(아이유)_The shower(푸르던)");
-                holder.mv_exp.setText("Album_ CHAT-SHIRE\n" +
-                        "Release Date_ 2017.03.21\n" +
-                        "Play Time_ 00:45");
+                holder.mv_title.setText("FULL(Title) / 문문(MoonMoon)");
+                holder.mv_exp.setText("Album Title _ Life Is Beauty Full\n" +
+                        "Release Date _ 2016.11.10\n" +
+                        "Play Time _ 03:42");
                 break;
             case 1:
 
                 holder.mv_thumb.initialize(API_KEY, new YouTubeThumbnailView.OnInitializedListener() {
                     @Override
                     public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, final YouTubeThumbnailLoader youTubeThumbnailLoader) {
-                        youTubeThumbnailLoader.setVideo("Dtt0Gp78uuE");
+                        youTubeThumbnailLoader.setVideo("0Hwmtk_bVrk");
                         youTubeThumbnailLoader.setOnThumbnailLoadedListener(new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
                             @Override
                             public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
@@ -101,10 +101,10 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHold
 
                     }
                 });
-                holder.mv_title.setText("[Teaser 1] IU(아이유)_The shower(푸르던2)");
-                holder.mv_exp.setText("Album_ CHAT-SHIRE\n" +
-                        "Release Date_ 2017.03.21\n" +
-                        "Play Time_ 00:45");
+                holder.mv_title.setText("애월(Title) / 문문(MoonMoon)");
+                holder.mv_exp.setText("Album Title _ Life Is Beauty Full\n" +
+                        "Release Date _ 2016.11.10\n" +
+                        "Play Time _ 03:42");
 
                 break;
 

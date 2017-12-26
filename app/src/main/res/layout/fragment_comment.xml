@@ -9,7 +9,6 @@
     tools:context="test.dahun.mobileplay.main.MainActivity">
 
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,6 +20,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -30,67 +30,79 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-
                     <ImageView
                         android:id="@+id/commentimg"
                         android:layout_width="match_parent"
-                        android:layout_height="350dp"
+                        android:layout_height="300dp"
                         android:layout_gravity="center_horizontal|top"
-                        android:scaleType="fitXY"
+                        android:layout_marginTop="60dp"
                         android:focusable="true"
+                        android:scaleType="fitXY"
                         android:src="@drawable/comm_2_artist" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="33dp"
+                        android:layout_marginStart="30dp"
                         android:layout_marginTop="135dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:orientation="vertical">
+
                             <LinearLayout
-                                android:layout_width="85dp"
-                                android:layout_height="85dp"
-                                android:gravity="center"
-                                android:background="@drawable/comm_profile">
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/artist_img"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
-                                android:src="@drawable/comm_profileimg"
-                                 />
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:background="@drawable/comm_profile"
+                                android:gravity="center">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/artist_img"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_marginRight="5dp"
+                                    android:src="@drawable/comm_profileimg" />
                             </LinearLayout>
+
                             <TextView
                                 android:id="@+id/artist_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
                                 android:gravity="center"
-                                android:textColor="#F361A6" />
+                                android:textColor="#5d5d5d"
+                                android:textSize="18dp"
+                                android:textStyle="bold" />
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/artist_text"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginLeft="20dp"
-                            android:textColor="#000" />
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/artist_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="25dp"
+                                android:textColor="#5d5d5d" />
+
+                            <TextView
+                                android:id="@+id/artist_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="15dp"
+                                android:textColor="#8C8C8C" />
+                        </LinearLayout>
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/artist_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/commentimg"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginBottom="40dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="20dp"
-                        android:textColor="#8C8C8C" />
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -100,8 +112,8 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
-                        android:focusable="false"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:focusable="false">
 
                     </android.support.v7.widget.RecyclerView>
 
@@ -123,11 +135,10 @@
         <ImageView
             android:id="@+id/commentimg_bg"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="155dp"
             android:layout_gravity="center_horizontal|top"
             android:scaleType="fitXY"
-            android:src="@drawable/comm_1_bg"
-            />
+            android:src="@drawable/comm_1_bg" />
 
         <!--맨위 버튼들-->
         <RelativeLayout
@@ -152,70 +163,70 @@
                 android:background="@drawable/ic_equalizer" />
         </RelativeLayout>
 
-<!--Navi-->
-            <ImageButton
-                android:id="@+id/navi"
-                android:layout_width="90dp"
-                android:layout_height="50dp"
-                android:background="@null"
-                android:layout_gravity="bottom|center"
-                android:src="@drawable/mn_default"
-                android:scaleType="fitXY" />
-
+        <!--Navi-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+        <ImageButton
+            android:id="@+id/navi"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/mn_default" />
+
             <ImageButton
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:id="@+id/mn_play"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="103dp"
-                android:visibility="gone"
+                android:layout_marginStart="110dp"
+                android:layout_toEndOf="@+id/ic_mn"
                 android:background="@drawable/mn_click_ic_play"
-                android:id="@+id/mn_play" />
-
-            <ImageButton
-                android:id="@+id/mn_movie"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignBottom="@+id/mn_gallery"
-                android:layout_marginBottom="12dp"
-                android:layout_marginEnd="14dp"
-                android:visibility="gone"
-                android:layout_toStartOf="@+id/mn_gallery"
-                android:background="@drawable/mn_click_ic_movie" />
-
-            <ImageButton
-                android:id="@+id/mn_gallery"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignEnd="@+id/mn_comm"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="25dp"
-                android:layout_marginEnd="37dp"
-                android:visibility="gone"
-
-                android:background="@drawable/mn_click_ic_gallery" />
+                android:visibility="gone" />
 
             <ImageButton
                 android:id="@+id/mn_comm"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="88dp"
+                android:layout_marginStart="96dp"
                 android:layout_toEndOf="@+id/mn_play"
-                android:visibility="gone"
-                android:background="@drawable/mn_click_ic_community" />
+                android:background="@drawable/mn_click_ic_community"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/mn_movie"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/mn_play"
+                android:layout_marginBottom="27dp"
+                android:layout_marginStart="33dp"
+                android:background="@drawable/mn_click_ic_movie"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/mn_gallery"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignTop="@+id/mn_movie"
+                android:layout_marginStart="31dp"
+                android:layout_toEndOf="@+id/mn_movie"
+                android:background="@drawable/mn_click_ic_gallery"
+                android:visibility="gone" />
+
             <ImageView
                 android:id="@+id/ic_mn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerInParent="true"
-                android:visibility="gone"
-                android:src="@drawable/mn_click_ic"/>
+                android:src="@drawable/mn_click_ic"
+                android:visibility="gone" />
 
         </RelativeLayout>
         <!---->

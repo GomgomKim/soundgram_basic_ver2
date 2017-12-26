@@ -30,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.CoverCustomPagerAdapter;
+import test.dahun.mobileplay.adapter.ViewPagerAdapter;
 import test.dahun.mobileplay.ui.VerticalViewPager;
 
 /**
@@ -79,36 +80,33 @@ public class CoverFragment extends Fragment
 
     public void initSetting() {
        // Glide.with(getContext()).load(R.drawable.main_1_bg).into(mainImage);
-        Glide.with(getContext()).load(R.drawable.bg_main_bottom).into(mainBottomImage);
-        Glide.with(getContext()).load(R.drawable.main_3_info).into(mainTopImage);
+       // Glide.with(getContext()).load(R.drawable.bg_main_bottom).into(mainBottomImage);
+       // Glide.with(getContext()).load(R.drawable.main_3_info).into(mainTopImage);
 
        // mainImage.setImageResource(R.drawable.main_1_bg);
         ic_equalizerBtn.setBackgroundResource(R.drawable.ic_equalizer);
 
+        //equalbtn
+        ic_equalizerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewPagerAdapter.setViewPagerTabListener.setTab(1);
+            }
+        });
         //
-        String txt ="한 떨기 스물셋 아이유의 사소한 현재. 그리고 당신의 지금.\n" +
-                "아이유 네 번재 미니앨범 [CHAT-SHIRE] 발매!\n" +
+        String txt ="문문 (MoonMoon)\n" +
+                "[LIFE IS BEAUTY FULL]\n" +
                 "\n" +
-                "모두가 기다려온 아이유의 네 번째 미니앨범\n" +
-                "[CHAT-SHIRE]가 드디어 공개됐다.\n" +
+                "MoonMoon입니다.\n" +
                 "\n" +
-                "지난 앨범들과 발표하는 자작곡들을 통해 섬세하면서 독특한 \n" +
-                "감성으로 수많은 팬들의 공감대를 불러일으키며\n" +
-                "뮤지션으로의 성장을 보여준 아이유는 이번 앨범을 통해\n" +
-                "프로듀싱까지 참여 영역을 확대해 앨범 전반에 자신의\n" +
-                "목소리를 빼곡하게 담아냈다.\n" +
+                "노래를 만드는 일은 밤을 채워주기 때문에 좋아합니다.\n" +
+                "나의 알뜰히 적어내린 이야기로\n" +
+                "당신의 밤이 가난하지 않기를 이불같길.\n" +
                 "\n" +
-                "이번 앨범 [CHAT-SHIRE]는 23살의 아이유에게 일어나고\n" +
-                "보이는 일들과 사람들에게서 느낀 생각들을 소설 속 캐릭터에\n" +
-                "대입해 표현한 총 7곡이 수록되어 있으며, 앨범명\n" +
-                "[CHAT-SHIRE]는 각 곡의 캐릭터들이 살고 있는 주, 스물\n" +
-                "세 걸음이면 모두 돌아볼 수 있는 작은 사회를 의미한다.\n" +
+                "2016년 가을.\n" +
                 "\n" +
-                "아이유의 현재를 담은 [CHAT-SHIRE]를 통해 당신은 당신의\n" +
-                "미래-현재-과거의 모습을 떠올리게 될것이다. 아이유 자신의\n" +
-                "경험과 생각들이 바탕이 된 이야기들이지만 우리 모두에게\n" +
-                "일어날 수 있고 생각할 수 있는 일들. 그 모습을\n" +
-                "[CHAT-SHIRE]안에서 함께 이야기하고 소통하길 원한다.";
+                "‘비행운’가사 중 ‘나는 자라 겨우 내가 되겠지’는 소설\n" +
+                "‘비행운’의 일부를 인용 하였습니다.";
         maintext.setText(txt);
 
         //

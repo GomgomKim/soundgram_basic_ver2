@@ -52,6 +52,10 @@ import static test.dahun.mobileplay.R.drawable.comm_profileimg;
 public class CommentFragment extends Fragment
 {
 
+    @BindView(R.id.ic_homeBtn)
+    Button ic_homeBtn;
+    @BindView(R.id.ic_equalizerBtn) Button equalbtn;
+
     @BindView(R.id.navi) ImageButton navibtn;
     @BindView(R.id.mn_play) ImageButton playbtn;
     @BindView(R.id.mn_movie) ImageButton moviebtn;
@@ -103,9 +107,26 @@ public class CommentFragment extends Fragment
     //navibutton
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public void initSetting() {
+
+        //homebtn
+        ic_homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewPagerAdapter.setViewPagerTabListener.setTab(0);
+            }
+        });
+        //
+        //equalbtn
+        equalbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewPagerAdapter.setViewPagerTabListener.setTab(1);
+            }
+        });
+
         ViewGroup.LayoutParams params = navibtn.getLayoutParams();
         params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
-        params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+        params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
         navibtn.requestLayout();
         navibtn.setImageResource(R.drawable.mn_default);
         navibtn.setTag(R.drawable.mn_default);
@@ -118,11 +139,11 @@ public class CommentFragment extends Fragment
                     moviebtn.setVisibility(View.VISIBLE);
                     galbtn.setVisibility(View.VISIBLE);
                     commbtn.setVisibility(View.VISIBLE);
-                    btn.setVisibility(View.VISIBLE);
+                    //btn.setVisibility(View.VISIBLE);
 
                     ViewGroup.LayoutParams params = navibtn.getLayoutParams();
                     params.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                    params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 170, getResources().getDisplayMetrics());
+                    params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, getResources().getDisplayMetrics());
                     navibtn.requestLayout();
                     navibtn.setImageResource(R.drawable.mn_click);
                     navibtn.setTag(R.drawable.mn_click);
@@ -134,7 +155,7 @@ public class CommentFragment extends Fragment
                     btn.setVisibility(View.GONE);
                     ViewGroup.LayoutParams params = navibtn.getLayoutParams();
                     params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
-                    params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                    params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
                     navibtn.requestLayout();
                     navibtn.setImageResource(R.drawable.mn_default);
                     navibtn.setTag(R.drawable.mn_default);
@@ -153,7 +174,7 @@ public class CommentFragment extends Fragment
 
                 ViewGroup.LayoutParams params = navibtn.getLayoutParams();
                 params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
-                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
                 navibtn.requestLayout();
                 navibtn.setImageResource(R.drawable.mn_default);
                 navibtn.setTag(R.drawable.mn_default);
@@ -173,7 +194,7 @@ public class CommentFragment extends Fragment
 
                 ViewGroup.LayoutParams params = navibtn.getLayoutParams();
                 params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
-                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
                 navibtn.requestLayout();
                 navibtn.setImageResource(R.drawable.mn_default);
                 navibtn.setTag(R.drawable.mn_default);
@@ -194,7 +215,7 @@ public class CommentFragment extends Fragment
 
                 ViewGroup.LayoutParams params = navibtn.getLayoutParams();
                 params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
-                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
                 navibtn.requestLayout();
                 navibtn.setImageResource(R.drawable.mn_default);
                 navibtn.setTag(R.drawable.mn_default);
@@ -215,7 +236,7 @@ public class CommentFragment extends Fragment
 
                 ViewGroup.LayoutParams params = navibtn.getLayoutParams();
                 params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
-                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
                 navibtn.requestLayout();
                 navibtn.setImageResource(R.drawable.mn_default);
                 navibtn.setTag(R.drawable.mn_default);
@@ -235,17 +256,16 @@ public class CommentFragment extends Fragment
             }
         });
         String img;
-        String name="IU (아이유)";
-        String txt="지금까지 함께해 주신 팬 여러분~~~\n" +
-                "기다려 주셔서 감사해요. 올해는\n" +
-                "콘서트를 할 수 있을 듯 해요 어쩌구\n" +
-                "아이유의 현재를 담은 [CHAT-SHIRE]를\n" +
-                "통해 당신은 당신의 미래-현재-과거의 \n" +
-                "모습을 떠올리게 될것이다. 아이유\n" +
-                "자신의 경험과 생각들이 바탕이 된 \n" +
-                "이야기들이지만 우리 모두에게\n" +
-                "더 자세한 얘기 바로 올릴게요";
-        String date="2017.11.23 13:34";
+        String name="MoonMoon";
+        String txt="오늘 밤 9시\n" +
+                "피키캐스트 나만봐 라이브\n" +
+                "재밌게 보세요.\n" +
+                "제가 깨방정을 떨어서\n" +
+                "재미는 있을거에요.\n" +
+                "\n" +
+                "피키캐스트앱, 피키캐스트 페이스북,\n" +
+                "유튜브 채널 등에 업로드 됩니다.\n";
+        String date="2017.09.20 15:57";
 
         arname.setText(name);
         artxt.setText(txt);
@@ -257,9 +277,9 @@ public class CommentFragment extends Fragment
 
         //List<Fan> items = new ArrayList<>();
         Fan[] item = new Fan[4];
-        item[0] = new Fan("유애나시조","010 **** 3456","2017.08.22 21:20","앨범에 대한 감상 위주로 쓰게 하는게 맞을 거 같음. 공연정보 등 정 할얘기까 있으면 링크 정보만 담을 수 있게하는게 어떨까 싶기도 하고.");
-        item[1] = new Fan("봉센세","010 **** 3456","2017.08.22 21:20","진짜진짜 명반인데..");
-        item[2] = new Fan("ㅍㅌㅍㅋㅍㄹㅅ","010 **** 3456","2017.07.15 21:20","아이유 정주행중 가장 힘들었었던 앨범이 가장 좋다니 아이러니하다.");
+        item[0] = new Fan("문문바라기","010 **** 3456","2017.08.22 21:20","앨범에 대한 감상 위주로 쓰게 하는게 맞을 거 같음. 공연정보 등 정 할얘기까 있으면 링크 정보만 담을 수 있게하는게 어떨까 싶기도 하고.");
+        item[1] = new Fan("보름달","010 **** 3456","2017.08.22 21:20","진짜진짜 명반인데..");
+        item[2] = new Fan("ㅍㅌㅍㅋㅍㄹㅅ","010 **** 3456","2017.07.15 21:20"," 가장 힘들었었던 앨범이 가장 좋다니 아이러니하다.");
         item[3] = new Fan("닉네임닉네임","010 **** 3456","2017.07.15 21:20","앨범에 대한 감상 위주로 쓰게 하는게 맞을 거 같음. 공연정보 등 정 할얘기까 있으면 링크 정보만 담을 수 있게하는게 어떨까 싶기도 하고.");
         // item[4] = new Fan("fan5","010-5555-2222","2017.11.08 3:46","e");
 

@@ -22,7 +22,7 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
 
     public static final String API_KEY = "AIzaSyDi54gnjDssDmXAfG1X-rJs4OmuYjH8iGM";
 
-    public static final String VIDEO_ID = "42Gtm4-Ax2U";
+    public static final String VIDEO_ID = "0Hwmtk_bVrk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
 
-                youTubePlayer.loadVideo("QadSVWXF_ks");//url의 맨 뒷부분 ID값만 넣으면 됨
+                youTubePlayer.loadVideo("0Hwmtk_bVrk");//url의 맨 뒷부분 ID값만 넣으면 됨
             }
 
             @Override
