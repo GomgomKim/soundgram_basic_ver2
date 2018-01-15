@@ -21,6 +21,7 @@
         android:layout_centerVertical="true"
         android:background="@drawable/play_3_emptycd">
 
+
         <test.dahun.mobileplay.ui.VerticalViewPager
             android:id="@+id/musicPager"
             android:layout_width="match_parent"
@@ -151,7 +152,6 @@
             android:src="@drawable/play_ic_lp" />
 
         <!--Navi-->
-        <!--Navi-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -166,46 +166,46 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/mn_default" />
 
-            <ImageButton
-                android:id="@+id/mn_play"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+            <LinearLayout
+                android:layout_centerInParent="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="110dp"
-                android:layout_toEndOf="@+id/ic_mn"
-                android:background="@drawable/mn_click_ic_play"
-                android:visibility="gone" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:id="@+id/mn_play"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/mn_click_ic_play"
+                    android:visibility="gone" />
 
-            <ImageButton
-                android:id="@+id/mn_comm"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="96dp"
-                android:layout_toEndOf="@+id/mn_play"
-                android:background="@drawable/mn_click_ic_community"
-                android:visibility="gone" />
+                <ImageButton
+                    android:id="@+id/mn_movie"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="35dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/mn_click_ic_movie"
+                    android:visibility="gone" />
 
-            <ImageButton
-                android:id="@+id/mn_movie"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/mn_play"
-                android:layout_marginBottom="27dp"
-                android:layout_marginStart="33dp"
-                android:background="@drawable/mn_click_ic_movie"
-                android:visibility="gone" />
+                <ImageButton
+                    android:id="@+id/mn_gallery"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="35dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/mn_click_ic_gallery"
+                    android:visibility="gone" />
 
-            <ImageButton
-                android:id="@+id/mn_gallery"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignTop="@+id/mn_movie"
-                android:layout_marginStart="31dp"
-                android:layout_toEndOf="@+id/mn_movie"
-                android:background="@drawable/mn_click_ic_gallery"
-                android:visibility="gone" />
+                <ImageButton
+                    android:id="@+id/mn_comm"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/mn_click_ic_community"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/ic_mn"
@@ -215,8 +215,8 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/mn_click_ic"
                 android:visibility="gone" />
-
         </RelativeLayout>
+        <!---->
     </RelativeLayout>
 
 
