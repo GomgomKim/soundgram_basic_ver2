@@ -29,6 +29,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,6 +43,7 @@ import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.MusicCustomPagerAdapter;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
+import test.dahun.mobileplay.model.ApplicationStatus;
 import test.dahun.mobileplay.model.Fan;
 import test.dahun.mobileplay.ui.VerticalViewPager;
 
@@ -59,7 +63,7 @@ public class MusicFragment extends Fragment
 
     @BindView(R.id.titleLayout) ImageView titleLayout;
     @BindView(R.id.ic_homeBtn) Button ic_homeBtn;
-    @BindView(R.id.ic_equalizerBtn) Button ic_equalizerBtn;
+    @BindView(R.id.ic_equalizerBtn) ImageView ic_equalizerBtn;
 
     @BindView(R.id.musicPager) VerticalViewPager musicPager;
 
@@ -195,7 +199,20 @@ public class MusicFragment extends Fragment
             }
         });
         //
+        //equalizer
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(ic_equalizerBtn);
 
+        if(ApplicationStatus.isPlaying)
+            Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+        else
+            Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
+
+        ic_equalizerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewPagerAdapter.setViewPagerTabListener.setTab(1);
+            }
+        });
 
         //navibutton
         ViewGroup.LayoutParams params = navibtn.getLayoutParams();
@@ -377,9 +394,21 @@ public class MusicFragment extends Fragment
                     timer=new Timer();
                     timer.start();
                 }
+                ApplicationStatus.isPlaying=true;
+                GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(ic_equalizerBtn);
+                Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
 
                 isPlaying = false;
-                mp.pause();
+
+                if(!mp.isPlaying()){
+
+                    mp.setLooping(false); // true:무한반복
+                    seekBar.setMax(total);// 씨크바의 최대 범위를 노래의 재생시간으로 설정
+
+                    new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
+
+                }else
+                    mp.pause();
             }
             public void onProgressChanged(SeekBar seekBar,int progress,boolean fromUser) {
 
@@ -434,6 +463,10 @@ public class MusicFragment extends Fragment
 
                 if(isPlaying){
                     playBtn.setBackgroundResource(R.drawable.play_ic_play);
+                    ApplicationStatus.isPlaying=false;
+                   GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(ic_equalizerBtn);
+                    Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
+
                     // 일시중지
                     pos = mp.getCurrentPosition();
                     mp.pause(); // 일시중지
@@ -445,7 +478,9 @@ public class MusicFragment extends Fragment
 
                 }else{
                     playBtn.setBackgroundResource(R.drawable.play_ic_pause);
-
+                    ApplicationStatus.isPlaying=true;
+                   GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(ic_equalizerBtn);
+                     Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
                     if(restart){
                         Log.d(TAG,"RESTART");
                         // 멈춘 지점부터 재시작
@@ -485,7 +520,7 @@ public class MusicFragment extends Fragment
 //            }
 //        });
 
-
+        autoPlay(total);
 
     }
 
@@ -627,6 +662,16 @@ public class MusicFragment extends Fragment
         });*/
     }
 
+    void autoPlay(int total){
+        mp.setLooping(false); // true:무한반복
+         mp.start(); // 노래 재생 시작
+        seekBar.setMax(total);// 씨크바의 최대 범위를 노래의 재생시간으로 설정
+
+         isPlaying = true; // 씨크바 쓰레드 반복 하도록
+        new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
+       timer=new Timer();
+        timer.start();
+        }
     void changeMusic(int index){
 
         // 음악 종료
@@ -814,11 +859,28 @@ public class MusicFragment extends Fragment
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser)
+        if (isVisibleToUser) {
             Log.d("SetUserHint","Music ON");
+            View view = layout;
+            if (view != null) {
+                GlideDrawableImageViewTarget
+                        imageViewTarget = new GlideDrawableImageViewTarget(ic_equalizerBtn);
+                if (ApplicationStatus.isPlaying)
+                    Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+                else
+                    Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
+
+            }
+        }
         else
             Log.d("SetUserHint","Music OFF");
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mp.stop();
     }
 
     public void playmode(){

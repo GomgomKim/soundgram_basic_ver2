@@ -31,6 +31,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.FanRecyclerviewAdapter;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
+import test.dahun.mobileplay.model.ApplicationStatus;
 import test.dahun.mobileplay.model.Fan;
 
 import static test.dahun.mobileplay.R.drawable.comm_profileimg;
@@ -54,7 +58,7 @@ public class CommentFragment extends Fragment
 
     @BindView(R.id.ic_homeBtn)
     Button ic_homeBtn;
-    @BindView(R.id.ic_equalizerBtn) Button equalbtn;
+    @BindView(R.id.ic_equalizerBtn) ImageView equalbtn;
 
     @BindView(R.id.navi) ImageButton navibtn;
     @BindView(R.id.mn_play) ImageButton playbtn;
@@ -117,6 +121,13 @@ public class CommentFragment extends Fragment
         });
         //
         //equalbtn
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
+
+        if(ApplicationStatus.isPlaying)
+            Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+        else
+            Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
+
         equalbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -301,8 +312,19 @@ public class CommentFragment extends Fragment
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser)
+        if(isVisibleToUser){
             Log.d("SetUserHint","Comment ON");
+
+            View view=layout;
+            if(view != null){
+                GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
+
+                if(ApplicationStatus.isPlaying)
+                    Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+                else
+                    Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
+            }
+        }
         else
             Log.d("SetUserHint","Comment OFF");
     }

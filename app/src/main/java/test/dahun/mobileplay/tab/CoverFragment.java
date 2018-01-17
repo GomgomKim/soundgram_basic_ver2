@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.CoverCustomPagerAdapter;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
+import test.dahun.mobileplay.model.ApplicationStatus;
 import test.dahun.mobileplay.ui.VerticalViewPager;
 
 /**
@@ -43,7 +45,7 @@ public class CoverFragment extends Fragment
     @BindView(R.id.maingBottomImage) ImageView mainBottomImage;
     @BindView(R.id.cover_text) TextView maintext;
     @BindView(R.id.cover_top) ImageView mainTopImage;
-    @BindView(R.id.ic_equalizerBtn) Button ic_equalizerBtn;
+    @BindView(R.id.ic_equalizerBtn) ImageView ic_equalizerBtn;
 
 
     @BindView(R.id.coverpager)
@@ -84,9 +86,16 @@ public class CoverFragment extends Fragment
        // Glide.with(getContext()).load(R.drawable.main_3_info).into(mainTopImage);
 
        // mainImage.setImageResource(R.drawable.main_1_bg);
-        ic_equalizerBtn.setBackgroundResource(R.drawable.ic_equalizer);
+       // ic_equalizerBtn.setBackgroundResource(R.drawable.ic_equalizer_stop);
 
         //equalbtn
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(ic_equalizerBtn);
+
+        if(ApplicationStatus.isPlaying)
+            Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+        else
+            Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
+
         ic_equalizerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,8 +127,19 @@ public class CoverFragment extends Fragment
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser)
+        if(isVisibleToUser){
             Log.d("SetUserHint","Cover ON");
+
+            View view=layout;
+            if(view != null){
+                GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(ic_equalizerBtn);
+
+                if(ApplicationStatus.isPlaying)
+                    Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+                else
+                    Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
+            }
+        }
         else
             Log.d("SetUserHint","Cover OFF");
 

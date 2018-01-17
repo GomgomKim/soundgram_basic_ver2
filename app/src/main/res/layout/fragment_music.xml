@@ -33,7 +33,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/play_ic_play" />
+            android:background="@drawable/play_ic_pause" />
 
 
         <LinearLayout
@@ -135,13 +135,12 @@
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp" />
-            <Button
-                android:id="@+id/ic_equalizerBtn"
-                android:background="@drawable/ic_equalizer"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true" />
+        <ImageView
+            android:id="@+id/ic_equalizerBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp" />
 
         <ImageView
             android:layout_width="wrap_content"

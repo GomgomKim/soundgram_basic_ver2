@@ -32,12 +32,14 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.MovieRecyclerViewAdapter;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
+import test.dahun.mobileplay.model.ApplicationStatus;
 import test.dahun.mobileplay.ui.VerticalViewPager;
 
 /**
@@ -50,7 +52,7 @@ public class VideoFragment extends Fragment
     @BindView(R.id.ic_homeBtn)
     Button ic_homeBtn;
 
-    @BindView(R.id.ic_equalizerBtn) Button equalbtn;
+    @BindView(R.id.ic_equalizerBtn) ImageView equalbtn;
 
     @BindView(R.id.navi) ImageButton navibtn;
     @BindView(R.id.mn_play) ImageButton playbtn;
@@ -97,7 +99,14 @@ public class VideoFragment extends Fragment
             }
         });
         //
-        //equalbtn
+        //equalizer
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
+
+        if(ApplicationStatus.isPlaying)
+            Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+        else
+            Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
+
         equalbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -247,14 +256,24 @@ public class VideoFragment extends Fragment
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser)
+        if(isVisibleToUser){
             Log.d("SetUserHint","Video ON");
+
+            View view=layout;
+            if(view != null){
+                GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
+
+                if(ApplicationStatus.isPlaying)
+                    Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+                else
+                    Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
+            }
+        }
         else
             Log.d("SetUserHint","Video OFF");
 
 
     }
-
 }
 
 
