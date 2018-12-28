@@ -164,19 +164,16 @@ public class MusicFragment extends Fragment
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (LinearLayout) inflater.inflate(R.layout.fragment_music, container, false);
-
-
         ButterKnife.bind(this, layout);
-
         initSetting();
         lyrics_popupSetting();
         songlist_popupSetting();
         playmode();
-
         return layout;
     }
 

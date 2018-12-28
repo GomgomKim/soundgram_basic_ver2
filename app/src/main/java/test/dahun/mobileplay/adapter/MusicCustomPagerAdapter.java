@@ -19,7 +19,6 @@ public class MusicCustomPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
       View v = new SubMusicView(context, position);
       container.addView(v);
-
       return v;
     }
 

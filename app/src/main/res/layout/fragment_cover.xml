@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="test.dahun.mobileplay.main.MainActivity">
+    tools:context="test.dahun.mobileplay.main.MainActivity"
+    >
     <RelativeLayout
         android:background="#fff"
         android:layout_width="match_parent"
@@ -40,11 +41,12 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <test.dahun.mobileplay.ui.VerticalViewPager
-                android:id="@+id/coverpager"
+            <FrameLayout
+                android:id="@+id/sub_cover"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </test.dahun.mobileplay.ui.VerticalViewPager>
+                android:layout_height="match_parent"
+                >
+            </FrameLayout>
 
             <!--이퀄라이저 버튼-->
             <ImageView

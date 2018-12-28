@@ -22,39 +22,30 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.adapter.ViewPagerAdapter;
+import test.dahun.mobileplay.main.MainActivity;
 
 public class SubCoverView extends LinearLayout {
-
-  //adddd
-  
   Context context;
   View view;
 
   public SubCoverView(Context context, int index) {
     super(context);
-
     this.context=context;
-
     LayoutInflater li = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     view = li.inflate(R.layout.layout_subcover, this, true);
-
     initSetting(index);
-
   }
 
   public void initSetting(final int index) {
-
     ImageView imv = (ImageView)view.findViewById(R.id.coverimage);
-
-    switch(index){
+    switch (index) {
       case 0:
         imv.setImageResource(R.drawable.main_1_bg);
+        Log.i("GomgomKim", "SetCoverImg");
         break;
-      case 1:
-
+      default:
         break;
-
     }
   }
-
 }

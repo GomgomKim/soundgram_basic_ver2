@@ -1,6 +1,7 @@
 package test.dahun.mobileplay.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -8,17 +9,22 @@ import test.dahun.mobileplay.tab.SubCoverView;
 import test.dahun.mobileplay.ui.PagerAdapter;
 
 public class CoverCustomPagerAdapter extends PagerAdapter {
-
     Context context;
+
     public CoverCustomPagerAdapter(Context context) {
         this.context=context;
     }
 
+    // 기연추가
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-      View v = new SubCoverView(context, position);
+      View v = new SubCoverView(this.context, position);
       container.addView(v);
-
       return v;
     }
 

@@ -71,6 +71,7 @@ public class PictureFragment extends Fragment
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class PictureFragment extends Fragment
         if(ApplicationStatus.isPlaying)
             Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
         else
-            Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
+            Glide.with(getContext()).load(R.drawable.ic_equalizer).into(imageViewTarget);
 
 
         equalbtn.setOnClickListener(new View.OnClickListener() {
@@ -266,7 +267,7 @@ public class PictureFragment extends Fragment
                 if(ApplicationStatus.isPlaying)
                     Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
                 else
-                    Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
+                    Glide.with(getContext()).load(R.drawable.ic_equalizer).into(imageViewTarget);
             }
         }
         else
