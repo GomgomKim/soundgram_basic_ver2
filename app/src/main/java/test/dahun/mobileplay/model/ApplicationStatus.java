@@ -5,5 +5,5 @@ package test.dahun.mobileplay.model;
  */
 
 public class ApplicationStatus {
-    public static boolean isPlaying=true;
+    public static boolean isPlaying=false;
 }

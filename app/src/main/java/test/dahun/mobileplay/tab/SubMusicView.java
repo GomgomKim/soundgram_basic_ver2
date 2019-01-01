@@ -42,44 +42,44 @@ public class SubMusicView extends LinearLayout {
       case 0:
 //        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
 //        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.play_2_trackimg_01).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_02).into(imageView);
         break;
 
       case 1:
 //        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
 //        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.play_2_trackimg_02).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_03).into(imageView);
         break;
 
       case 2:
 //        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
 //        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.play_2_trackimg_03).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_04).into(imageView);
         break;
 
       case 3:
 //        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
 //        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.play_2_trackimg_04).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_05).into(imageView);
         break;
 
       case 4:
 //        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
 //        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.play_2_trackimg_05).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_06).into(imageView);
         break;
-/*
+
       case 5:
 //        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
 //        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.play_2_trackimg_06).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_01).into(imageView);
         break;
 
       case 6:
 //        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
 //        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.play_2_trackimg_07).into(imageView);
-        break;*/
+        Glide.with(getContext()).load(R.drawable.albumimg_02).into(imageView);
+        break;
     }
 
     //imageView.setScaleType(ImageView.ScaleType.FIT_XY);

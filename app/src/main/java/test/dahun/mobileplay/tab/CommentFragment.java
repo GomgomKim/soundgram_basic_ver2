@@ -56,8 +56,7 @@ import static test.dahun.mobileplay.R.drawable.comm_profileimg;
 public class CommentFragment extends Fragment
 {
 
-    @BindView(R.id.ic_homeBtn)
-    Button ic_homeBtn;
+    @BindView(R.id.ic_homeBtn) Button ic_homeBtn;
     @BindView(R.id.ic_equalizerBtn) ImageView equalbtn;
 
     @BindView(R.id.navi) ImageButton navibtn;
@@ -124,7 +123,7 @@ public class CommentFragment extends Fragment
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
 
         if(ApplicationStatus.isPlaying)
-            Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+            Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
         else
             Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
 
@@ -320,7 +319,7 @@ public class CommentFragment extends Fragment
                 GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
 
                 if(ApplicationStatus.isPlaying)
-                    Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+                    Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
                 else
                     Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
             }

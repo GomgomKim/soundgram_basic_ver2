@@ -12,10 +12,7 @@ import android.util.Log;
 
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
-import test.dahun.mobileplay.tab.CallbackEvent;
 import test.dahun.mobileplay.tab.CoverFragment;
-import test.dahun.mobileplay.tab.SubCoverView;
-import test.dahun.mobileplay.ui.VerticalViewPager;
 
 public class MainActivity extends AppCompatActivity {
     ViewPager mainPager;
@@ -32,19 +29,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initSetting();
-        callback();
-     }
-
-     // 기연 추가
-     public void callback(){
-        CallbackEvent callbackEvent = new CallbackEvent() {
-            @Override
-            public void callbackMethod() {
-                Log.i("GomgomKim", "callback_main");
-            }
-        };
-        CoverFragment coverFragment = new CoverFragment();
-        coverFragment.doWork(callbackEvent);
      }
 
     @Override

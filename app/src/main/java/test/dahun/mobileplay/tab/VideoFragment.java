@@ -103,7 +103,7 @@ public class VideoFragment extends Fragment
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
 
         if(ApplicationStatus.isPlaying)
-            Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+            Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
         else
             Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
 
@@ -264,7 +264,7 @@ public class VideoFragment extends Fragment
                 GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
 
                 if(ApplicationStatus.isPlaying)
-                    Glide.with(getContext()).load(R.raw.ic_equalizer_start).into(imageViewTarget);
+                    Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
                 else
                     Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
             }
