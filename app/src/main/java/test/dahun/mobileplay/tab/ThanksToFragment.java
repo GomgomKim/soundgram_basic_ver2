@@ -1,6 +1,7 @@
 package test.dahun.mobileplay.tab;
 
 
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -18,6 +19,11 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,9 +75,30 @@ public class ThanksToFragment extends Fragment {
         else
             Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
 
+
+        // make content
+        AssetManager am = getContext().getAssets();
+        InputStream inputStream;
+        InputStreamReader inputStreamReader;
+        BufferedReader br;
+        String read=null;
+        String intro="";
+        try {
+            inputStream = am.open("intro.txt");
+            inputStreamReader = new InputStreamReader(inputStream,"utf-8");
+            br = new BufferedReader(inputStreamReader);
+
+            while((read=br.readLine())!=null){
+                intro+=read;
+                intro+="\n";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // 리스트 생성
         thanksToAdapter = new ThanksToAdapter(getContext());
-        thanksToAdapter.addItem("Thanks to FAN", "from 검정치마", "콘텐츠...");
+        thanksToAdapter.addItem("Thanks to FAN", "from 검정치마", intro);
         intro_list.setAdapter(thanksToAdapter);
 
         // 이미지 원형으로 만들기

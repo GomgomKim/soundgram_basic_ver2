@@ -23,68 +23,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03c53f19-738f-4a7a-82e4-80877036fed3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_exifinterface_27_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_davemorrissey_labs_subsampling_scale_image_view_3_10_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_chrisbanes_PhotoView_2_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/GallaryListAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/GallaryListItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/ThanksToAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/ThanksToItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/GallaryFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_gallary.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_thanks.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_close.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_movieplay.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/seekbar_bg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_gallary.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_thanks_to.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/gallary_img.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/gallary_video.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/popup_gallary_img.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/singer_intro.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileContent/fileContent.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/assets/content.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/assets/intro.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskJars.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskJars.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_25_4_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_27_1_0_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_3_7_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/MusicCustomPagerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/MusicCustomPagerAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/PlayListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/PlayListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/PlayListItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/PlayListItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/ViewPagerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/ViewPagerAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/CommentFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/CommentFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/CoverFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/CoverFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/fifth.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/fifth.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/first.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/first.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/fourth.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/fourth.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/second.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/second.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/seventh.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/seventh.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/sixth.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/sixth.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/third.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/third.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/MusicFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/MusicFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/PictureFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/PictureFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/VideoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/VideoActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/VideoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/VideoFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_video.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_video.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_cover.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_cover.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_list.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_music.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_music.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_submusic.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_submusic.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/play_lists.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/play_lists.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/play_lists_bottom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/play_lists_bottom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -108,11 +67,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MusicFragment.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/MusicFragment.java">
+      <file leaf-file-name="ThanksToFragment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="270" column="42" lean-forward="true" selection-start-line="270" selection-start-column="42" selection-end-line="270" selection-end-column="42" />
+            <state relative-caret-position="448">
+              <caret line="103" column="23" lean-forward="true" selection-start-line="103" selection-start-column="23" selection-end-line="103" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -134,8 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>changePlay</find>
-      <find>playmode</find>
       <find>setLooping</find>
       <find>like_count</find>
       <find>API_KEY</find>
@@ -164,6 +121,8 @@
       <find>second.txt</find>
       <find>first.txt</find>
       <find>changeLyrics</find>
+      <find>first</find>
+      <find>inputStream</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2477,17 +2436,17 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_gallary.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/CommentFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/CoverFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/GallaryFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_music.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/MusicFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="745" />
-    <option name="width" value="1183" />
+    <option name="x" value="952" />
+    <option name="width" value="977" />
     <option name="height" value="1088" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -2537,13 +2496,7 @@
             <path>
               <item name="soundgram_basic" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="soundgram_basic" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="raw" type="ddeffd01:AndroidResFolderTypeNode" />
+              <item name="assets" type="edd41e36:AndroidSourceTypeNode" />
             </path>
             <path>
               <item name="soundgram_basic" type="1abcf292:AndroidViewProjectNode" />
@@ -2564,6 +2517,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ok3651004\AndroidStudioProjects\soundgram_basic\app\src\main\assets" />
       <recent name="C:\Users\ok3651004\AndroidStudioProjects\soundgram_basic\app\src\main\res\raw" />
       <recent name="C:\Users\ok3651004\AndroidStudioProjects\soundgram_basic\app\src\main\res\drawable" />
       <recent name="C:\Users\ok3651004\AndroidStudioProjects\soundgram_basic\app\src\main\res\font" />
@@ -2728,7 +2682,14 @@
       <option name="project" value="LOCAL" />
       <updated>1546317860717</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="전체적인 틀 완성">
+      <created>1546490374454</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1546490374455</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2746,13 +2707,13 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info anchor="bottom" id="Logcat" order="10" visible="true" weight="0.28915662" />
+      <window_info anchor="bottom" id="Logcat" order="10" weight="0.28915662" />
       <window_info id="Captures" order="4" weight="0.25" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15570469" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21543624" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.19079837" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32931727" />
       <window_info anchor="right" id="Gradle" order="4" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
@@ -2804,30 +2765,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="표지, 곡 목록, 재생 부분 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="표지, 곡 목록, 재생 부분 추가" />
+    <MESSAGE value="전체적인 틀 완성" />
+    <option name="LAST_COMMIT_MESSAGE" value="전체적인 틀 완성" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/gallerymv_01.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/like_on.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/raw/ic_equalizer_start.gif" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/galleryimg_01.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/play_2_trackimg_01.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/main/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -3032,21 +2973,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/raw/first.txt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/PlayListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="115" column="86" selection-start-line="115" selection-start-column="86" selection-end-line="115" selection-end-column="86" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1173#1174#0" expanded="true" />
-            <element signature="e#1216#1217#0" expanded="true" />
-            <element signature="e#3315#4101#0" expanded="true" />
-            <element signature="e#4100#4101#0" expanded="true" />
-            <marker date="1546448769372" expanded="true" signature="4426:4549" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/gallary_img.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -3100,16 +3026,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="126" column="33" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_gallary.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -3147,26 +3063,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="191" column="5" selection-start-line="191" selection-start-column="5" selection-end-line="191" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="169" column="5" selection-start-line="169" selection-start-column="5" selection-end-line="169" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/GallaryFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
@@ -3201,13 +3097,85 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/raw/gomgom.txt">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="7" lean-forward="true" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/gomgom.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/third.txt">
+      <provider selected="true" editor-type-id="text-editor">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/fifth.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_list.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="126" column="33" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/PlayListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="115" column="86" selection-start-line="115" selection-start-column="86" selection-end-line="115" selection-end-column="86" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1173#1174#0" expanded="true" />
+            <element signature="e#1216#1217#0" expanded="true" />
+            <marker date="1546448769372" expanded="true" signature="4426:4549" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/content.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/intro.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/MusicFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="270" column="42" lean-forward="true" selection-start-line="270" selection-start-column="42" selection-end-line="270" selection-end-column="42" />
+        <state relative-caret-position="93">
+          <caret line="573" column="19" selection-start-line="573" selection-start-column="19" selection-end-line="573" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="103" column="23" lean-forward="true" selection-start-line="103" selection-start-column="23" selection-end-line="103" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
