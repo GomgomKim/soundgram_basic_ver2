@@ -3,8 +3,11 @@ package test.dahun.mobileplay.tab;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,7 +35,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,6 +52,8 @@ import test.dahun.mobileplay.adapter.ViewPagerAdapter;
 import test.dahun.mobileplay.model.ApplicationStatus;
 import test.dahun.mobileplay.model.Fan;
 import test.dahun.mobileplay.ui.VerticalViewPager;
+
+import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
 /**
  * Created by jeongdahun on 2017. 9. 11..
@@ -83,7 +89,7 @@ public class MusicFragment extends Fragment
     @BindView(R.id.musicProgress) SeekBar seekBar; // 음악 재생위치를 나타내는 시크바
 
     final String TAG="MusicFragment";
-    LinearLayout layout;
+    RelativeLayout layout;
 
     //음악 관련 변수
     int index=0;
@@ -112,6 +118,9 @@ public class MusicFragment extends Fragment
 
     //auto play 할건지
     boolean isAutoPlay = false;
+
+    //화면 새로고침은 처음만
+    int refresh = 0;
 
     class MusicThread extends Thread {
         @Override
@@ -166,10 +175,11 @@ public class MusicFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (LinearLayout) inflater.inflate(R.layout.fragment_music, container, false);
+        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_music, container, false);
         ButterKnife.bind(this, layout);
         initSetting();
-        resizeLayout();
+        btnSetting();
+        //resizeLayout();
         lyrics_popupSetting();
         playmode();
         like_music();
@@ -191,10 +201,13 @@ public class MusicFragment extends Fragment
         musicarr.add("강아지");  like_count.add(9);
         musicarr.add("Antifreeze");  like_count.add(75);
 
-        btn_prevplay.getBackground().setAlpha(50);
+        title.setText(musicarr.get(0));
+        heart_num.setText(String.valueOf(like_count.get(0)));
+
+        btn_prevplay.setAlpha(0.5f);
 
         //equalizer
-        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(play_btn);
+        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
 
         if(ApplicationStatus.isPlaying)
             Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
@@ -213,10 +226,12 @@ public class MusicFragment extends Fragment
                 time=0;
                 index=position;
                 //노래제목
+                btn_play.setBackgroundResource(R.drawable.btn_pause);
                 title.setText(musicarr.get(position));
                 heart_num.setText(String.valueOf(like_count.get(position)));
                 changeMusic(position);
                 changeLyrics(position);
+                changePlay(position);
             }
 
             @Override
@@ -237,6 +252,13 @@ public class MusicFragment extends Fragment
         totalTime=timeTranslation(total/1000);
         maxTime.setText(totalTime);
 
+        // 시크바 초기세팅
+        seekBar.setProgress(0);
+
+        // 시크바 색상 변경
+        seekBar.getProgressDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        seekBar.getThumb().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 btn_play.setBackgroundResource(R.drawable.btn_pause);
@@ -254,7 +276,7 @@ public class MusicFragment extends Fragment
                     timer.start();
                 }
                 ApplicationStatus.isPlaying=true;
-                GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(play_btn);
+                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
                 Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
 
                 isPlaying = false;
@@ -270,11 +292,8 @@ public class MusicFragment extends Fragment
                     mp.pause();
             }
             public void onProgressChanged(SeekBar seekBar,int progress,boolean fromUser) {
-
                 if (seekBar.getMax()==progress) {
-                    Toast.makeText(getContext(),"finish",Toast.LENGTH_SHORT).show();
-
-
+                    //Toast.makeText(getContext(),"finish",Toast.LENGTH_SHORT).show();
                     isPlaying = false;
                     restart = true;
                     mp.stop();
@@ -315,7 +334,6 @@ public class MusicFragment extends Fragment
             }
         });
 
-
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -323,7 +341,7 @@ public class MusicFragment extends Fragment
                 if(isPlaying){
                     btn_play.setBackgroundResource(R.drawable.btn_play);
                     ApplicationStatus.isPlaying=false;
-                   GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(play_btn);
+                    DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
                     Glide.with(getContext()).load(R.drawable.mn_play_on).into(imageViewTarget);
 
                     // 일시중지
@@ -338,7 +356,7 @@ public class MusicFragment extends Fragment
                 }else{
                     btn_play.setBackgroundResource(R.drawable.btn_pause);
                     ApplicationStatus.isPlaying=true;
-                   GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(play_btn);
+                    DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
                      Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
                     if(restart){
                         Log.d(TAG,"RESTART");
@@ -384,6 +402,40 @@ public class MusicFragment extends Fragment
         }
     }
 
+
+    public void btnSetting(){
+        home_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setViewPagerTabListener.setTab(0);
+            }
+        });
+        list_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setViewPagerTabListener.setTab(1);
+            }
+        });
+        play_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setViewPagerTabListener.setTab(2);
+            }
+        });
+        gallery_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setViewPagerTabListener.setTab(3);
+            }
+        });
+        sns_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setViewPagerTabListener.setTab(4);
+            }
+        });
+    }
+
     public void resizeLayout(){
         DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
         float context_height = pxToDp(dm.heightPixels);
@@ -397,7 +449,6 @@ public class MusicFragment extends Fragment
                 album_img.setLayoutParams(position);
             }
         });
-
     }
 
     public void lyrics_popupSetting() {
@@ -453,7 +504,25 @@ public class MusicFragment extends Fragment
         new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
        timer=new Timer();
         timer.start();
+    }
+
+    void changePlay(int index){
+        switch (index){
+            case 0:
+                btn_prevplay.setAlpha(0.5f);
+                btn_nextplay.setAlpha(1f);
+                break;
+            case 6:
+                btn_prevplay.setAlpha(1f);
+                btn_nextplay.setAlpha(0.5f);
+                break;
+            default:
+                btn_prevplay.setAlpha(1f);
+                btn_nextplay.setAlpha(1f);
+                break;
         }
+    }
+
     void changeMusic(int index){
 
         // 음악 종료
@@ -462,13 +531,6 @@ public class MusicFragment extends Fragment
         if(mp.isPlaying()){
             mp.stop(); // 멈춤
             mp.release(); // 자원 해제
-        }
-
-        if(index == 0) btn_prevplay.getBackground().setAlpha(50);
-        else if (index == musicarr.size()-1) btn_nextplay.getBackground().setAlpha(50);
-        else{
-            btn_prevplay.getBackground().setAlpha(100);
-            btn_nextplay.getBackground().setAlpha(100);
         }
 
         seekBar.setProgress(0); // 씨크바 초기화
@@ -594,7 +656,7 @@ public class MusicFragment extends Fragment
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                break;/*
+                break;
             case 5:
                 try {
                     inputStream = am.open("sixth.txt");
@@ -622,7 +684,7 @@ public class MusicFragment extends Fragment
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                break;*/
+                break;
         }
 
         lyricsText.setText(lyrics);
@@ -652,8 +714,17 @@ public class MusicFragment extends Fragment
             Log.d("SetUserHint","Music ON");
             View view = layout;
             if (view != null) {
-                GlideDrawableImageViewTarget
-                        imageViewTarget = new GlideDrawableImageViewTarget(play_btn);
+
+                if(refresh == 0){
+                    getFragmentManager().beginTransaction()
+                            .detach(this)
+                            .attach(this)
+                            .commit();
+                    refresh++;
+                }
+
+                DrawableImageViewTarget
+                        imageViewTarget = new DrawableImageViewTarget(play_btn);
                 if (ApplicationStatus.isPlaying)
                     Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
                 else
@@ -673,27 +744,28 @@ public class MusicFragment extends Fragment
     }
 
     public void playmode(){
-
-        btn_repeat.setTag(2);
-
+        btn_repeat.setTag("all");
         btn_repeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if((Integer)view.getTag() == 2){
+                Log.i("gomgom", String.valueOf(view.getTag()));
+                if(view.getTag().equals("all")){
                     btn_repeat.setBackgroundResource(R.drawable.btn_repeatone);
-                    btn_repeat.setTag(1);
-                }else if((Integer)view.getTag() == 1){
-                    btn_repeat.getBackground().setAlpha(50);
-                    btn_repeat.setTag(0);
-                }else if((Integer)view.getTag() == 0){
-                    btn_repeat.getBackground().setAlpha(100);
+                    btn_repeat.setTag("one");
+                }else if(view.getTag().equals("one")){
                     btn_repeat.setBackgroundResource(R.drawable.btn_repeatall);
-                    btn_repeat.setTag(R.drawable.btn_repeatall);
-                    btn_repeat.setTag(2);
+                    btn_repeat.setAlpha(0.5f);
+                    btn_repeat.setTag("none");
+
+                    mp.setLooping(true);
+                }else if(view.getTag().equals("none")){
+                    btn_repeat.setAlpha(1f);
+                    btn_repeat.setTag("all");
+
+                    mp.setLooping(false);
                 }
             }
         });
-
     }
 
     public void like_music(){
@@ -702,12 +774,16 @@ public class MusicFragment extends Fragment
             public void onClick(View view) {
                 if((Integer)heart.getTag() == 0){
                     heart.setBackgroundResource(R.drawable.like_on);
-                    String new_like_count = String.valueOf(like_count.get(index)+1);
+                    int current_like_count = like_count.get(index)+1;
+                    like_count.set(index, current_like_count);
+                    String new_like_count = String.valueOf(current_like_count);
                     heart_num.setText(new_like_count);
                     heart.setTag(1);
                 } else if ((Integer)heart.getTag() == 1){
                     heart.setBackgroundResource(R.drawable.like_off);
-                    String new_like_count = String.valueOf(like_count.get(index)-1);
+                    int current_like_count = like_count.get(index)-1;
+                    like_count.set(index, current_like_count);
+                    String new_like_count = String.valueOf(current_like_count);
                     heart_num.setText(new_like_count);
                     heart.setTag(0);
                 }

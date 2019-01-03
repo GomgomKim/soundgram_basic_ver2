@@ -13,10 +13,12 @@ import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.tab.CommentFragment;
 import test.dahun.mobileplay.tab.CoverFragment;
+import test.dahun.mobileplay.tab.GallaryFragment;
 import test.dahun.mobileplay.tab.ListFragment;
 import test.dahun.mobileplay.tab.MusicFragment;
 import test.dahun.mobileplay.tab.PictureFragment;
 import test.dahun.mobileplay.tab.SubCoverFragment;
+import test.dahun.mobileplay.tab.ThanksToFragment;
 import test.dahun.mobileplay.tab.VideoFragment;
 
 //Pager Adapter
@@ -42,9 +44,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 return new MusicFragment();
             case 3:
-                return new PictureFragment();
+                return new GallaryFragment();
             case 4:
-                return new CommentFragment();
+                return new ThanksToFragment();
             default:
                 return null;
         }

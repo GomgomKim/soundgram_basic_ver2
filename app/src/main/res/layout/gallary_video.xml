@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="238dp"
+    android:background="#ffffff"
+    >
+    <FrameLayout
+        android:id="@+id/gallary_video_img"
+        android:layout_width="match_parent"
+        android:layout_height="202dp"
+        android:background="@null"
+        >
+        <ImageButton
+            android:id="@+id/gallary_video_play"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_movieplay"
+            />
+    </FrameLayout>
+    <TextView
+        android:id="@+id/gallary_video_title"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:paddingLeft="24dp"
+        android:text="검정치마"
+        android:textSize="17dp"
+        android:textColor="#222222"
+        android:fontFamily="@font/notosanskr_medium"
+        />
+
+</LinearLayout>

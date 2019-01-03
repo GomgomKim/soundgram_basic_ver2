@@ -26,7 +26,7 @@ import com.azoft.carousellayoutmanager.CarouselLayoutManager;
 import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
 import com.azoft.carousellayoutmanager.CenterScrollListener;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
 import org.w3c.dom.Text;
 
@@ -95,7 +95,7 @@ public class PictureFragment extends Fragment
         });
         //
         //equalizer
-        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
+        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(equalbtn);
 
         if(ApplicationStatus.isPlaying)
             Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
@@ -262,7 +262,7 @@ public class PictureFragment extends Fragment
 
             View view=layout;
             if(view != null){
-                GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
+                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(equalbtn);
 
                 if(ApplicationStatus.isPlaying)
                     Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);

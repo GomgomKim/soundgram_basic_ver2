@@ -1,8 +1,10 @@
 package test.dahun.mobileplay.tab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -22,14 +24,15 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
 
     public static final String API_KEY = "AIzaSyDi54gnjDssDmXAfG1X-rJs4OmuYjH8iGM";
 
-    public static final String VIDEO_ID = "0Hwmtk_bVrk";
+    public String video_id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-
-
+        Intent intent = getIntent();
+        video_id = intent.getExtras().getString("video_id");
+        Log.i("gomgom", "id : "+video_id);
         initSetting();
     }
 
@@ -43,7 +46,7 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
 
-                youTubePlayer.loadVideo("0Hwmtk_bVrk");//url의 맨 뒷부분 ID값만 넣으면 됨
+                youTubePlayer.loadVideo(video_id); //url의 맨 뒷부분 ID값만 넣으면 됨
             }
 
             @Override
@@ -63,7 +66,7 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
 
         //Start buffering
         if (!b) {
-            youTubePlayer.cueVideo(VIDEO_ID);
+            youTubePlayer.cueVideo(video_id);
         }
     }
 

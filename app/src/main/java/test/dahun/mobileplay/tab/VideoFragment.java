@@ -32,7 +32,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,7 +100,7 @@ public class VideoFragment extends Fragment
         });
         //
         //equalizer
-        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
+        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(equalbtn);
 
         if(ApplicationStatus.isPlaying)
             Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
@@ -261,7 +261,7 @@ public class VideoFragment extends Fragment
 
             View view=layout;
             if(view != null){
-                GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(equalbtn);
+                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(equalbtn);
 
                 if(ApplicationStatus.isPlaying)
                     Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);

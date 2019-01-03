@@ -30,8 +30,7 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_gravity="center"
-            android:background="@drawable/like_off"
-            android:tag="off"
+            android:background="@null"
             />
         <TextView
             android:id="@+id/heart_num"

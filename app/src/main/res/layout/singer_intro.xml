@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:paddingTop="18dp"
+        >
+        <TextView
+            android:id="@+id/intro_title"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Thanks to FAN"
+            android:textSize="17dp"
+            android:textColor="#222222"
+            android:fontFamily="@font/notosanskr_medium"
+            />
+        <TextView
+            android:id="@+id/intro_singer"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginLeft="6dp"
+            android:text="From 검정치마"
+            android:textSize="16dp"
+            android:textColor="#454545"
+            android:fontFamily="@font/notosanskr_medium"
+            android:textStyle="italic"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/intro_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="18dp"
+        android:text="래퍼보다 프로듀서라는 수식어가"
+        android:textSize="14dp"
+        android:textColor="#454545"
+        android:fontFamily="@font/notosanskr_light"
+        />
+
+</LinearLayout>

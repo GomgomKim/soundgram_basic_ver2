@@ -1,13 +1,15 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="test.dahun.mobileplay.tab.ListFragment"
-    android:orientation="vertical"
     >
     <LinearLayout
+        android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="224dp"
+        android:layout_alignParentTop="true"
         android:background="@drawable/bg_list"
         android:orientation="vertical"
         >
@@ -85,7 +87,9 @@
     <ListView
         android:id="@+id/play_list"
         android:layout_width="match_parent"
-        android:layout_height="445dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_layout"
+        android:layout_above="@+id/bottom_layout"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:background="#ffffff"
@@ -93,8 +97,10 @@
     </ListView>
 
     <LinearLayout
+        android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
         android:background="#ba2b28"
         android:gravity="center"
         >
@@ -119,6 +125,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@null"
+            android:scaleType="fitXY"
             />
         <ImageButton
             android:id="@+id/gallery_btn"
@@ -137,4 +144,4 @@
             />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

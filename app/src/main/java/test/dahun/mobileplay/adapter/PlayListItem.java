@@ -3,19 +3,29 @@ package test.dahun.mobileplay.adapter;
 import android.graphics.drawable.Drawable;
 
 public class PlayListItem {
-    private String index;
-    private Drawable heart;
-    private int heart_num;
-    private String title;
-    private String singer;
+    private int type = 0; // 곡 : 0 , 앨범 소개 : 1
+
+    private String index = "";
+    private int heart;
+    private int heart_num = 0;
+    private String title = "";
+    private String singer = "";
     private int isTitle = 0;
     private int isHeart = 0;
+
+    private String intro_title = "";
+    private String intro_content = "";
+
+    public PlayListItem(){}
+
+    public void setType(int type){ this.type = type; }
+    public int getType() { return this.type; }
 
     public void setIndex(String index){ this.index = index; }
     public String getIndex() { return this.index; }
 
-    public void setHeart(Drawable heart){ this.heart = heart; }
-    public Drawable getHeart() { return this.heart; }
+    public void setHeart(int heart){ this.heart = heart; }
+    public int getHeart() { return this.heart; }
 
     public void setHeart_num(int heart_num){ this.heart_num = heart_num; }
     public int getHeart_num() { return this.heart_num; }
@@ -31,4 +41,10 @@ public class PlayListItem {
 
     public void setIsHeart(int isHeart){ this.isHeart = isHeart; }
     public int getIsHeart() { return this.isHeart; }
+
+    public void setIntro_title(String intro_title){ this.intro_title = intro_title; }
+    public String getIntro_title() { return this.intro_title; }
+
+    public void setIntro_content(String intro_content){ this.intro_content = intro_content; }
+    public String getIntro_content() { return this.intro_content; }
 }

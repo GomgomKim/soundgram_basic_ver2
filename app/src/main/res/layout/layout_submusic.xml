@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="0dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/play_2_trackImage"
-        android:layout_width="216dp"
-        android:layout_height="216dp"
-        android:background="@drawable/albumimg_02"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
         />
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="216dp"
-        android:layout_height="216dp"
-        android:background="@drawable/album_mask"
-        />
-
 </FrameLayout>

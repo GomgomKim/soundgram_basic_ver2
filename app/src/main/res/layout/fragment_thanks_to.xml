@@ -1,0 +1,96 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="test.dahun.mobileplay.tab.ThanksToFragment"
+    >
+    <LinearLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="254dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bg_thanks"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:text="T      H      A      N      K      S            T      O"
+            android:textSize="17dp"
+            android:textColor="#f2efe0"
+            android:fontFamily="@font/notosanskr_thin"
+            />
+        <ImageView
+            android:id="@+id/singer_img"
+            android:layout_width="174dp"
+            android:layout_height="174dp"
+            android:layout_gravity="center"
+            android:background="@null"
+            >
+
+        </ImageView>
+    </LinearLayout>
+    
+    <ListView
+        android:id="@+id/intro_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_layout"
+        android:layout_above="@+id/bottom_layout"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:background="#ffffff"
+        ></ListView>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:background="#ba2b28"
+        >
+        <ImageButton
+            android:id="@+id/home_btn"
+            android:layout_marginLeft="23dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/mn_home_off"
+            />
+        <ImageButton
+            android:id="@+id/list_btn"
+            android:layout_marginLeft="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/mn_list_off"
+            />
+
+        <ImageButton
+            android:id="@+id/play_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="35dp"
+            android:background="@null"
+            android:scaleType="fitXY"
+            />
+        <ImageButton
+            android:id="@+id/gallery_btn"
+            android:layout_marginLeft="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/mn_gallery_off"
+            />
+        <ImageButton
+            android:id="@+id/sns_btn"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="23dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/mn_sns_on"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

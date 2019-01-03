@@ -30,7 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
 import java.util.ArrayList;
 
@@ -60,7 +61,7 @@ public class CoverFragment extends Fragment
     @BindView(R.id.play_btn) ImageButton play_btn;
     @BindView(R.id.gallery_btn) ImageButton gallery_btn;
     @BindView(R.id.sns_btn) ImageButton sns_btn;
-    LinearLayout layout = null;
+    RelativeLayout layout = null;
 
     //커버
     boolean state= false;
@@ -77,16 +78,16 @@ public class CoverFragment extends Fragment
     @TargetApi(11)
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = (LinearLayout) inflater.inflate(R.layout.fragment_cover, container, false);
+        layout = (RelativeLayout) inflater.inflate(R.layout.fragment_cover, container, false);
         ButterKnife.bind(this, layout);
         initSetting();
         btnSetting();
-        resizeLayout();
+        //resizeLayout();
         return layout;
     }
 
     public void initSetting() {
-        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(play_btn);
+        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
         if(ApplicationStatus.isPlaying)
             Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
         else
@@ -175,7 +176,7 @@ public class CoverFragment extends Fragment
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){ // 유저가 화면을 보고있을 때
             if(this.layout != null){
-                GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(play_btn);
+                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
                 if(ApplicationStatus.isPlaying){
                     Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
                     return;
@@ -189,8 +190,6 @@ public class CoverFragment extends Fragment
         }
         else
             Log.d("SetUserHint","Cover OFF");
-
-
     }
 
 

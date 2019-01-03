@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="336dp"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    >
+
+    <ImageButton
+        android:id="@+id/gallary_img"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@null"
+        />
+    <TextView
+        android:id="@+id/gallary_img_title"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:paddingLeft="24dp"
+        android:text="검정치마"
+        android:textSize="17dp"
+        android:textColor="#222222"
+        android:fontFamily="@font/notosanskr_medium"
+        />
+
+</LinearLayout>
