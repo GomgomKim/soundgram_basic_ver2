@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000"
-    android:orientation="vertical"
+    android:background="#000000"
     tools:context="test.dahun.mobileplay.main.MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/mv_close_btn"
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/back"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
         <TextView
             android:id="@+id/mv_pop_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13dp"/>
-    </LinearLayout>
-
+            android:text="한국대중음악상이 사랑한 인디밴드"
+            android:textSize="17dp"
+            android:textColor="#ebebeb"
+            android:fontFamily="@font/notosanskr_medium"
+            android:layout_centerInParent="true"
+            />
+        <ImageButton
+            android:layout_alignParentRight="true"
+            android:id="@+id/mv_close_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="14dp"
+            android:background="@drawable/btn_close"/>
+    </RelativeLayout>
 
     <com.google.android.youtube.player.YouTubePlayerView
+        android:layout_centerInParent="true"
         android:id="@+id/youtube"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_gravity="center"/>
 
 
-</LinearLayout>
+</RelativeLayout>

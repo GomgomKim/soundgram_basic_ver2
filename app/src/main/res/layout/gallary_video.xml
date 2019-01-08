@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="238dp"
+    android:layout_height="wrap_content"
     android:background="#ffffff"
     >
     <FrameLayout
@@ -23,12 +23,13 @@
     <TextView
         android:id="@+id/gallary_video_title"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:paddingLeft="24dp"
         android:text="검정치마"
         android:textSize="17dp"
         android:textColor="#222222"
         android:fontFamily="@font/notosanskr_medium"
+        android:paddingBottom="8dp"
         />
 
 </LinearLayout>

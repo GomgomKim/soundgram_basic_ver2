@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/whole_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -24,7 +25,8 @@
             android:textSize="28dp"
             android:textColor="#f2efe0"
             android:fontFamily="@font/notosanskr_regular"
-            android:paddingBottom="8dp"
+            android:paddingBottom="6dp"
+            android:includeFontPadding="false"
             />
         <TextView
             android:id="@+id/singer"
@@ -34,7 +36,7 @@
             android:textSize="16dp"
             android:textColor="#f2efe0"
             android:fontFamily="@font/notosanskr_regular"
-            android:paddingBottom="8dp"
+            android:includeFontPadding="false"
             />
     </LinearLayout>
 
@@ -107,6 +109,7 @@
                 />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/heart_touch_area"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -119,15 +122,15 @@
                 android:layout_marginRight="6dp"
                 android:background="@drawable/like_off"
                 />
+
             <TextView
                 android:id="@+id/heart_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:textColor="#f2efe0"
                 android:fontFamily="@font/notosanskr_regular"
                 android:text="0"
-                />
+                android:textColor="#f2efe0"
+                android:textSize="14dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -148,9 +151,11 @@
     <SeekBar
         android:id="@+id/musicProgress"
         android:layout_width="357dp"
-        android:layout_height="2dp"
+        android:layout_height="40dp"
         android:layout_above="@+id/time_rate"
         android:layout_centerInParent="true"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         />
 
     <LinearLayout

@@ -1,6 +1,8 @@
 package test.dahun.mobileplay.tab;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +39,8 @@ public class SubMusicView extends LinearLayout {
   public void initSetting(int index){
 
     CircleImageView imageView=(CircleImageView) view.findViewById(R.id.play_2_trackImage);
+    BitmapFactory.Options options = new BitmapFactory.Options();
+    options.inJustDecodeBounds = true;
 
     switch(index){
       case 0:

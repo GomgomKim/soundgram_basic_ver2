@@ -1,25 +1,28 @@
 package test.dahun.mobileplay.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.main.MainActivity;
+
+import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
 public class PlayListAdapter extends BaseAdapter {
     LayoutInflater inflater;
 
     private ArrayList<PlayListItem> mItems = new ArrayList<>();
+    private LinearLayout heart_touch_area;
+    private LinearLayout song_touch_area;
     private TextView index;
     private ImageView heart;
     private TextView heart_num;
@@ -85,6 +88,8 @@ public class PlayListAdapter extends BaseAdapter {
         switch (res){
             case 0: // 곡 목록
                 index = (TextView) convertView.findViewById(R.id.index);
+                heart_touch_area = (LinearLayout) convertView.findViewById(R.id.heart_touch_area);
+                song_touch_area = (LinearLayout) convertView.findViewById(R.id.song_touch_area);
                 heart = (ImageButton) convertView.findViewById(R.id.heart);
                 heart_num = (TextView) convertView.findViewById(R.id.heart_num);
                 title_img = (ImageView) convertView.findViewById(R.id.title_img);
@@ -104,7 +109,8 @@ public class PlayListAdapter extends BaseAdapter {
                         title_img.setVisibility(View.GONE);
                     }
 
-                    heart.setOnClickListener(new View.OnClickListener() {
+                    // 하트 터치
+                    heart_touch_area.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             int is_heart = mItems.get(position).getHeart();
@@ -118,6 +124,20 @@ public class PlayListAdapter extends BaseAdapter {
                             notifyDataSetChanged();
                         }
                     });
+
+                    // 곡명 터치
+                    song_touch_area.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            /*Bundle bundle = new Bundle(1);
+                            bundle.putInt("song_index", position);
+                            new MusicFragment().newInstance(position);*/
+                            MainActivity.setPosition(position);
+                            MainActivity.setState(0);
+                            setViewPagerTabListener.setTab(2);
+                        }
+                    });
+
                 }
                 break;
             case 1: // 앨범 소개

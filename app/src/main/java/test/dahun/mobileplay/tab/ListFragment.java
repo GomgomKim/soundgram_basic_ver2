@@ -1,6 +1,7 @@
 package test.dahun.mobileplay.tab;
 
 
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -17,6 +18,10 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -81,7 +86,28 @@ public class ListFragment extends Fragment {
             else
                 playListAdapter.addItem(0, i+1, R.drawable.like_off, heart_nums.get(i), titles.get(i), "검정치마", 0);
         }
-        playListAdapter.addItem(1, "안녕하세요 앤츠(Ants) 입니다.", "컨텐츠...");
+
+        // make content
+        AssetManager am = getContext().getAssets();
+        InputStream inputStream;
+        InputStreamReader inputStreamReader;
+        BufferedReader br;
+        String read=null;
+        String content="";
+        try {
+            inputStream = am.open("content.txt");
+            inputStreamReader = new InputStreamReader(inputStream,"utf-8");
+            br = new BufferedReader(inputStreamReader);
+
+            while((read=br.readLine())!=null){
+                content+=read;
+                content+="\n";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        playListAdapter.addItem(1, "안녕하세요 '앤츠(Ants)' 입니다.", content);
         play_list.setAdapter(playListAdapter);
     }
 

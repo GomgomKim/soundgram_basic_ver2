@@ -2,32 +2,18 @@ package test.dahun.mobileplay.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
-import com.github.chrisbanes.photoview.PhotoView;
-import com.github.chrisbanes.photoview.PhotoViewAttacher;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.tab.ImageActivity;
 import test.dahun.mobileplay.tab.VideoActivity;
 
 public class GallaryListAdapter extends BaseAdapter {
@@ -106,14 +92,14 @@ public class GallaryListAdapter extends BaseAdapter {
                 }
 
                 // 이미지 팝업
-                LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                /*LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View popupView = inflater.inflate(R.layout.popup_gallary_img, null);
                 final PopupWindow popup = new PopupWindow(popupView,
                         WindowManager.LayoutParams.MATCH_PARENT,
                         WindowManager.LayoutParams.MATCH_PARENT,
-                        true);
+                        true);*/
 
-                final String popup_title = current_item.getTitle();
+                final String image_title = current_item.getTitle();
                 final int img_resource = current_item.getImg_resource();
 
 
@@ -121,8 +107,12 @@ public class GallaryListAdapter extends BaseAdapter {
                 gallary_img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Intent intent = new Intent(context, ImageActivity.class);
+                        intent.putExtra("image_title", image_title);
+                        intent.putExtra("img_resource", img_resource);
+                        context.startActivity(intent);
                         // 팝업 윈도우 생성
-                        popup.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+                        /*popup.showAtLocation(popupView, Gravity.CENTER, 0, 0);
 
                         // elements 불러오기
                         final RelativeLayout top_layout = (RelativeLayout) popupView.findViewById(R.id.top_layout);
@@ -137,19 +127,22 @@ public class GallaryListAdapter extends BaseAdapter {
                         // 이미지 넣기
                         popup_img.setBackgroundResource(img_resource);
 
-                        // title 사라지기
+                        // title 나타내기
                         popupView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if(top_layout.getVisibility() == View.VISIBLE){
-                                    TranslateAnimation animation = new TranslateAnimation(
-                                            0, 0, 0, -200
+                                if(top_layout.getVisibility() == View.GONE){
+                                    top_layout.setVisibility(View.VISIBLE);
+                                    // 애니메이션
+                                    *//*TranslateAnimation animation = new TranslateAnimation(
+                                            0, 0, -200, 0
                                     );
                                     animation.setDuration(1000);
-                                    top_layout.startAnimation(animation);
+                                    top_layout.startAnimation(animation);*//*
+                                    bottom_layout.setBackgroundColor(Color.WHITE);
+                                } else if(top_layout.getVisibility() == View.VISIBLE){
                                     top_layout.setVisibility(View.GONE);
-                                } else if(top_layout.getVisibility() == View.GONE){
-                                    top_layout.setVisibility(View.VISIBLE);
+                                    bottom_layout.setBackgroundColor(Color.BLACK);
                                 }
                             }
                         });
@@ -158,9 +151,11 @@ public class GallaryListAdapter extends BaseAdapter {
                         btn_close.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                bottom_layout.setBackgroundColor(Color.BLACK);
+                                top_layout.setVisibility(View.GONE);
                                 popup.dismiss();
                             }
-                        });
+                        });*/
                     }
                 });
                 break;
@@ -169,6 +164,7 @@ public class GallaryListAdapter extends BaseAdapter {
                 gallary_video_play = (ImageButton) convertView.findViewById(R.id.gallary_video_play);
                 gallary_video_title = (TextView) convertView.findViewById(R.id.gallary_video_title);
                 final String video_id = current_item.getVideo_code();
+                final String video_title = current_item.getTitle();
 
                 gallary_video_img.setBackgroundResource(current_item.getImg_resource());
 
@@ -178,10 +174,11 @@ public class GallaryListAdapter extends BaseAdapter {
                     public void onClick(View view) {
                         Intent intent = new Intent(context, VideoActivity.class);
                         intent.putExtra("video_id", video_id);
+                        intent.putExtra("video_title", video_title);
                         context.startActivity(intent);
                     }
                 });
-                gallary_video_title.setText(current_item.getTitle());
+                gallary_video_title.setText(video_title);
                 break;
         }
 

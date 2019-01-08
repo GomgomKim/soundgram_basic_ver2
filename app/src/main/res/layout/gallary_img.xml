@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="336dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#ffffff"
     >
@@ -16,12 +16,13 @@
     <TextView
         android:id="@+id/gallary_img_title"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:paddingLeft="24dp"
         android:text="검정치마"
         android:textSize="17dp"
         android:textColor="#222222"
         android:fontFamily="@font/notosanskr_medium"
+        android:paddingBottom="8dp"
         />
 
 </LinearLayout>

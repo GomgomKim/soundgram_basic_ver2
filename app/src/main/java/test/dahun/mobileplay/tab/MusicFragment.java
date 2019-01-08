@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,18 +21,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
 import java.io.BufferedReader;
@@ -48,9 +41,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.MusicCustomPagerAdapter;
-import test.dahun.mobileplay.adapter.ViewPagerAdapter;
+import test.dahun.mobileplay.adapter.MusicInfoItem;
+import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.model.ApplicationStatus;
-import test.dahun.mobileplay.model.Fan;
 import test.dahun.mobileplay.ui.VerticalViewPager;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
@@ -61,7 +54,10 @@ import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabList
 
 public class MusicFragment extends Fragment
 {
+    @BindView(R.id.whole_layout) RelativeLayout whole_layout;
+
     @BindView(R.id.album_img) LinearLayout album_img;
+    @BindView(R.id.heart_touch_area) LinearLayout heart_touch_area;
 
     @BindView(R.id.title) TextView title;
     @BindView(R.id.singer) TextView singer;
@@ -97,6 +93,7 @@ public class MusicFragment extends Fragment
     int pos; // 재생 멈춘 시점
     boolean isPlaying = false; // 재생중인지 확인할 변수
     boolean restart = false; // 재생중인지 확인할 변수
+    int total;
 
     Timer timer=null;
     TimerHandler timerHandler;
@@ -121,6 +118,13 @@ public class MusicFragment extends Fragment
 
     //화면 새로고침은 처음만
     int refresh = 0;
+
+    //곡 바로이동
+    int music_index = -1;
+
+    //곡 제목, 작곡, 작사, 편곡
+    MusicInfoItem musicInfoItem;
+    ArrayList<MusicInfoItem> music_info;
 
     class MusicThread extends Thread {
         @Override
@@ -184,6 +188,10 @@ public class MusicFragment extends Fragment
         playmode();
         like_music();
         switch_music();
+
+        //list - music 바로가기
+        //newInstance(-1);
+        //getSongIndex();
         return layout;
     }
 
@@ -201,7 +209,13 @@ public class MusicFragment extends Fragment
         musicarr.add("강아지");  like_count.add(9);
         musicarr.add("Antifreeze");  like_count.add(75);
 
+        // make music info
+        music_info = new ArrayList<>();
+        musicInfoItem = new MusicInfoItem("She's a Baby", "ZICO, Poptime", "ZICO", "ZICO, Poptime");
+        music_info.add(musicInfoItem);
+
         title.setText(musicarr.get(0));
+
         heart_num.setText(String.valueOf(like_count.get(0)));
 
         btn_prevplay.setAlpha(0.5f);
@@ -228,7 +242,13 @@ public class MusicFragment extends Fragment
                 //노래제목
                 btn_play.setBackgroundResource(R.drawable.btn_pause);
                 title.setText(musicarr.get(position));
-                heart_num.setText(String.valueOf(like_count.get(position)));
+
+                //하트 개수
+                String heart_count = "";
+                int current_like_count = like_count.get(position);
+                if(current_like_count >= 1000)  heart_count = (current_like_count/1000)+"k";
+                else heart_count = String.valueOf(current_like_count);
+                heart_num.setText(heart_count);
                 changeMusic(position);
                 changeLyrics(position);
                 changePlay(position);
@@ -248,7 +268,7 @@ public class MusicFragment extends Fragment
         timerHandler=new TimerHandler();
 
         currentTime.setText("00:00");
-        final int total = mp.getDuration(); // 노래의 재생시간(miliSecond)
+        total = mp.getDuration(); // 노래의 재생시간(miliSecond)
         totalTime=timeTranslation(total/1000);
         maxTime.setText(totalTime);
 
@@ -464,10 +484,25 @@ public class MusicFragment extends Fragment
             public void onClick(View v) {
 
                 //클릭시 팝업 윈도우 생성
-                popup = new PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, 1200, true);
+                popup = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, true);
 
-                LinearLayout popupLayout = (LinearLayout)layout.findViewById(R.id.album_img);
+                RelativeLayout popupLayout = (RelativeLayout)layout.findViewById(R.id.whole_layout);
                 popup.showAtLocation(popupLayout, Gravity.CENTER, 0, 0);
+
+                ImageButton btn_close = (ImageButton) popupView.findViewById(R.id.btn_close);
+                TextView title = (TextView) popupView.findViewById(R.id.title);
+                TextView info = (TextView) popupView.findViewById(R.id.info);
+                title.setText(music_info.get(0).getMusic_title());
+                info.setText("작곡 : "+music_info.get(0).getComposition()+"\n"+
+                                "작사 : "+music_info.get(0).getWriter()+"\n"+
+                                "편곡 : "+music_info.get(0).getArrangement()+"\n");
+
+                btn_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        popup.dismiss();
+                    }
+                });
 
             }
         });
@@ -477,7 +512,7 @@ public class MusicFragment extends Fragment
         AssetManager am = getContext().getAssets();
         try {
             InputStream inputStream = am.open("first.txt");
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream,"utf-8");
             BufferedReader br = new BufferedReader(inputStreamReader);
 
             String read=null;
@@ -590,7 +625,7 @@ public class MusicFragment extends Fragment
             case 0:
                 try {
                     inputStream = am.open("first.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
                     br = new BufferedReader(inputStreamReader);
 
                     while((read=br.readLine())!=null){
@@ -604,7 +639,7 @@ public class MusicFragment extends Fragment
             case 1:
                 try {
                     inputStream = am.open("second.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
                     br = new BufferedReader(inputStreamReader);
 
                     while((read=br.readLine())!=null){
@@ -618,7 +653,7 @@ public class MusicFragment extends Fragment
             case 2:
                 try {
                     inputStream = am.open("third.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
                     br = new BufferedReader(inputStreamReader);
 
                     while((read=br.readLine())!=null){
@@ -632,7 +667,7 @@ public class MusicFragment extends Fragment
             case 3:
                 try {
                     inputStream = am.open("fourth.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
                     br = new BufferedReader(inputStreamReader);
 
                     while((read=br.readLine())!=null){
@@ -646,7 +681,7 @@ public class MusicFragment extends Fragment
             case 4:
                 try {
                     inputStream = am.open("fifth.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
                     br = new BufferedReader(inputStreamReader);
 
                     while((read=br.readLine())!=null){
@@ -660,7 +695,7 @@ public class MusicFragment extends Fragment
             case 5:
                 try {
                     inputStream = am.open("sixth.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
                     br = new BufferedReader(inputStreamReader);
 
                     while((read=br.readLine())!=null){
@@ -674,7 +709,7 @@ public class MusicFragment extends Fragment
             case 6:
                 try {
                     inputStream = am.open("seventh.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"euc-kr");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
                     br = new BufferedReader(inputStreamReader);
 
                     while((read=br.readLine())!=null){
@@ -714,7 +749,6 @@ public class MusicFragment extends Fragment
             Log.d("SetUserHint","Music ON");
             View view = layout;
             if (view != null) {
-
                 if(refresh == 0){
                     getFragmentManager().beginTransaction()
                             .detach(this)
@@ -723,12 +757,22 @@ public class MusicFragment extends Fragment
                     refresh++;
                 }
 
+                // 음악 바로가기
+                if(MainActivity.getState() == 0){
+                    int position = MainActivity.getPosition();
+                    musicPager.setCurrentItem(position);
+                    MainActivity.setState(1);
+                }
+
+
+
                 DrawableImageViewTarget
                         imageViewTarget = new DrawableImageViewTarget(play_btn);
                 if (ApplicationStatus.isPlaying)
                     Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
                 else
                     Glide.with(getContext()).load(R.drawable.mn_play_on).into(imageViewTarget);
+
 
             }
         }
@@ -769,7 +813,7 @@ public class MusicFragment extends Fragment
     }
 
     public void like_music(){
-        heart.setOnClickListener(new View.OnClickListener() {
+        heart_touch_area.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if((Integer)heart.getTag() == 0){
@@ -831,5 +875,13 @@ public class MusicFragment extends Fragment
         float dp = px/density;
         return dp;
     }
+
+   /* public void getSongIndex(){
+        music_index = getArguments().getInt("music_index", -1);
+        if(music_index != -1){
+            musicPager.setCurrentItem(music_index);
+        }
+    }*/
+
 
 }

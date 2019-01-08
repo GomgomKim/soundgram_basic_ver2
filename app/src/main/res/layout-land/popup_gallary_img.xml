@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="#ffffff"
+        android:visibility="gone"
+        >
+        <TextView
+            android:id="@+id/popup_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="검정치마 '조휴일'"
+            android:textSize="17dp"
+            android:textColor="#454545"
+            android:fontFamily="@font/notosanskr_medium"
+            />
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_close"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_layout"
+        android:background="#000000"
+        ></RelativeLayout>
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/popup_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        />
+
+</RelativeLayout>

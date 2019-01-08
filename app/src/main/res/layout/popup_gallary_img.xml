@@ -9,7 +9,8 @@
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="66dp"
-        android:background="#e6222222"
+        android:background="#ffffff"
+        android:visibility="gone"
         >
         <TextView
             android:id="@+id/popup_text"
@@ -18,7 +19,7 @@
             android:layout_centerInParent="true"
             android:text="검정치마 '조휴일'"
             android:textSize="17dp"
-            android:textColor="#ebebeb"
+            android:textColor="#454545"
             android:fontFamily="@font/notosanskr_medium"
             />
         <ImageButton
@@ -37,13 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/top_layout"
-        android:background="#e6222222"
+        android:background="#000000"
         ></RelativeLayout>
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/popup_img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         />
 

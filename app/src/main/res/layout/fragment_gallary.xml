@@ -25,7 +25,6 @@
         android:layout_below="@+id/top_layout"
         android:layout_above="@+id/bottom_layout"
         android:background="#ffffff"
-        android:dividerHeight="8dp"
         android:divider="#ffffff"
         >
     </ListView>

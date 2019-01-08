@@ -58,7 +58,9 @@
                 android:fontFamily="@font/notosanskr_regular"
                 android:text="  검정치마  "
                 android:textColor="#f2efe0"
-                android:textSize="19dp" />
+                android:textSize="19dp"
+                android:includeFontPadding="false"
+                />
 
         </LinearLayout>
 

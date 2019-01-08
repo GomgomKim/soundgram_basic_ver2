@@ -1,23 +1,18 @@
 package test.dahun.mobileplay.main;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.v4.content.IntentCompat;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
-import test.dahun.mobileplay.tab.CoverFragment;
 
 public class MainActivity extends AppCompatActivity {
     ViewPager mainPager;
     ViewPagerAdapter viewPagerAdapter;
     SetViewPagerTabListener setViewPagerTabListener;
+    public static int position=0;
+    public static int state=0;
 
 
     public interface SetViewPagerTabListener{
@@ -83,15 +78,22 @@ public class MainActivity extends AppCompatActivity {
         mainPager.setAdapter(viewPagerAdapter);
     }
 
-    //앱 재시작
-    public static void restartApp(Context context) {
-        PackageManager packageManager = context.getPackageManager();
-        Intent intent = packageManager.getLaunchIntentForPackage(context.getPackageName());
-        ComponentName componentName = intent.getComponent();
-        Intent mainIntent = IntentCompat.makeRestartActivityTask(componentName);
-        context.startActivity(mainIntent);
-        System.exit(0);
+    public static void setPosition(int p){
+        position = p;
     }
+
+    public static int getPosition(){
+        return position;
+    }
+
+    public static void setState(int s){
+        state = s;
+    }
+
+    public static int getState(){
+        return state;
+    }
+
 
 
 }

@@ -8,10 +8,8 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
-import android.telephony.TelephonyManager;
 
 import java.util.Calendar;
-import java.util.UUID;
 
 /**
  * Created by jeongdahun on 2017. 11. 1..
@@ -134,35 +132,18 @@ public class CommonUtils {
     }
 
 
-    public static String getMyNumber(Context context, String string) {
-        String res = "";
-        TelephonyManager telephone = (TelephonyManager) context.getSystemService("phone");
-        if (telephone.getLine1Number() == null) { // 에뮬일때를 위해
-            res = "";
-        } else {
-            res = telephone.getLine1Number();
-        }
 
-        if (res.contains("+82")) {
-            res = res.replace("+82", "0");
-        }
-
-        if (res == null)
-            res = string;
-
-        return res;
-    }
 
     /**
      * 인증 확인 : 프리퍼런스에 저장된 값을 찾아온다
      **/
-    public static boolean isAuthCreated(Context context) {
+   /* public static boolean isAuthCreated(Context context) {
         String id = getStringPref(context, "User.id", null);
         if (id != null)
             return true;
         return false;
     }
-
+*/
     /**
      * 인증 생성 : 프리퍼런스에 값을 저장한다
      **/
@@ -300,7 +281,7 @@ public class CommonUtils {
     /**
      * 유니크한 ID 맹글기
      **/
-    public static String getDevicesUUID(Context mContext) {
+    /*public static String getDevicesUUID(Context mContext) {
         final TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
 
         final String tmDevice, tmSerial, androidId;
@@ -313,6 +294,6 @@ public class CommonUtils {
         String deviceId = deviceUuid.toString();
 
         return deviceId;
-    }
+    }*/
 
 }

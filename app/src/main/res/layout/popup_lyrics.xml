@@ -1,23 +1,77 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/popup_element"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    android:background="@drawable/play_ic_popup"
-    android:orientation="vertical"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:background="#e6ffffff"
     >
+   <RelativeLayout
+       android:id="@+id/top_layout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"
+       >
+      <ImageButton
+          android:id="@+id/btn_close"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:layout_alignParentRight="true"
+          android:background="@drawable/btn_close"
+          />
+   </RelativeLayout>
+
+   <LinearLayout
+       android:id="@+id/title_layout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/top_layout"
+       android:orientation="vertical"
+       >
+      <TextView
+          android:id="@+id/title"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="She's a Baby"
+          android:textSize="24dp"
+          android:textColor="#454545"
+          android:fontFamily="@font/notosanskr_regular"
+          android:gravity="center"
+          android:includeFontPadding="false"
+          android:paddingTop="16dp"
+          android:paddingBottom="16dp"
+          />
+      <TextView
+          android:id="@+id/info"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="작사\n작곡\n편곡"
+          android:textSize="14dp"
+          android:textColor="#454545"
+          android:fontFamily="@font/notosanskr_light"
+          android:includeFontPadding="false"
+          android:lineSpacingExtra="6dp"
+          />
+
+
+   </LinearLayout>
 
    <ScrollView
        android:layout_width="match_parent"
-       android:layout_height="match_parent">
-
+       android:layout_height="match_parent"
+       android:layout_below="@+id/title_layout"
+       android:paddingTop="20dp"
+       >
       <TextView
-          android:gravity="center"
           android:id="@+id/lyricsText"
           android:layout_width="match_parent"
-          android:textColor="#000"
-          android:layout_height="match_parent" />
+          android:layout_height="wrap_content"
+          android:textSize="14dp"
+          android:textColor="#454545"
+          android:fontFamily="@font/notosanskr_light"
+          />
    </ScrollView>
 
 
-</LinearLayout>
+</RelativeLayout>
