@@ -12,7 +12,7 @@
         android:id="@+id/intro_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="안녕하세요 '앤츠(Ants)'입니다."
+        android:text="안녕하세요 '검정치'입니다."
         android:textSize="17dp"
         android:textColor="#222222"
         android:fontFamily="@font/notosanskr_regular"

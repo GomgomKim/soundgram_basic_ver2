@@ -21,7 +21,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.GallaryListAdapter;
-import test.dahun.mobileplay.adapter.PlayListAdapter;
 import test.dahun.mobileplay.model.ApplicationStatus;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
@@ -69,7 +68,7 @@ public class GallaryFragment extends Fragment {
         gallaryListAdapter = new GallaryListAdapter(getContext());
         gallaryListAdapter.addItem(0, "검정치마 '조휴일'", R.drawable.galleryimg_01);
         gallaryListAdapter.addItem(1, "한국대중음악상이 사랑한 인디밴드", R.drawable.galleryimg_02, "aCj1Igctb8s");
-        gallaryListAdapter.addItem(0, "음반작업 현장", R.drawable.galleryimg_03);
+//        gallaryListAdapter.addItem(0, "음반작업 현장", R.drawable.galleryimg_03);
         gallary_list.setAdapter(gallaryListAdapter);
     }
 
@@ -161,5 +160,7 @@ public class GallaryFragment extends Fragment {
         else
             Log.d("SetUserHint","Cover OFF");
     }
+
+
 
 }

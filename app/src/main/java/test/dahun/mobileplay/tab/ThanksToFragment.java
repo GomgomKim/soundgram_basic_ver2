@@ -4,15 +4,12 @@ package test.dahun.mobileplay.tab;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -28,7 +25,6 @@ import java.io.InputStreamReader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
-import test.dahun.mobileplay.adapter.GallaryListAdapter;
 import test.dahun.mobileplay.adapter.ThanksToAdapter;
 import test.dahun.mobileplay.model.ApplicationStatus;
 
@@ -107,40 +103,6 @@ public class ThanksToFragment extends Fragment {
                                 .into(singer_img);
     }
 
-    public void resizeLayout(){
-        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        float context_height = pxToDp(dm.heightPixels);
-        final int layout_height = dpToPx(context_height - 306);
-        intro_list.post(new Runnable() {
-            @Override
-            public void run() {
-                LinearLayout.LayoutParams position = new LinearLayout.LayoutParams(
-                        intro_list.getWidth(), layout_height
-                );
-                intro_list.setLayoutParams(position);
-            }
-        });
-
-    }
-
-    //dp를 px로
-    public int dpToPx(float dp){
-        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, dm);
-        return px;
-    }
-
-    //px를 dp로
-    public float pxToDp(float px){
-        float density = getContext().getResources().getDisplayMetrics().density;
-
-        if(density == 1.0) density *= 4.0;
-        else if(density == 1.5) density *= (8/3);
-        else if(density == 2.0) density *= 2.0;
-
-        float dp = px/density;
-        return dp;
-    }
 
     public void btnSetting(){
         home_btn.setOnClickListener(new View.OnClickListener() {

@@ -103,6 +103,9 @@ public class PlayListAdapter extends BaseAdapter {
                     title.setText(current_item.getTitle());
                     singer.setText(current_item.getSinger());
 
+                    //set Image
+                    title_img.setImageResource(R.drawable.bl_title);
+
                     if(current_item.getIsTitle() == 1){
                         title_img.setVisibility(View.VISIBLE);
                     } else if(current_item.getIsTitle() == 0){

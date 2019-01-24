@@ -107,7 +107,7 @@ public class ListFragment extends Fragment {
             e.printStackTrace();
         }
 
-        playListAdapter.addItem(1, "안녕하세요 '앤츠(Ants)' 입니다.", content);
+        playListAdapter.addItem(1, "안녕하세요 '검정치마' 입니다.", content);
         play_list.setAdapter(playListAdapter);
     }
 

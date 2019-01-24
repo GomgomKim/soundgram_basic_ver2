@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
     public static int position=0;
     public static int state=0;
 
-
     public interface SetViewPagerTabListener{
         void setTab(int position);
     }

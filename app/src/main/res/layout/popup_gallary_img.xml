@@ -39,13 +39,17 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/top_layout"
         android:background="#000000"
-        ></RelativeLayout>
+        >
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/popup_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:scaleType="centerInside"
+            />
+    </RelativeLayout>
 
-    <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/popup_img"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        />
+
 
 </RelativeLayout>

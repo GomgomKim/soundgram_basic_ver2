@@ -25,11 +25,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".tab.VideoActivity" />
-        <activity android:name=".tab.ImageActivity"
+        <activity
+            android:name=".tab.ImageActivity"
             android:configChanges="screenSize|orientation|layoutDirection"
-            android:screenOrientation="sensor"
-            >
-        </activity>
+            android:screenOrientation="sensor" />
+        <activity android:name=".tab.SurviceInfoActivity" />
+
+        <service
+            android:name="test.dahun.soundgram_basic.SoundService"
+            android:enabled="true"></service>
     </application>
 
 </manifest>

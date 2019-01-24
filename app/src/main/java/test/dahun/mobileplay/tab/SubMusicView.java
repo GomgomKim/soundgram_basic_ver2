@@ -1,23 +1,16 @@
 package test.dahun.mobileplay.tab;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-import test.dahun.mobileplay.BuildConfig;
 import test.dahun.mobileplay.R;
-import test.dahun.mobileplay.main.MainActivity;
 
 public class SubMusicView extends LinearLayout {
 
@@ -30,15 +23,11 @@ public class SubMusicView extends LinearLayout {
     this.context=context;
     LayoutInflater li = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     view = li.inflate(R.layout.layout_submusic, this, true);
-
     initSetting(index);
-
-
   }
 
   public void initSetting(int index){
-
-    CircleImageView imageView=(CircleImageView) view.findViewById(R.id.play_2_trackImage);
+    ImageView imageView = (ImageView) view.findViewById(R.id.play_2_trackImage);
     BitmapFactory.Options options = new BitmapFactory.Options();
     options.inJustDecodeBounds = true;
 
@@ -46,43 +35,47 @@ public class SubMusicView extends LinearLayout {
       case 0:
 //        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
 //        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.albumimg_02).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_02).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 1:
-//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
-//        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.albumimg_03).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_03).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 2:
-//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
-//        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.albumimg_04).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_04).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 3:
-//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
-//        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.albumimg_05).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_05).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 4:
-//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
-//        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.albumimg_06).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_06).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 5:
-//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
-//        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.albumimg_01).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_02).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 6:
-//        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
-//        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.albumimg_02).into(imageView);
+        Glide.with(getContext()).load(R.drawable.albumimg_03).apply(new RequestOptions().circleCrop()).into(imageView);
+        break;
+
+      case 7:
+        Glide.with(getContext()).load(R.drawable.albumimg_04).apply(new RequestOptions().circleCrop()).into(imageView);
+        break;
+
+      case 8:
+        Glide.with(getContext()).load(R.drawable.albumimg_05).apply(new RequestOptions().circleCrop()).into(imageView);
+        break;
+
+      case 9:
+        Glide.with(getContext()).load(R.drawable.albumimg_06).apply(new RequestOptions().circleCrop()).into(imageView);
+        break;
+
+      case 10:
+        Glide.with(getContext()).load(R.drawable.albumimg_02).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
     }
 

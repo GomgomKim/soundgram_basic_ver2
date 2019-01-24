@@ -29,13 +29,15 @@ public class MusicCustomPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-      return 7;
+      return 11;
     }
 
     @Override
     public boolean isViewFromObject(View arg0, Object arg1) {
       return arg0 == arg1;
     }
+
+
 
 
   }

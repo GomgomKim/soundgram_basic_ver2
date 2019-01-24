@@ -10,25 +10,27 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
 import java.io.BufferedReader;
@@ -57,6 +59,7 @@ public class MusicFragment extends Fragment
     @BindView(R.id.whole_layout) RelativeLayout whole_layout;
 
     @BindView(R.id.album_img) LinearLayout album_img;
+    @BindView(R.id.bg_img) ImageView bg_img;
     @BindView(R.id.heart_touch_area) LinearLayout heart_touch_area;
 
     @BindView(R.id.title) TextView title;
@@ -98,7 +101,7 @@ public class MusicFragment extends Fragment
     Timer timer=null;
     TimerHandler timerHandler;
     int time=1;
-    String totalTime=null;
+    String totalTime="";
 
     //가사 Popup
     TextView lyricsText;
@@ -106,12 +109,11 @@ public class MusicFragment extends Fragment
     //음악리스트 Popup
     PopupWindow popup;
 
-
     //노래 제목 리스트
-    ArrayList<String> musicarr = new ArrayList<>();
+    ArrayList<String> musicarr;
 
     //like 갯수
-    ArrayList<Integer> like_count = new ArrayList<>();
+    ArrayList<Integer> like_count;
 
     //auto play 할건지
     boolean isAutoPlay = false;
@@ -119,12 +121,16 @@ public class MusicFragment extends Fragment
     //화면 새로고침은 처음만
     int refresh = 0;
 
-    //곡 바로이동
-    int music_index = -1;
-
     //곡 제목, 작곡, 작사, 편곡
-    MusicInfoItem musicInfoItem;
     ArrayList<MusicInfoItem> music_info;
+
+    //플레이모드 (0 : 전체재생 1: 한곡재생 2: 반복없음)
+    int play_mode = 0;
+
+    //사용자 스크롤 방향
+    boolean checkDirection, scrollStarted = false;
+
+
 
     class MusicThread extends Thread {
         @Override
@@ -136,39 +142,35 @@ public class MusicFragment extends Fragment
         }
     }
 
+    // 현재 재생시간 표시 위해 만듦
+    // handler로 현재 재생시간 전달
     class Timer extends Thread {
         Message message;
 
         @Override
         public void run() { // 쓰레드가 시작되면 콜백되는 메서드
-           // while (!this.isInterrupted()) {
+            while (true) {
+                // 스레드에게 수행시킬 동작들 구현
+                message = timerHandler.obtainMessage();
+                message.arg1 = time;
+                timerHandler.sendMessage(message);
+                time++;
 
-            while(true){
-                 if(mp.isPlaying()){
-                     Log.d(TAG,"TIME");
-                     // 스레드에게 수행시킬 동작들 구현
-                     message=timerHandler.obtainMessage();
-                     message.arg1=time;
-                     timerHandler.sendMessage(message);
-                     time++;
-
-                     try {
-                         Thread.sleep(1000); // 1초간 Thread를 잠재운다
-                     } catch (InterruptedException e) {
-                         e.printStackTrace();
-                     }
-                 }
-
+                try {
+                    Thread.sleep(1000); // 1초간 Thread를 잠재운다
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
+    // 현재 재생시간 표시
     class TimerHandler extends Handler{
         public void handleMessage(Message msg) {
             currentTime.setText(timeTranslation(msg.arg1));
         }
     }
-
 
     public MusicFragment() {
         super();
@@ -181,74 +183,134 @@ public class MusicFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_music, container, false);
         ButterKnife.bind(this, layout);
+        makeData();
         initSetting();
+        musicPagerSetting();
+        seekBarSetting();
+        playBtnSetting();
         btnSetting();
-        //resizeLayout();
         lyrics_popupSetting();
         playmode();
         like_music();
         switch_music();
-
-        //list - music 바로가기
-        //newInstance(-1);
-        //getSongIndex();
         return layout;
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void initSetting() {
-        heart.setTag(0);
+        heart.setTag(0); // 하트의 상태 / 0 : off / 1 : on
+        title.setText(musicarr.get(0)); // 첫번째 노래제목
+        heart_num.setText(String.valueOf(like_count.get(0))); // 첫번째 노래 하트개수
 
-        // make title data
-        musicarr.add("Big Love");  like_count.add(13);
-        musicarr.add("좋아해줘");  like_count.add(1789);
-        musicarr.add("Dientes");   like_count.add(542);
-        musicarr.add("Stand Still"); like_count.add(486);
-        musicarr.add("상아");  like_count.add(992);
-        musicarr.add("강아지");  like_count.add(9);
-        musicarr.add("Antifreeze");  like_count.add(75);
+        Glide.with(getContext()).load(R.drawable.btn_prevplay)
+                .apply(new RequestOptions().fitCenter()).into(btn_prevplay);
+        Glide.with(getContext()).load(R.drawable.btn_nextplay)
+                .apply(new RequestOptions().fitCenter()).into(btn_nextplay);
+        btn_prevplay.setAlpha(0.5f); // 첫번째곡 이전버튼 반투명
 
-        // make music info
-        music_info = new ArrayList<>();
-        musicInfoItem = new MusicInfoItem("She's a Baby", "ZICO, Poptime", "ZICO", "ZICO, Poptime");
-        music_info.add(musicInfoItem);
+        Glide.with(getContext()).load(R.drawable.btn_lyrics)
+                .apply(new RequestOptions().fitCenter()).into(btn_lyric);
 
-        title.setText(musicarr.get(0));
+        DrawableImageViewTarget imageViewTarget2 = new DrawableImageViewTarget(btn_play);
+        Glide.with(getContext()).load(R.drawable.btn_play)
+                .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
 
-        heart_num.setText(String.valueOf(like_count.get(0)));
+//        Glide.with(getContext()).load(R.drawable.bg_play1)
+//                .apply(new RequestOptions().fitCenter()).into(bg_img);
 
-        btn_prevplay.setAlpha(0.5f);
 
-        //equalizer
+        // equalizer setting
         DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-
         if(ApplicationStatus.isPlaying)
             Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
         else
             Glide.with(getContext()).load(R.drawable.mn_play_on).into(imageViewTarget);
 
+        // MediaPlayer 객체 초기화 , 재생
+        mp = MediaPlayer.create(getContext(), R.raw.biglove);
+        mp.setLooping(false);
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                switch (play_mode){
+                    case 0:
+                        endMusic();
+                        if(index == musicarr.size()-1){
+                            musicPager.setCurrentItem(0);
+
+                        } else{
+                            musicPager.setCurrentItem(index + 1);
+                        }
+
+                        break;
+                    case 1:
+                        changeMusic(index);
+                        break;
+                    case 2:
+                        endMusic();
+                        ApplicationStatus.isPlaying = false;
+                        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
+                        Glide.with(getContext()).load(R.drawable.mn_play_on).into(imageViewTarget);
+                        DrawableImageViewTarget imageViewTarget2 = new DrawableImageViewTarget(btn_play);
+                        Glide.with(getContext()).load(R.drawable.btn_play)
+                                .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
+//                        btn_play.setBackgroundResource(R.drawable.btn_play);
+                        break;
+                }
+            }
+        });
+
+        timerHandler = new TimerHandler();
+        currentTime.setText("00:00");
+        total = mp.getDuration(); // 노래의 재생시간(miliSecond)
+        totalTime = timeTranslation(total/1000); // minute - second
+        maxTime.setText(totalTime);
+
+        if(isAutoPlay){
+            autoPlay(total);
+        }
+    }
+
+    public void musicPagerSetting(){
         musicPager.setAdapter(new MusicCustomPagerAdapter(getContext()));
         musicPager.setOnPageChangeListener(new VerticalViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if(checkDirection) {
+                    if(positionOffset < 0.5f){ // 사용자가 아래서 위로 스와이프
+                        if(position == musicarr.size()-1){ // 마지막 곡일 때
+                            Toast.makeText(getContext(), "마지막 곡입니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else { // 사용자가 위에서 아래로 스와이프
 
+                    }
+                    checkDirection = false;
+                }
             }
 
             @Override
             public void onPageSelected(int position) {
+                //change icon
+                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
+                Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
+
+                //초기화
                 time=0;
                 index=position;
+                DrawableImageViewTarget imageViewTarget2 = new DrawableImageViewTarget(btn_play);
+                Glide.with(getContext()).load(R.drawable.btn_pause)
+                        .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
+//                btn_play.setBackgroundResource(R.drawable.btn_pause);
+                seekBar.setProgress(0);
+
                 //노래제목
-                btn_play.setBackgroundResource(R.drawable.btn_pause);
                 title.setText(musicarr.get(position));
 
                 //하트 개수
-                String heart_count = "";
-                int current_like_count = like_count.get(position);
-                if(current_like_count >= 1000)  heart_count = (current_like_count/1000)+"k";
-                else heart_count = String.valueOf(current_like_count);
-                heart_num.setText(heart_count);
+                setHeartNum(like_count.get(position));
+
+                //music control
                 changeMusic(position);
                 changeLyrics(position);
                 changePlay(position);
@@ -256,48 +318,50 @@ public class MusicFragment extends Fragment
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                if( !scrollStarted && state == VerticalViewPager.SCROLL_STATE_DRAGGING){
+                    scrollStarted = true;
+                    checkDirection = true;
+                } else {
+                    scrollStarted = false;
+                }
             }
         });
+    }
 
-        // MediaPlayer 객체 초기화 , 재생
-        mp = MediaPlayer.create(
-                getContext(), // 현재 화면의 제어권자
-                R.raw.first); // 음악파일
-
-        timerHandler=new TimerHandler();
-
-        currentTime.setText("00:00");
-        total = mp.getDuration(); // 노래의 재생시간(miliSecond)
-        totalTime=timeTranslation(total/1000);
-        maxTime.setText(totalTime);
-
+    public void seekBarSetting(){
         // 시크바 초기세팅
         seekBar.setProgress(0);
 
         // 시크바 색상 변경
-        seekBar.getProgressDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        seekBar.getProgressDrawable().setColorFilter(Color.parseColor("#80f2efe0"), PorterDuff.Mode.SRC_IN);
         seekBar.getThumb().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 
+        // 시크바 세팅
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                btn_play.setBackgroundResource(R.drawable.btn_pause);
+            public void onStopTrackingTouch(SeekBar seekBar) { // 누르고 뗐을 때
+                DrawableImageViewTarget imageViewTarget2 = new DrawableImageViewTarget(btn_play);
+                Glide.with(getContext()).load(R.drawable.btn_pause)
+                        .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
+//                btn_play.setBackgroundResource(R.drawable.btn_pause);
+
                 isPlaying = true;
-                int ttt = seekBar.getProgress(); // 사용자가 움직여놓은 위치
-                mp.seekTo(ttt);
+                ApplicationStatus.isPlaying=true;
+
+                int seekBar_position = seekBar.getProgress(); // 사용자가 움직여놓은 위치
+                mp.seekTo(seekBar_position);
                 mp.start();
                 time=mp.getCurrentPosition()/1000;
                 currentTime.setText(timeTranslation(time));
                 new MusicThread().start();
+
+                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
+                Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
             }
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onStartTrackingTouch(SeekBar seekBar) { // 눌러서 움직일 때
                 if(timer==null){
                     timer=new Timer();
                     timer.start();
                 }
-                ApplicationStatus.isPlaying=true;
-                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-                Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
 
                 isPlaying = false;
 
@@ -308,58 +372,28 @@ public class MusicFragment extends Fragment
 
                     new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
 
-                }else
+                } else{
                     mp.pause();
-            }
-            public void onProgressChanged(SeekBar seekBar,int progress,boolean fromUser) {
-                if (seekBar.getMax()==progress) {
-                    //Toast.makeText(getContext(),"finish",Toast.LENGTH_SHORT).show();
-                    isPlaying = false;
-                    restart = true;
-                    mp.stop();
-                    mp.release();
-
-                    time=0;
-                    pos=0;
-                    seekBar.setProgress(0);
-                    currentTime.setText("00:00");
-                    btn_play.setBackgroundResource(R.drawable.btn_play);
-
-                    switch(index){
-                        case 0:
-                            mp = MediaPlayer.create(getContext(), R.raw.first);
-                            break;
-                        case 1:
-                            mp = MediaPlayer.create(getContext(), R.raw.second);
-                            break;
-                        case 2:
-                            mp = MediaPlayer.create(getContext(), R.raw.third);
-                            break;
-                        case 3:
-                            mp = MediaPlayer.create(getContext(), R.raw.fourth);
-                            break;
-                        case 4:
-                            mp = MediaPlayer.create(getContext(), R.raw.fifth);
-                            break;
-                        case 5:
-                            mp = MediaPlayer.create(getContext(), R.raw.sixth);
-                            break;
-                        case 6:
-                            mp = MediaPlayer.create(getContext(), R.raw.seventh);
-                            break;
-
-                    }
-
                 }
+
+                time=mp.getCurrentPosition()/1000;
+                currentTime.setText(timeTranslation(time));
+            }
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
             }
         });
+    }
 
-        btn_play.setOnClickListener(new View.OnClickListener() {
+    public void playBtnSetting(){
+        btn_play.setOnClickListener(new View.OnClickListener() { // 재생버튼
             @Override
             public void onClick(View v) {
-
-                if(isPlaying){
-                    btn_play.setBackgroundResource(R.drawable.btn_play);
+                if(isPlaying) { // 재생중일 때
+                    DrawableImageViewTarget imageViewTarget2 = new DrawableImageViewTarget(btn_play);
+                    Glide.with(getContext()).load(R.drawable.btn_play)
+                            .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
+//                    btn_play.setBackgroundResource(R.drawable.btn_play);
                     ApplicationStatus.isPlaying=false;
                     DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
                     Glide.with(getContext()).load(R.drawable.mn_play_on).into(imageViewTarget);
@@ -370,24 +404,21 @@ public class MusicFragment extends Fragment
                     isPlaying = false; // 쓰레드 정지
                     restart=true;
 
-                    Log.d(TAG,"INTERRUPT");
-                    //timer.interrupt();
-
-                }else{
-                    btn_play.setBackgroundResource(R.drawable.btn_pause);
+                } else { // 정지일 때
+                    DrawableImageViewTarget imageViewTarget2 = new DrawableImageViewTarget(btn_play);
+                    Glide.with(getContext()).load(R.drawable.btn_pause)
+                            .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
+//                    btn_play.setBackgroundResource(R.drawable.btn_pause);
                     ApplicationStatus.isPlaying=true;
                     DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-                     Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
+                    Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
                     if(restart){
-                        Log.d(TAG,"RESTART");
                         // 멈춘 지점부터 재시작
                         mp.seekTo(pos); // 일시정지 시점으로 이동
                         mp.start(); // 시작
                         isPlaying = true; // 재생하도록 flag 변경
                         new MusicThread().start(); // 쓰레드 시작
-                    }else{
-                        Log.d(TAG,"START");
-
+                    } else {
                         mp.setLooping(false); // true:무한반복
                         mp.start(); // 노래 재생 시작
                         seekBar.setMax(total);// 씨크바의 최대 범위를 노래의 재생시간으로 설정
@@ -399,27 +430,8 @@ public class MusicFragment extends Fragment
                         timer.start();
                     }
                 }
-
-
             }
         });
-
-
-
-//        bStop.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // 음악 종료
-//                isPlaying = false; // 쓰레드 종료
-//                mp.stop(); // 멈춤
-//                mp.release(); // 자원 해제
-//                sb.setProgress(0); // 씨크바 초기화
-//            }
-//        });
-
-        if(isAutoPlay){
-            autoPlay(total);
-        }
     }
 
 
@@ -456,20 +468,6 @@ public class MusicFragment extends Fragment
         });
     }
 
-    public void resizeLayout(){
-        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        float context_height = pxToDp(dm.heightPixels);
-        final int layout_height = dpToPx(context_height - 314);
-        album_img.post(new Runnable() {
-            @Override
-            public void run() {
-                LinearLayout.LayoutParams position = new LinearLayout.LayoutParams(
-                        album_img.getWidth(), layout_height
-                );
-                album_img.setLayoutParams(position);
-            }
-        });
-    }
 
     public void lyrics_popupSetting() {
 
@@ -492,10 +490,10 @@ public class MusicFragment extends Fragment
                 ImageButton btn_close = (ImageButton) popupView.findViewById(R.id.btn_close);
                 TextView title = (TextView) popupView.findViewById(R.id.title);
                 TextView info = (TextView) popupView.findViewById(R.id.info);
-                title.setText(music_info.get(0).getMusic_title());
-                info.setText("작곡 : "+music_info.get(0).getComposition()+"\n"+
-                                "작사 : "+music_info.get(0).getWriter()+"\n"+
-                                "편곡 : "+music_info.get(0).getArrangement()+"\n");
+                title.setText(music_info.get(index).getMusic_title());
+                info.setText("작곡 : "+music_info.get(index).getComposition()+"\n"+
+                                "작사 : "+music_info.get(index).getWriter()+"\n"+
+                                "편곡 : "+music_info.get(index).getArrangement()+"\n");
 
                 btn_close.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -530,24 +528,23 @@ public class MusicFragment extends Fragment
         }
     }
 
-    void autoPlay(int total){
+    public void autoPlay(int total){
         mp.setLooping(false); // true:무한반복
-         mp.start(); // 노래 재생 시작
+        mp.start(); // 노래 재생 시작
         seekBar.setMax(total);// 씨크바의 최대 범위를 노래의 재생시간으로 설정
-
-         isPlaying = true; // 씨크바 쓰레드 반복 하도록
+        isPlaying = true; // 씨크바 쓰레드 반복 하도록
         new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
-       timer=new Timer();
+        timer=new Timer();
         timer.start();
     }
 
-    void changePlay(int index){
+    public void changePlay(int index){
         switch (index){
             case 0:
                 btn_prevplay.setAlpha(0.5f);
                 btn_nextplay.setAlpha(1f);
                 break;
-            case 6:
+            case 10:
                 btn_prevplay.setAlpha(1f);
                 btn_nextplay.setAlpha(0.5f);
                 break;
@@ -558,46 +555,9 @@ public class MusicFragment extends Fragment
         }
     }
 
-    void changeMusic(int index){
-
-        // 음악 종료
-        isPlaying = false; // 쓰레드 종료
-        restart = false;
-        if(mp.isPlaying()){
-            mp.stop(); // 멈춤
-            mp.release(); // 자원 해제
-        }
-
-        seekBar.setProgress(0); // 씨크바 초기화
-
-        switch(index){
-            case 0:
-                mp = MediaPlayer.create(getContext(), R.raw.first);
-                break;
-            case 1:
-                mp = MediaPlayer.create(getContext(), R.raw.second);
-                break;
-            case 2:
-                mp = MediaPlayer.create(getContext(), R.raw.third);
-                break;
-            case 3:
-                mp = MediaPlayer.create(getContext(), R.raw.fourth);
-                break;
-            case 4:
-                mp = MediaPlayer.create(getContext(), R.raw.fifth);
-                break;
-            case 5:
-                mp = MediaPlayer.create(getContext(), R.raw.sixth);
-                break;
-            case 6:
-                mp = MediaPlayer.create(getContext(), R.raw.seventh);
-                break;
-
-        }
-
-        Log.d(TAG,"START");
-
-        currentTime.setText("00:00");
+    public void changeMusic(final int index){
+        endMusic();
+        mp = changeMusicPlayer(index);
         int total = mp.getDuration(); // 노래의 재생시간(miliSecond)
         String time=timeTranslation(total/1000);
         maxTime.setText(time);
@@ -607,18 +567,48 @@ public class MusicFragment extends Fragment
         mp.start(); // 노래 재생 시작
 
         isPlaying = true; // 씨크바 쓰레드 반복 하도록
+        ApplicationStatus.isPlaying = true;
         new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
 
-//        timer=new Timer();
-//        timer.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                switch (play_mode){
+                    case 0:
+                        endMusic();
+                        if(index == musicarr.size()-1){
+                            musicPager.setCurrentItem(0);
+
+                        } else{
+                            musicPager.setCurrentItem(index + 1);
+                        }
+
+                        break;
+                    case 1:
+                        changeMusic(index);
+                        break;
+                    case 2:
+                        endMusic();
+                        ApplicationStatus.isPlaying = false;
+                        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
+                        Glide.with(getContext()).load(R.drawable.mn_play_on).into(imageViewTarget);
+                        DrawableImageViewTarget imageViewTarget2 = new DrawableImageViewTarget(btn_play);
+                        Glide.with(getContext()).load(R.drawable.btn_pause)
+                                .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
+//                        btn_play.setBackgroundResource(R.drawable.btn_play);
+                        break;
+                }
+            }
+        });
     }
 
+    // 가사
     public void changeLyrics(int index){
         AssetManager am = getContext().getAssets();
         InputStream inputStream;
         InputStreamReader inputStreamReader;
         BufferedReader br;
-        String read=null;
+        String read="";
         String lyrics="";
 
         switch(index){
@@ -720,6 +710,62 @@ public class MusicFragment extends Fragment
                     e.printStackTrace();
                 }
                 break;
+            case 7:
+                try {
+                    inputStream = am.open("first.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 8:
+                try {
+                    inputStream = am.open("second.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 9:
+                try {
+                    inputStream = am.open("third.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 10:
+                try {
+                    inputStream = am.open("fourth.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
 
         lyricsText.setText(lyrics);
@@ -727,17 +773,29 @@ public class MusicFragment extends Fragment
 
     }
 
-    String timeTranslation(int time){
+    // 재생중인 음악 종료
+    public void endMusic(){
+        isPlaying = false; // 쓰레드 종료
+        restart = false;
+        if(mp.isPlaying()){
+            mp.stop(); // 멈춤
+            mp.reset();
+            mp.release(); // 자원 해제
+        }
+        seekBar.setProgress(0); // 씨크바 초기화
+        mp = changeMusicPlayer(index);
+        currentTime.setText("00:00");
+        time = 0;
+    }
+
+    // 현재시간 나타내기
+    public String timeTranslation(int time){
         int minutes=time/60;
         int second=time-minutes*60;
-
-        String result="0";
-        result+=String.valueOf(minutes);
+        String result="";
+        result+=String.format("%02d", minutes);
         result+=":";
-        if(second<10)
-            result+="0";
-        result+=String.valueOf(second);
-
+        result+=String.format("%02d", second);
         return result;
     }
 
@@ -765,7 +823,6 @@ public class MusicFragment extends Fragment
                 }
 
 
-
                 DrawableImageViewTarget
                         imageViewTarget = new DrawableImageViewTarget(play_btn);
                 if (ApplicationStatus.isPlaying)
@@ -787,31 +844,31 @@ public class MusicFragment extends Fragment
         mp.stop();
     }
 
+    // 전체재생, 1곡재생 눌렀을 때
     public void playmode(){
         btn_repeat.setTag("all");
         btn_repeat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("gomgom", String.valueOf(view.getTag()));
                 if(view.getTag().equals("all")){
                     btn_repeat.setBackgroundResource(R.drawable.btn_repeatone);
                     btn_repeat.setTag("one");
+                    play_mode = 1;
                 }else if(view.getTag().equals("one")){
                     btn_repeat.setBackgroundResource(R.drawable.btn_repeatall);
                     btn_repeat.setAlpha(0.5f);
                     btn_repeat.setTag("none");
-
-                    mp.setLooping(true);
+                    play_mode = 2;
                 }else if(view.getTag().equals("none")){
                     btn_repeat.setAlpha(1f);
                     btn_repeat.setTag("all");
-
-                    mp.setLooping(false);
+                    play_mode = 0;
                 }
             }
         });
     }
 
+    // 하트 눌렀을때
     public void like_music(){
         heart_touch_area.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -819,16 +876,12 @@ public class MusicFragment extends Fragment
                 if((Integer)heart.getTag() == 0){
                     heart.setBackgroundResource(R.drawable.like_on);
                     int current_like_count = like_count.get(index)+1;
-                    like_count.set(index, current_like_count);
-                    String new_like_count = String.valueOf(current_like_count);
-                    heart_num.setText(new_like_count);
+                    setHeartNum(current_like_count);
                     heart.setTag(1);
                 } else if ((Integer)heart.getTag() == 1){
                     heart.setBackgroundResource(R.drawable.like_off);
                     int current_like_count = like_count.get(index)-1;
-                    like_count.set(index, current_like_count);
-                    String new_like_count = String.valueOf(current_like_count);
-                    heart_num.setText(new_like_count);
+                    setHeartNum(current_like_count);
                     heart.setTag(0);
                 }
 
@@ -842,8 +895,10 @@ public class MusicFragment extends Fragment
         btn_nextplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(index != musicarr.size())
+                if(index != musicarr.size()-1)
                     musicPager.setCurrentItem(index+1);
+                else
+                    Toast.makeText(getContext(), "마지막 곡입니다", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -857,31 +912,85 @@ public class MusicFragment extends Fragment
         });
     }
 
-    //dp를 px로
-    public int dpToPx(float dp){
-        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, dm);
-        return px;
+    // 하트갯수 수정
+    public void setHeartNum(int current_like_count){
+        String heart_count = "";
+        if(current_like_count >= 1000)  heart_count = (current_like_count/1000)+"k";
+        else heart_count = String.valueOf(current_like_count);
+        like_count.set(index, current_like_count);
+        heart_num.setText(heart_count);
     }
 
-    //px를 dp로
-    public float pxToDp(float px){
-        float density = getContext().getResources().getDisplayMetrics().density;
-
-        if(density == 1.0) density *= 4.0;
-        else if(density == 1.5) density *= (8/3);
-        else if(density == 2.0) density *= 2.0;
-
-        float dp = px/density;
-        return dp;
-    }
-
-   /* public void getSongIndex(){
-        music_index = getArguments().getInt("music_index", -1);
-        if(music_index != -1){
-            musicPager.setCurrentItem(music_index);
+    public MediaPlayer changeMusicPlayer(int index){
+        switch(index){
+            case 0:
+                mp = MediaPlayer.create(getContext(), R.raw.biglove);
+                break;
+            case 1:
+                mp = MediaPlayer.create(getContext(), R.raw.everything);
+                break;
+            case 2:
+                mp = MediaPlayer.create(getContext(), R.raw.free_land);
+                break;
+            case 3:
+                mp = MediaPlayer.create(getContext(), R.raw.hollywood);
+                break;
+            case 4:
+                mp = MediaPlayer.create(getContext(), R.raw.if_not_me);
+                break;
+            case 5:
+                mp = MediaPlayer.create(getContext(), R.raw.international_love_song);
+                break;
+            case 6:
+                mp = MediaPlayer.create(getContext(), R.raw.kisado);
+                break;
+            case 7:
+                mp = MediaPlayer.create(getContext(), R.raw.love_shine);
+                break;
+            case 8:
+                mp = MediaPlayer.create(getContext(), R.raw.my_home_seoul);
+                break;
+            case 9:
+                mp = MediaPlayer.create(getContext(), R.raw.our_young_love);
+                break;
+            case 10:
+                mp = MediaPlayer.create(getContext(), R.raw.if_not_me);
+                break;
         }
-    }*/
+        mp.setWakeMode(getContext(), PowerManager.PARTIAL_WAKE_LOCK);
 
+        return mp;
+    }
+
+    public void makeData(){
+        // make title data - database 연동예정
+        musicarr = new ArrayList<>();
+        like_count = new ArrayList<>();
+        musicarr.add("Big Love");  like_count.add(13);
+        musicarr.add("좋아해줘");  like_count.add(1789);
+        musicarr.add("Dientes");   like_count.add(542);
+        musicarr.add("Stand Still"); like_count.add(486);
+        musicarr.add("상아");  like_count.add(992);
+        musicarr.add("강아지");  like_count.add(96);
+        musicarr.add("Antifreeze");  like_count.add(9);
+        musicarr.add("Kiss And Tell");  like_count.add(75);
+        musicarr.add("LE Fu Muet");  like_count.add(123);
+        musicarr.add("Diamond");  like_count.add(47);
+        musicarr.add("난 아니에요");  like_count.add(7);
+
+        // make music info - database 연동예정
+        music_info = new ArrayList<>();
+        music_info.add(new MusicInfoItem("Big Love", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("좋아해줘", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("Dientes", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("Stand Still", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("상아", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("강아지", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("Antifreeze", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("Kiss And Tell", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("Le Fou Muet", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("Diamond", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("난 아니에요", "검정치마", "검정치마", "검정치마"));
+    }
 
 }

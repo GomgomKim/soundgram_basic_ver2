@@ -6,9 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -26,7 +29,7 @@ public class GallaryListAdapter extends BaseAdapter {
 
     GallaryListItem current_item;
 
-    private FrameLayout gallary_video_img;
+    private ImageView gallary_video_img;
     private ImageButton gallary_video_play;
     private TextView gallary_video_title;
 
@@ -87,22 +90,13 @@ public class GallaryListAdapter extends BaseAdapter {
                 gallary_img_title = (TextView) convertView.findViewById(R.id.gallary_img_title);
 
                 if(current_item != null){
-                    gallary_img.setBackgroundResource(current_item.getImg_resource());
+                    Glide.with(context).load(current_item.getImg_resource())
+                            .apply(new RequestOptions().fitCenter()).into(gallary_img);
                     gallary_img_title.setText(current_item.getTitle());
                 }
 
-                // 이미지 팝업
-                /*LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                final View popupView = inflater.inflate(R.layout.popup_gallary_img, null);
-                final PopupWindow popup = new PopupWindow(popupView,
-                        WindowManager.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.MATCH_PARENT,
-                        true);*/
-
                 final String image_title = current_item.getTitle();
                 final int img_resource = current_item.getImg_resource();
-
-
 
                 gallary_img.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -111,62 +105,18 @@ public class GallaryListAdapter extends BaseAdapter {
                         intent.putExtra("image_title", image_title);
                         intent.putExtra("img_resource", img_resource);
                         context.startActivity(intent);
-                        // 팝업 윈도우 생성
-                        /*popup.showAtLocation(popupView, Gravity.CENTER, 0, 0);
-
-                        // elements 불러오기
-                        final RelativeLayout top_layout = (RelativeLayout) popupView.findViewById(R.id.top_layout);
-                        final RelativeLayout bottom_layout = (RelativeLayout) popupView.findViewById(R.id.bottom_layout);
-                        TextView popup_text = (TextView) popupView.findViewById(R.id.popup_text);
-                        ImageButton btn_close = (ImageButton) popupView.findViewById(R.id.btn_close);
-                        PhotoView popup_img = (PhotoView) popupView.findViewById(R.id.popup_img);
-
-                        // title 넣기
-                        popup_text.setText(popup_title);
-
-                        // 이미지 넣기
-                        popup_img.setBackgroundResource(img_resource);
-
-                        // title 나타내기
-                        popupView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if(top_layout.getVisibility() == View.GONE){
-                                    top_layout.setVisibility(View.VISIBLE);
-                                    // 애니메이션
-                                    *//*TranslateAnimation animation = new TranslateAnimation(
-                                            0, 0, -200, 0
-                                    );
-                                    animation.setDuration(1000);
-                                    top_layout.startAnimation(animation);*//*
-                                    bottom_layout.setBackgroundColor(Color.WHITE);
-                                } else if(top_layout.getVisibility() == View.VISIBLE){
-                                    top_layout.setVisibility(View.GONE);
-                                    bottom_layout.setBackgroundColor(Color.BLACK);
-                                }
-                            }
-                        });
-
-                        // X 버튼
-                        btn_close.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                bottom_layout.setBackgroundColor(Color.BLACK);
-                                top_layout.setVisibility(View.GONE);
-                                popup.dismiss();
-                            }
-                        });*/
                     }
                 });
                 break;
             case 1: // 동영상
-                gallary_video_img = (FrameLayout) convertView.findViewById(R.id.gallary_video_img);
+                gallary_video_img = (ImageView) convertView.findViewById(R.id.gallary_video_img);
                 gallary_video_play = (ImageButton) convertView.findViewById(R.id.gallary_video_play);
                 gallary_video_title = (TextView) convertView.findViewById(R.id.gallary_video_title);
                 final String video_id = current_item.getVideo_code();
                 final String video_title = current_item.getTitle();
 
-                gallary_video_img.setBackgroundResource(current_item.getImg_resource());
+                Glide.with(context).load(current_item.getImg_resource())
+                        .apply(new RequestOptions().fitCenter()).into(gallary_video_img);
 
                 // play 버튼
                 gallary_video_play.setOnClickListener(new View.OnClickListener() {
@@ -186,7 +136,8 @@ public class GallaryListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void addItem(int type, String title, int img_resource) {
+
+     public void addItem(int type, String title, int img_resource) {
         GallaryListItem mItem = new GallaryListItem();
 
         mItem.setType(type);
@@ -207,4 +158,6 @@ public class GallaryListAdapter extends BaseAdapter {
 
         mItems.add(mItem);
     }
+
+
 }
