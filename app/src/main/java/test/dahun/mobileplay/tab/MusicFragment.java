@@ -1,16 +1,24 @@
 
 package test.dahun.mobileplay.tab;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.os.PowerManager;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -38,6 +46,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +55,8 @@ import test.dahun.mobileplay.adapter.MusicCustomPagerAdapter;
 import test.dahun.mobileplay.adapter.MusicInfoItem;
 import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.model.ApplicationStatus;
+import test.dahun.mobileplay.model.ICounterService;
+import test.dahun.mobileplay.model.MusicService;
 import test.dahun.mobileplay.ui.VerticalViewPager;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
@@ -92,7 +103,6 @@ public class MusicFragment extends Fragment
 
     //음악 관련 변수
     int index=0;
-    static MediaPlayer mp; // 음악 재생을 위한 객체
     int pos; // 재생 멈춘 시점
     boolean isPlaying = false; // 재생중인지 확인할 변수
     boolean restart = false; // 재생중인지 확인할 변수
@@ -124,20 +134,32 @@ public class MusicFragment extends Fragment
     //곡 제목, 작곡, 작사, 편곡
     ArrayList<MusicInfoItem> music_info;
 
-    //플레이모드 (0 : 전체재생 1: 한곡재생 2: 반복없음)
+    //플레이모드 (0: 전체재생 1: 한곡재생 2: 반복없음)
     int play_mode = 0;
 
     //사용자 스크롤 방향
     boolean checkDirection, scrollStarted = false;
 
+    boolean running = true;
 
+    //서비스 연결
+    MusicService mService;
+    boolean mBound = false;
 
     class MusicThread extends Thread {
         @Override
         public void run() { // 쓰레드가 시작되면 콜백되는 메서드
             // 씨크바 막대기 조금씩 움직이기 (노래 끝날 때까지 반복)
             while(isPlaying) {
-                seekBar.setProgress(mp.getCurrentPosition());
+                int progress = mService.getCurrentPosition();
+//                seekBar.setProgress(mp.getCurrentPosition());
+                seekBar.setProgress(progress);
+            }
+
+            try {
+                Thread.sleep(1000); // 1초간 Thread를 잠재운다
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -149,7 +171,7 @@ public class MusicFragment extends Fragment
 
         @Override
         public void run() { // 쓰레드가 시작되면 콜백되는 메서드
-            while (true) {
+            while (running) {
                 // 스레드에게 수행시킬 동작들 구현
                 message = timerHandler.obtainMessage();
                 message.arg1 = time;
@@ -183,6 +205,7 @@ public class MusicFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_music, container, false);
         ButterKnife.bind(this, layout);
+        getService();
         makeData();
         initSetting();
         musicPagerSetting();
@@ -196,6 +219,24 @@ public class MusicFragment extends Fragment
         return layout;
     }
 
+    public void getService(){
+        Intent intent = new Intent(getContext(), MusicService.class);
+        getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    private  ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            MusicService.LocalBinder binder = (MusicService.LocalBinder) iBinder;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            mBound = false;
+        }
+    };
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void initSetting() {
@@ -216,8 +257,8 @@ public class MusicFragment extends Fragment
         Glide.with(getContext()).load(R.drawable.btn_play)
                 .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
 
-//        Glide.with(getContext()).load(R.drawable.bg_play1)
-//                .apply(new RequestOptions().fitCenter()).into(bg_img);
+        Glide.with(getContext()).load(R.drawable.bg_play1)
+                .apply(new RequestOptions().fitCenter()).into(bg_img);
 
 
         // equalizer setting
@@ -227,45 +268,8 @@ public class MusicFragment extends Fragment
         else
             Glide.with(getContext()).load(R.drawable.mn_play_on).into(imageViewTarget);
 
-        // MediaPlayer 객체 초기화 , 재생
-        mp = MediaPlayer.create(getContext(), R.raw.biglove);
-        mp.setLooping(false);
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                switch (play_mode){
-                    case 0:
-                        endMusic();
-                        if(index == musicarr.size()-1){
-                            musicPager.setCurrentItem(0);
-
-                        } else{
-                            musicPager.setCurrentItem(index + 1);
-                        }
-
-                        break;
-                    case 1:
-                        changeMusic(index);
-                        break;
-                    case 2:
-                        endMusic();
-                        ApplicationStatus.isPlaying = false;
-                        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-                        Glide.with(getContext()).load(R.drawable.mn_play_on).into(imageViewTarget);
-                        DrawableImageViewTarget imageViewTarget2 = new DrawableImageViewTarget(btn_play);
-                        Glide.with(getContext()).load(R.drawable.btn_play)
-                                .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
-//                        btn_play.setBackgroundResource(R.drawable.btn_play);
-                        break;
-                }
-            }
-        });
-
         timerHandler = new TimerHandler();
         currentTime.setText("00:00");
-        total = mp.getDuration(); // 노래의 재생시간(miliSecond)
-        totalTime = timeTranslation(total/1000); // minute - second
-        maxTime.setText(totalTime);
 
         if(isAutoPlay){
             autoPlay(total);
@@ -328,6 +332,10 @@ public class MusicFragment extends Fragment
         });
     }
 
+    public VerticalViewPager getViewPager(){
+        return musicPager;
+    }
+
     public void seekBarSetting(){
         // 시크바 초기세팅
         seekBar.setProgress(0);
@@ -348,9 +356,16 @@ public class MusicFragment extends Fragment
                 ApplicationStatus.isPlaying=true;
 
                 int seekBar_position = seekBar.getProgress(); // 사용자가 움직여놓은 위치
-                mp.seekTo(seekBar_position);
-                mp.start();
-                time=mp.getCurrentPosition()/1000;
+//                mp.seekTo(seekBar_position);
+//                mp.start();
+                Intent intent = new Intent(getContext(), MusicService.class);
+                intent.putExtra("index", index);
+                intent.putExtra("seekBar_position", seekBar_position);
+                intent.putExtra("state", "play");
+                getActivity().startService(intent);
+
+                time = seekBar_position/1000;
+//                time=mp.getCurrentPosition()/1000;
                 currentTime.setText(timeTranslation(time));
                 new MusicThread().start();
 
@@ -365,18 +380,19 @@ public class MusicFragment extends Fragment
 
                 isPlaying = false;
 
-                if(!mp.isPlaying()){
-
-                    mp.setLooping(false); // true:무한반복
+                if(!mService.mpIsPlaying()){
                     seekBar.setMax(total);// 씨크바의 최대 범위를 노래의 재생시간으로 설정
-
                     new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
-
                 } else{
-                    mp.pause();
+//                    mp.pause();
+                    Intent intent = new Intent(getContext(), MusicService.class);
+                    intent.putExtra("index", index);
+                    intent.putExtra("state", "pause");
+                    getActivity().startService(intent);
                 }
-
-                time=mp.getCurrentPosition()/1000;
+                int seekBar_position = seekBar.getProgress();
+                time = seekBar_position/1000;
+//                time=mp.getCurrentPosition()/1000;
                 currentTime.setText(timeTranslation(time));
             }
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -393,14 +409,17 @@ public class MusicFragment extends Fragment
                     DrawableImageViewTarget imageViewTarget2 = new DrawableImageViewTarget(btn_play);
                     Glide.with(getContext()).load(R.drawable.btn_play)
                             .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
-//                    btn_play.setBackgroundResource(R.drawable.btn_play);
                     ApplicationStatus.isPlaying=false;
                     DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
                     Glide.with(getContext()).load(R.drawable.mn_play_on).into(imageViewTarget);
 
                     // 일시중지
-                    pos = mp.getCurrentPosition();
-                    mp.pause(); // 일시중지
+                    Intent intent = new Intent(getContext(), MusicService.class);
+                    intent.putExtra("index", index);
+                    intent.putExtra("state", "pause");
+                    getActivity().startService(intent);
+                    running = false;
+
                     isPlaying = false; // 쓰레드 정지
                     restart=true;
 
@@ -408,19 +427,31 @@ public class MusicFragment extends Fragment
                     DrawableImageViewTarget imageViewTarget2 = new DrawableImageViewTarget(btn_play);
                     Glide.with(getContext()).load(R.drawable.btn_pause)
                             .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
-//                    btn_play.setBackgroundResource(R.drawable.btn_pause);
                     ApplicationStatus.isPlaying=true;
                     DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
                     Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
                     if(restart){
                         // 멈춘 지점부터 재시작
-                        mp.seekTo(pos); // 일시정지 시점으로 이동
-                        mp.start(); // 시작
+                        Intent intent = new Intent(getContext(), MusicService.class);
+                        intent.putExtra("index", index);
+                        intent.putExtra("state", "play");
+                        intent.putExtra("restart", true);
+                        getActivity().startService(intent);
+                        running = true;
+                        timer=new Timer();
+                        timer.start();
+
                         isPlaying = true; // 재생하도록 flag 변경
                         new MusicThread().start(); // 쓰레드 시작
+
                     } else {
-                        mp.setLooping(false); // true:무한반복
-                        mp.start(); // 노래 재생 시작
+                        Intent intent = new Intent(getContext(), MusicService.class);
+                        intent.putExtra("index", index);
+                        intent.putExtra("state", "play");
+                        intent.putExtra("restart", false);
+                        getActivity().startService(intent);
+                        running = true;
+
                         seekBar.setMax(total);// 씨크바의 최대 범위를 노래의 재생시간으로 설정
 
                         isPlaying = true; // 씨크바 쓰레드 반복 하도록
@@ -428,6 +459,7 @@ public class MusicFragment extends Fragment
 
                         timer=new Timer();
                         timer.start();
+
                     }
                 }
             }
@@ -492,8 +524,8 @@ public class MusicFragment extends Fragment
                 TextView info = (TextView) popupView.findViewById(R.id.info);
                 title.setText(music_info.get(index).getMusic_title());
                 info.setText("작곡 : "+music_info.get(index).getComposition()+"\n"+
-                                "작사 : "+music_info.get(index).getWriter()+"\n"+
-                                "편곡 : "+music_info.get(index).getArrangement()+"\n");
+                        "작사 : "+music_info.get(index).getWriter()+"\n"+
+                        "편곡 : "+music_info.get(index).getArrangement()+"\n");
 
                 btn_close.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -529,8 +561,6 @@ public class MusicFragment extends Fragment
     }
 
     public void autoPlay(int total){
-        mp.setLooping(false); // true:무한반복
-        mp.start(); // 노래 재생 시작
         seekBar.setMax(total);// 씨크바의 최대 범위를 노래의 재생시간으로 설정
         isPlaying = true; // 씨크바 쓰레드 반복 하도록
         new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
@@ -557,49 +587,20 @@ public class MusicFragment extends Fragment
 
     public void changeMusic(final int index){
         endMusic();
-        mp = changeMusicPlayer(index);
-        int total = mp.getDuration(); // 노래의 재생시간(miliSecond)
+
+        Intent intent = new Intent(getContext(), MusicService.class);
+        intent.putExtra("index", index);
+        intent.putExtra("state", "play");
+        getActivity().startService(intent);
+
+        int total = mService.getDuration(); // 노래의 재생시간(miliSecond)
         String time=timeTranslation(total/1000);
         maxTime.setText(time);
         seekBar.setMax(total);// 씨크바의 최대 범위를 노래의 재생시간으로 설정
 
-        mp.setLooping(false); // true:무한반복
-        mp.start(); // 노래 재생 시작
-
         isPlaying = true; // 씨크바 쓰레드 반복 하도록
         ApplicationStatus.isPlaying = true;
         new MusicThread().start(); // 씨크바 그려줄 쓰레드 시작
-
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                switch (play_mode){
-                    case 0:
-                        endMusic();
-                        if(index == musicarr.size()-1){
-                            musicPager.setCurrentItem(0);
-
-                        } else{
-                            musicPager.setCurrentItem(index + 1);
-                        }
-
-                        break;
-                    case 1:
-                        changeMusic(index);
-                        break;
-                    case 2:
-                        endMusic();
-                        ApplicationStatus.isPlaying = false;
-                        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-                        Glide.with(getContext()).load(R.drawable.mn_play_on).into(imageViewTarget);
-                        DrawableImageViewTarget imageViewTarget2 = new DrawableImageViewTarget(btn_play);
-                        Glide.with(getContext()).load(R.drawable.btn_pause)
-                                .apply(new RequestOptions().fitCenter()).into(imageViewTarget2);
-//                        btn_play.setBackgroundResource(R.drawable.btn_play);
-                        break;
-                }
-            }
-        });
     }
 
     // 가사
@@ -777,13 +778,19 @@ public class MusicFragment extends Fragment
     public void endMusic(){
         isPlaying = false; // 쓰레드 종료
         restart = false;
-        if(mp.isPlaying()){
+        /*if(mp.isPlaying()){
             mp.stop(); // 멈춤
             mp.reset();
             mp.release(); // 자원 해제
         }
+        mp = changeMusicPlayer(index);*/
+
+        Intent intent = new Intent(getContext(), MusicService.class);
+        intent.putExtra("index", index);
+        intent.putExtra("state", "stop");
+        getActivity().startService(intent);
+
         seekBar.setProgress(0); // 씨크바 초기화
-        mp = changeMusicPlayer(index);
         currentTime.setText("00:00");
         time = 0;
     }
@@ -805,6 +812,10 @@ public class MusicFragment extends Fragment
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             Log.d("SetUserHint","Music ON");
+            total = mService.getDuration(); // 노래의 재생시간(miliSecond)
+            totalTime = timeTranslation(total/1000); // minute - second
+            maxTime.setText(totalTime);
+
             View view = layout;
             if (view != null) {
                 if(refresh == 0){
@@ -822,15 +833,12 @@ public class MusicFragment extends Fragment
                     MainActivity.setState(1);
                 }
 
-
                 DrawableImageViewTarget
                         imageViewTarget = new DrawableImageViewTarget(play_btn);
                 if (ApplicationStatus.isPlaying)
                     Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
                 else
                     Glide.with(getContext()).load(R.drawable.mn_play_on).into(imageViewTarget);
-
-
             }
         }
         else
@@ -841,7 +849,10 @@ public class MusicFragment extends Fragment
     @Override
     public void onStop() {
         super.onStop();
-        mp.stop();
+        if(mBound){
+            getActivity().unbindService(mConnection);
+            mBound = false;
+        }
     }
 
     // 전체재생, 1곡재생 눌렀을 때
@@ -853,16 +864,25 @@ public class MusicFragment extends Fragment
                 if(view.getTag().equals("all")){
                     btn_repeat.setBackgroundResource(R.drawable.btn_repeatone);
                     btn_repeat.setTag("one");
-                    play_mode = 1;
+                    Intent intent = new Intent(getContext(), MusicService.class);
+                    intent.putExtra("play_mode", 1);
+                    intent.putExtra("state", "play_mode");
+                    getActivity().startService(intent);
                 }else if(view.getTag().equals("one")){
                     btn_repeat.setBackgroundResource(R.drawable.btn_repeatall);
                     btn_repeat.setAlpha(0.5f);
                     btn_repeat.setTag("none");
-                    play_mode = 2;
+                    Intent intent = new Intent(getContext(), MusicService.class);
+                    intent.putExtra("play_mode", 2);
+                    intent.putExtra("state", "play_mode");
+                    getActivity().startService(intent);
                 }else if(view.getTag().equals("none")){
                     btn_repeat.setAlpha(1f);
                     btn_repeat.setTag("all");
-                    play_mode = 0;
+                    Intent intent = new Intent(getContext(), MusicService.class);
+                    intent.putExtra("play_mode", 0);
+                    intent.putExtra("state", "play_mode");
+                    getActivity().startService(intent);
                 }
             }
         });
@@ -884,7 +904,6 @@ public class MusicFragment extends Fragment
                     setHeartNum(current_like_count);
                     heart.setTag(0);
                 }
-
             }
         });
     }
@@ -921,47 +940,6 @@ public class MusicFragment extends Fragment
         heart_num.setText(heart_count);
     }
 
-    public MediaPlayer changeMusicPlayer(int index){
-        switch(index){
-            case 0:
-                mp = MediaPlayer.create(getContext(), R.raw.biglove);
-                break;
-            case 1:
-                mp = MediaPlayer.create(getContext(), R.raw.everything);
-                break;
-            case 2:
-                mp = MediaPlayer.create(getContext(), R.raw.free_land);
-                break;
-            case 3:
-                mp = MediaPlayer.create(getContext(), R.raw.hollywood);
-                break;
-            case 4:
-                mp = MediaPlayer.create(getContext(), R.raw.if_not_me);
-                break;
-            case 5:
-                mp = MediaPlayer.create(getContext(), R.raw.international_love_song);
-                break;
-            case 6:
-                mp = MediaPlayer.create(getContext(), R.raw.kisado);
-                break;
-            case 7:
-                mp = MediaPlayer.create(getContext(), R.raw.love_shine);
-                break;
-            case 8:
-                mp = MediaPlayer.create(getContext(), R.raw.my_home_seoul);
-                break;
-            case 9:
-                mp = MediaPlayer.create(getContext(), R.raw.our_young_love);
-                break;
-            case 10:
-                mp = MediaPlayer.create(getContext(), R.raw.if_not_me);
-                break;
-        }
-        mp.setWakeMode(getContext(), PowerManager.PARTIAL_WAKE_LOCK);
-
-        return mp;
-    }
-
     public void makeData(){
         // make title data - database 연동예정
         musicarr = new ArrayList<>();
@@ -992,5 +970,6 @@ public class MusicFragment extends Fragment
         music_info.add(new MusicInfoItem("Diamond", "검정치마", "검정치마", "검정치마"));
         music_info.add(new MusicInfoItem("난 아니에요", "검정치마", "검정치마", "검정치마"));
     }
+
 
 }

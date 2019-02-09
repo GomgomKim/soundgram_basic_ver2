@@ -32,8 +32,9 @@
         <activity android:name=".tab.SurviceInfoActivity" />
 
         <service
-            android:name="test.dahun.soundgram_basic.SoundService"
-            android:enabled="true"></service>
+            android:name=".model.MusicService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

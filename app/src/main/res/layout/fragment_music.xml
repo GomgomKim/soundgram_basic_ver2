@@ -40,12 +40,13 @@
             android:textColor="#f2efe0"
             android:textSize="16dp" />
     </LinearLayout>
-    
+
     <ImageView
         android:id="@+id/bg_img"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/top_layout"
+        android:layout_above="@+id/musicProgress"
         android:scaleType="fitXY"
         />
 
