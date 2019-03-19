@@ -9,6 +9,15 @@
     android:background="#ba2b28"
     tools:context="test.dahun.mobileplay.main.MainActivity">
 
+    <ImageView
+        android:id="@+id/like_gif"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        />
+
     <LinearLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"

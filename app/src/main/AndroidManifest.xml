@@ -31,10 +31,6 @@
             android:screenOrientation="sensor" />
         <activity android:name=".tab.SurviceInfoActivity" />
 
-        <service
-            android:name=".model.MusicService"
-            android:enabled="true"
-            android:exported="true"></service>
     </application>
 
 </manifest>
