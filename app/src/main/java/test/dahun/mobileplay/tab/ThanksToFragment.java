@@ -26,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.ThanksToAdapter;
-import test.dahun.mobileplay.model.ApplicationStatus;
+import test.dahun.mobileplay.interfaces.ApplicationStatus;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 

@@ -19,7 +19,7 @@
             android:layout_height="80dp"
             android:fontFamily="@font/notosanskr_thin"
             android:gravity="center"
-            android:text="T      H      A      N      K      S            T      O"
+            android:text="A    L    B    U    M           S    T    O    R    Y"
             android:textColor="#f2efe0"
             android:textSize="17dp" />
         <ImageView

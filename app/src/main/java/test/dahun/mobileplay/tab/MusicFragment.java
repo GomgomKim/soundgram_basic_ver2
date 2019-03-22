@@ -6,18 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +35,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
 import java.io.BufferedReader;
@@ -57,9 +57,12 @@ import test.dahun.mobileplay.events.IsPlayEvent;
 import test.dahun.mobileplay.events.SeekbarEvent;
 import test.dahun.mobileplay.events.TimerEvent;
 import test.dahun.mobileplay.main.MainActivity;
+import test.dahun.mobileplay.interfaces.ApplicationStatus;
 import test.dahun.mobileplay.services.BusProvider;
 import test.dahun.mobileplay.services.MusicService;
 import test.dahun.mobileplay.ui.VerticalViewPager;
+
+import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
 
 /**
@@ -90,6 +93,13 @@ public class MusicFragment extends Fragment
     @BindView(R.id.musicPager) VerticalViewPager musicPager;
 
     @BindView(R.id.musicProgress) SeekBar seekBar; // 음악 재생위치를 나타내는 시크바
+
+    @BindView(R.id.play_btn) ImageButton play_btn;
+    @BindView(R.id.home_btn) ImageButton home_btn;
+    @BindView(R.id.list_btn) ImageButton list_btn;
+    @BindView(R.id.gallery_btn) ImageButton gallery_btn;
+    @BindView(R.id.sns_btn) ImageButton sns_btn;
+
 
 
 
@@ -156,6 +166,7 @@ public class MusicFragment extends Fragment
         eventBus();
         makeData();
         initSetting();
+        btnSetting();
         initPlay();
         musicPagerSetting();
         seekBarSetting();
@@ -190,9 +201,11 @@ public class MusicFragment extends Fragment
         if(isPlaying){
             Glide.with(getContext()).load(R.drawable.btn_pause)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
+            Glide.with(getContext()).load(R.raw.mn_equalizer).into(play_btn);
         } else{
             Glide.with(getContext()).load(R.drawable.btn_play)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
+            Glide.with(getContext()).load(R.drawable.mn_play_off).into(play_btn);
         }
     }
 
@@ -204,10 +217,11 @@ public class MusicFragment extends Fragment
         if(isPlaying == true) { // 재생
             Glide.with(getContext()).load(R.drawable.btn_pause)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
-
+            Glide.with(getContext()).load(R.raw.mn_equalizer).into(play_btn);
         } else{ // 정지
             Glide.with(getContext()).load(R.drawable.btn_play)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
+            Glide.with(getContext()).load(R.drawable.mn_play_off).into(play_btn);
         }
     }
 
@@ -239,7 +253,7 @@ public class MusicFragment extends Fragment
         // 이벤트가 발생한뒤 수행할 작업
         switch (mEvent.getState()){
             case 0:
-                isPlaying = true;
+                ApplicationStatus.isPlaying = true;
                 auto_move = true;
                 if(index == 7){
                     musicPager.setCurrentItem(0);
@@ -248,16 +262,18 @@ public class MusicFragment extends Fragment
                 }
                 seekBar.setProgress(0);
                 currentTime.setText(timeTranslation(0));
+                Glide.with(getContext()).load(R.drawable.mn_play_off).into(play_btn);
                 break;
             case 1:
-                isPlaying = true;
+                ApplicationStatus.isPlaying = true;
                 break;
             case 2:
                 seekBar.setProgress(0);
                 currentTime.setText(timeTranslation(0));
                 Glide.with(getContext()).load(R.drawable.btn_play)
                         .apply(new RequestOptions().fitCenter()).into(btn_play);
-                isPlaying = false;
+                ApplicationStatus.isPlaying = false;
+                Glide.with(getContext()).load(R.drawable.mn_play_off).into(play_btn);
                 break;
         }
     }
@@ -285,7 +301,9 @@ public class MusicFragment extends Fragment
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void initSetting() {
-        singer.setText("지코(ZICO)");
+        singer.setText("검정치마");
+
+        Glide.with(getContext()).load(R.drawable.mn_play_off).into(play_btn);
 
         heart.setTag(0); // 하트의 상태 / 0 : off / 1 : on
         title.setText(musicarr.get(0)); // 첫번째 노래제목
@@ -351,6 +369,8 @@ public class MusicFragment extends Fragment
                 seekBar.setProgress(0);
                 auto_move = false;
                 changePlay();
+                changeLyrics(index);
+                setHeartNum(like_count.get(index));
                 title.setText(musicarr.get(position));
             }
 
@@ -416,6 +436,14 @@ public class MusicFragment extends Fragment
                 music_play();
             }
         });
+    }
+
+    public void btnSetting(){
+        home_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(0));
+        list_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(1));
+        play_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(2));
+        gallery_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(3));
+        sns_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(4));
     }
 
     public void music_play(){
@@ -537,7 +565,7 @@ public class MusicFragment extends Fragment
             e.printStackTrace();
         }
 
-        /*switch(index){
+        switch(index){
             case 0:
                 try {
                     inputStream = am.open("first.txt");
@@ -692,7 +720,7 @@ public class MusicFragment extends Fragment
                     e.printStackTrace();
                 }
                 break;
-        }*/
+        }
 
         lyricsText.setText(lyrics);
 
@@ -806,26 +834,64 @@ public class MusicFragment extends Fragment
         // make title data - database 연동예정
         musicarr = new ArrayList<>();
         like_count = new ArrayList<>();
-        musicarr.add("BERMUDA TRIANGLE");  like_count.add(13);
-        musicarr.add("She's Baby");  like_count.add(1789);
-        musicarr.add("Artist");   like_count.add(13542);
-        musicarr.add("FANXY CHILD"); like_count.add(486);
-        musicarr.add("천재(Behind the scene)");  like_count.add(992);
-        musicarr.add("Okey Dokey");  like_count.add(22396);
-        musicarr.add("나는 나 너는 너");  like_count.add(9);
-        musicarr.add("SoulMate");  like_count.add(75);
+        musicarr.add("Big Love");  like_count.add(13);
+        musicarr.add("좋아해줘");  like_count.add(1789);
+        musicarr.add("Dientes");   like_count.add(542);
+        musicarr.add("Stand Still"); like_count.add(486);
+        musicarr.add("상아");  like_count.add(992);
+        musicarr.add("강아지");  like_count.add(96);
+        musicarr.add("Antifreeze");  like_count.add(9);
+        musicarr.add("Kiss And Tell");  like_count.add(75);
+        musicarr.add("LE Fou Muet");   like_count.add(123);
+        musicarr.add("Diamond");       like_count.add(47);
+        musicarr.add("난 아니에요");    like_count.add(7);
+
 
         // make music info - database 연동예정
         music_info = new ArrayList<>();
-        music_info.add(new MusicInfoItem("BERMUDA TRIANGLE", "ZICO, Poptime", "ZICO", "ZICO, Poptime"));
-        music_info.add(new MusicInfoItem("She's Baby", "ZICO, Poptime", "ZICO", "ZICO, Poptime"));
-        music_info.add(new MusicInfoItem("Artist", "ZICO, Poptime", "ZICO", "ZICO, Poptime"));
-        music_info.add(new MusicInfoItem("FANXY CHILD", "ZICO, Poptime", "ZICO", "ZICO, Poptime"));
-        music_info.add(new MusicInfoItem("천재(Behind the scene)", "ZICO, Poptime", "ZICO", "ZICO, Poptime"));
-        music_info.add(new MusicInfoItem("Okey Dokey", "ZICO, Poptime", "ZICO", "ZICO, Poptime"));
-        music_info.add(new MusicInfoItem("나는 나 너는 너", "ZICO, Poptime", "ZICO", "ZICO, Poptime"));
-        music_info.add(new MusicInfoItem("SoulMate", "ZICO, Poptime", "ZICO", "ZICO, Poptime"));
+        music_info.add(new MusicInfoItem("Big Love", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("좋아해줘", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("Dientes", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("Stand Still", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("상아", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("강아지", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("Antifreeze", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("Kiss And Tell", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("LE Fou Muet", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("Diamond", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("난 아니에요", "검정치마", "검정치마", "검정치마"));
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){ // 유저가 화면을 보고있을 때
+            if(this.layout != null){
+                initPlay();
+
+                if(refresh == 0){
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.detach(this).attach(this).commit();
+                    refresh++;
+                }
+                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
+                if(ApplicationStatus.isPlaying){
+                    Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
+                    return;
+                }
+                else{
+                    Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
+                    return;
+                }
+            }
+            return;
+        }
+        else
+            Log.d("SetUserHint","Cover OFF");
+    }
+
+
+
 
 
 }

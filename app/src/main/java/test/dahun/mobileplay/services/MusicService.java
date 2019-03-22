@@ -20,6 +20,7 @@ import test.dahun.mobileplay.events.GetSongPlayInfoEvent;
 import test.dahun.mobileplay.events.IsPlayEvent;
 import test.dahun.mobileplay.events.SeekbarEvent;
 import test.dahun.mobileplay.events.TimerEvent;
+import test.dahun.mobileplay.interfaces.ApplicationStatus;
 
 
 public class MusicService extends Service {
@@ -46,7 +47,6 @@ public class MusicService extends Service {
         mp = changeMusicPlayer(0); //mp 초기화
         dataSetting();
     }
-
 
     class MusicTimer extends TimerTask{
         @Override
@@ -107,8 +107,10 @@ public class MusicService extends Service {
                 timer = new Timer();
                 timer_update = new Timer();
                 timer.schedule(new MusicTimer(), 1000, 1000);
-                timer_update.schedule(new PageUpdateTimer(), 300, 300);
+                timer_update.schedule(new PageUpdateTimer(), 500, 500);
                 is_timer_on = true;
+
+                ApplicationStatus.isPlaying = true;
 
                 break;
 
@@ -127,6 +129,8 @@ public class MusicService extends Service {
                     timer_update.cancel();
                     is_timer_on = false;
                 }
+
+                ApplicationStatus.isPlaying = false;
                 break;
 
             case "pause":
@@ -138,6 +142,8 @@ public class MusicService extends Service {
                     timer_update.cancel();
                     is_timer_on = false;
                 }
+
+                ApplicationStatus.isPlaying = false;
                 break;
 
             case "play_mode":

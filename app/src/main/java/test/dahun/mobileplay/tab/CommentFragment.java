@@ -11,17 +11,13 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -29,13 +25,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.FanRecyclerviewAdapter;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
-import test.dahun.mobileplay.model.ApplicationStatus;
+import test.dahun.mobileplay.interfaces.ApplicationStatus;
 import test.dahun.mobileplay.model.Fan;
 
 import static test.dahun.mobileplay.R.drawable.comm_profileimg;

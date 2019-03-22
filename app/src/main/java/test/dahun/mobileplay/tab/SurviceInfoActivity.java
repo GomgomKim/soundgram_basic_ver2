@@ -190,13 +190,16 @@ public class SurviceInfoActivity extends AppCompatActivity {
         email.setType("plain/text");
         // email setting 배열로 해놔서 복수 발송 가능
         String[] address = {"soundgram.info@soundgram.co.kr"};
+        String user_os_version = Build.VERSION.RELEASE;
 
         String phone_name = Build.MODEL;
         email.putExtra(Intent.EXTRA_EMAIL, address);
         email.putExtra(Intent.EXTRA_SUBJECT,"[Soundgram 문의]");
-        email.putExtra(Intent.EXTRA_TEXT,"사용자 휴대폰 기종 : "+phone_name+"\n"+
-        "version : 1.0.1"+"\n내용을 입력하세요.\n");
+        email.putExtra(Intent.EXTRA_TEXT, "어플리케이션 : Special Edition 2018\n"+
+                "기기 종류 : "+phone_name+"\n"+
+                "OS 버전 : "+user_os_version+"\n"+
+                "앱 버전 : 1.3"+"\n"+
+                "음반 정보 : Special Edition 2018 (검정치마).\n");
         startActivity(email);
-
     }
 }

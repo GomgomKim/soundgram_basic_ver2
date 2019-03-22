@@ -12,8 +12,12 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.squareup.otto.Subscribe;
 
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.events.GetSongPlayInfoEvent;
+import test.dahun.mobileplay.services.BusProvider;
+import test.dahun.mobileplay.services.MusicService;
 
 public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener{
 
@@ -27,13 +31,46 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
     public String video_id = "";
     public String video_name = "";
 
+    private boolean isPlaying = false;
+    private boolean musicPlayed = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
+        eventBus();
         getVideoInfo();
         initSetting();
         closeActivity();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(musicPlayed){
+            Intent intent_service = new Intent(this, MusicService.class);
+            intent_service.putExtra("state", "play");
+            startService(intent_service);
+
+        }
+        BusProvider.getInstance().unregister(this);
+    }
+
+    public void eventBus(){
+        BusProvider.getInstance().register(this);
+    }
+
+    // 초기화
+    @Subscribe
+    public void FinishLoad(GetSongPlayInfoEvent mEvent) {
+        // 이벤트가 발생한뒤 수행할 작업
+        isPlaying = mEvent.getIsPlay();
+        if(isPlaying && !musicPlayed){
+            Intent intent_service = new Intent(this, MusicService.class);
+            intent_service.putExtra("state", "pause");
+            startService(intent_service);
+            musicPlayed = true;
+        }
     }
 
     public void getVideoInfo(){
@@ -72,12 +109,7 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
     }
 
     public void closeActivity(){
-        mv_close_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        mv_close_btn.setOnClickListener(view -> finish());
     }
 
     @Override

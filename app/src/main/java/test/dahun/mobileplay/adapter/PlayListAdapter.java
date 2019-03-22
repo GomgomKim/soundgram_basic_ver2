@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.main.MainActivity;
+import test.dahun.mobileplay.tab.ListFragment;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
@@ -34,8 +35,11 @@ public class PlayListAdapter extends BaseAdapter {
     private TextView intro_title;
     private TextView intro_content;
 
-    public PlayListAdapter(Context context){
+    ListFragment listFragment;
+
+    public PlayListAdapter(Context context, ListFragment listFragment){
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.listFragment = listFragment;
     }
 
     @Override
@@ -99,7 +103,7 @@ public class PlayListAdapter extends BaseAdapter {
                 if(current_item != null){
                     index.setText(current_item.getIndex());
                     heart.setBackgroundResource(current_item.getHeart());
-                    heart_num.setText(String.valueOf(current_item.getHeart_num()));
+                    heart_num.setText(setHeartNum(current_item.getHeart_num()));
                     title.setText(current_item.getTitle());
                     singer.setText(current_item.getSinger());
 
@@ -113,32 +117,24 @@ public class PlayListAdapter extends BaseAdapter {
                     }
 
                     // 하트 터치
-                    heart_touch_area.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            int is_heart = mItems.get(position).getHeart();
-                            if(is_heart == R.drawable.like_off){
-                                mItems.get(position).setHeart(R.drawable.like_on);
-                                mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()+1);
-                            } else if (is_heart == R.drawable.like_on) {
-                                mItems.get(position).setHeart(R.drawable.like_off);
-                                mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()-1);
-                            }
-                            notifyDataSetChanged();
+                    heart_touch_area.setOnClickListener(view -> {
+                        int is_heart = mItems.get(position).getHeart();
+                        if(is_heart == R.drawable.like_off){
+                            mItems.get(position).setHeart(R.drawable.like_on);
+                            mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()+1);
+                            listFragment.viewGif();
+                        } else if (is_heart == R.drawable.like_on) {
+                            mItems.get(position).setHeart(R.drawable.like_off);
+                            mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()-1);
                         }
+                        notifyDataSetChanged();
                     });
 
                     // 곡명 터치
-                    song_touch_area.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            /*Bundle bundle = new Bundle(1);
-                            bundle.putInt("song_index", position);
-                            new MusicFragment().newInstance(position);*/
-                            MainActivity.setPosition(position);
-                            MainActivity.setState(0);
-                            setViewPagerTabListener.setTab(2);
-                        }
+                    song_touch_area.setOnClickListener(view -> {
+                        MainActivity.setPosition(position);
+                        MainActivity.setState(0);
+                        setViewPagerTabListener.setTab(2);
                     });
 
                 }
@@ -153,6 +149,14 @@ public class PlayListAdapter extends BaseAdapter {
 
 
         return convertView;
+    }
+
+    // 하트갯수 수정
+    public String setHeartNum(int current_like_count){
+        String heart_count = "";
+        if(current_like_count >= 1000)  heart_count = (current_like_count/1000)+"k";
+        else heart_count = String.valueOf(current_like_count);
+        return heart_count;
     }
 
     public void addItem(int type, int index, int heart, int heart_num, String title, String singer, int isTitle) {

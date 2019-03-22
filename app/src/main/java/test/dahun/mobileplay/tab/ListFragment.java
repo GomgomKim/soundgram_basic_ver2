@@ -2,6 +2,7 @@ package test.dahun.mobileplay.tab;
 
 
 import android.content.res.AssetManager;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -28,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.PlayListAdapter;
-import test.dahun.mobileplay.model.ApplicationStatus;
+import test.dahun.mobileplay.interfaces.ApplicationStatus;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
@@ -36,6 +38,8 @@ import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabList
  * A simple {@link Fragment} subclass.
  */
 public class ListFragment extends Fragment {
+
+    @BindView(R.id.like_gif) ImageView like_gif;
 
     @BindView(R.id.play_list) ListView play_list;
 
@@ -51,6 +55,9 @@ public class ListFragment extends Fragment {
     // 임시저장
     ArrayList<String> titles;
     ArrayList<Integer> heart_nums;
+
+    //like animation
+    private AnimationDrawable frameAnimation;
 
     public ListFragment() {
         super();
@@ -68,7 +75,6 @@ public class ListFragment extends Fragment {
 
         initSetting();
         btnSetting();
-        //resizeLayout();
         return layout;
     }
 
@@ -79,7 +85,7 @@ public class ListFragment extends Fragment {
         else
             Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
 
-        playListAdapter = new PlayListAdapter(getContext());
+        playListAdapter = new PlayListAdapter(getContext(), this);
         for(int i=0; i<titles.size(); i++){
             if ( i == 0 )
                 playListAdapter.addItem(0, i+1, R.drawable.like_off, heart_nums.get(i), titles.get(i), "검정치마", 1);
@@ -112,71 +118,19 @@ public class ListFragment extends Fragment {
     }
 
     public void btnSetting(){
-        home_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(0);
-            }
-        });
-        list_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(1);
-            }
-        });
-        play_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(2);
-            }
-        });
-        gallery_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(3);
-            }
-        });
-        sns_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(4);
-            }
-        });
+        home_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(0));
+        list_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(1));
+        play_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(2));
+        gallery_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(3));
+        sns_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(4));
     }
 
-    public void resizeLayout(){
-        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        float context_height = pxToDp(dm.heightPixels);
-        final int layout_height = dpToPx(context_height - 276);
-        play_list.post(new Runnable() {
-            @Override
-            public void run() {
-                LinearLayout.LayoutParams position = new LinearLayout.LayoutParams(
-                        play_list.getWidth(), layout_height
-                );
-                play_list.setLayoutParams(position);
-            }
-        });
-
-    }
-
-    //dp를 px로
-    public int dpToPx(float dp){
-        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, dm);
-        return px;
-    }
-
-    //px를 dp로
-    public float pxToDp(float px){
-        float density = getContext().getResources().getDisplayMetrics().density;
-
-        if(density == 1.0) density *= 4.0;
-        else if(density == 1.5) density *= (8/3);
-        else if(density == 2.0) density *= 2.0;
-
-        float dp = px/density;
-        return dp;
+    public void viewGif(){
+        like_gif.setBackgroundResource(R.drawable.like);
+        like_gif.bringToFront();
+        frameAnimation = (AnimationDrawable) like_gif.getBackground();
+        if(frameAnimation.isRunning()) frameAnimation.stop();
+        frameAnimation.start();
     }
 
     // 임시저장

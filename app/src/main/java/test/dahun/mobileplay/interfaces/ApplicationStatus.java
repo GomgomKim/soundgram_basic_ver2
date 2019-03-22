@@ -1,4 +1,4 @@
-package test.dahun.mobileplay.model;
+package test.dahun.mobileplay.interfaces;
 
 /**
  * Created by jeongdahun on 2018. 1. 15..

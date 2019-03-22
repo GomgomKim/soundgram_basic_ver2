@@ -2,10 +2,7 @@
 
 package test.dahun.mobileplay.tab;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,21 +12,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
@@ -39,8 +29,7 @@ import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.MovieRecyclerViewAdapter;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
-import test.dahun.mobileplay.model.ApplicationStatus;
-import test.dahun.mobileplay.ui.VerticalViewPager;
+import test.dahun.mobileplay.interfaces.ApplicationStatus;
 
 /**
  * Created by jeongdahun on 2017. 9. 11..
@@ -66,9 +55,6 @@ public class VideoFragment extends Fragment
     final String TAG="VideoFragment";
     LinearLayout layout;
 
-    View mvpopupView;
-    PopupWindow mvpw;
-
     YoutubeListener youtubeListener;
 
     public interface YoutubeListener{
@@ -93,12 +79,7 @@ public class VideoFragment extends Fragment
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void initSetting() {
         //homebtn
-        ic_homeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewPagerAdapter.setViewPagerTabListener.setTab(0);
-            }
-        });
+        ic_homeBtn.setOnClickListener(view -> ViewPagerAdapter.setViewPagerTabListener.setTab(0));
         //
         //equalizer
         DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(equalbtn);
@@ -108,12 +89,7 @@ public class VideoFragment extends Fragment
         else
             Glide.with(getContext()).load(R.drawable.ic_equalizer_stop).into(imageViewTarget);
 
-        equalbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewPagerAdapter.setViewPagerTabListener.setTab(1);
-            }
-        });
+        equalbtn.setOnClickListener(view -> ViewPagerAdapter.setViewPagerTabListener.setTab(1));
         //navibutton
             ViewGroup.LayoutParams params = navibtn.getLayoutParams();
             params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
@@ -122,77 +98,68 @@ public class VideoFragment extends Fragment
             navibtn.setImageResource(R.drawable.mn_default);
             navibtn.setTag(R.drawable.mn_default);
 
-            navibtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if((Integer)view.getTag() == R.drawable.mn_default){
-                        playbtn.setVisibility(View.VISIBLE);
-                        moviebtn.setVisibility(View.VISIBLE);
-                        galbtn.setVisibility(View.VISIBLE);
-                        commbtn.setVisibility(View.VISIBLE);
-                        //btn.setVisibility(View.VISIBLE);
+            navibtn.setOnClickListener(view -> {
+                if((Integer)view.getTag() == R.drawable.mn_default){
+                    playbtn.setVisibility(View.VISIBLE);
+                    moviebtn.setVisibility(View.VISIBLE);
+                    galbtn.setVisibility(View.VISIBLE);
+                    commbtn.setVisibility(View.VISIBLE);
+                    //btn.setVisibility(View.VISIBLE);
 
-                        ViewGroup.LayoutParams params = navibtn.getLayoutParams();
-                        params.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                        params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, getResources().getDisplayMetrics());
-                        navibtn.requestLayout();
-                        navibtn.setImageResource(R.drawable.mn_click);
-                        navibtn.setTag(R.drawable.mn_click);
-                    }else{
-                        playbtn.setVisibility(View.GONE);
-                        moviebtn.setVisibility(View.GONE);
-                        galbtn.setVisibility(View.GONE);
-                        commbtn.setVisibility(View.GONE);
-                        btn.setVisibility(View.GONE);
-                        ViewGroup.LayoutParams params = navibtn.getLayoutParams();
-                        params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
-                        params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
-                        navibtn.requestLayout();
-                        navibtn.setImageResource(R.drawable.mn_default);
-                        navibtn.setTag(R.drawable.mn_default);
-                    }
-                }
-            });
-
-            playbtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+                    ViewGroup.LayoutParams params13 = navibtn.getLayoutParams();
+                    params13.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                    params13.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, getResources().getDisplayMetrics());
+                    navibtn.requestLayout();
+                    navibtn.setImageResource(R.drawable.mn_click);
+                    navibtn.setTag(R.drawable.mn_click);
+                }else{
                     playbtn.setVisibility(View.GONE);
                     moviebtn.setVisibility(View.GONE);
                     galbtn.setVisibility(View.GONE);
                     commbtn.setVisibility(View.GONE);
                     btn.setVisibility(View.GONE);
-
-                    ViewGroup.LayoutParams params = navibtn.getLayoutParams();
-                    params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
-                    params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+                    ViewGroup.LayoutParams params13 = navibtn.getLayoutParams();
+                    params13.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+                    params13.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
                     navibtn.requestLayout();
                     navibtn.setImageResource(R.drawable.mn_default);
                     navibtn.setTag(R.drawable.mn_default);
-                    ViewPagerAdapter.setViewPagerTabListener.setTab(1);
-                    //Toast.makeText(getContext(), "music", Toast.LENGTH_LONG).show();
                 }
             });
 
-            moviebtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    playbtn.setVisibility(View.GONE);
-                    moviebtn.setVisibility(View.GONE);
-                    galbtn.setVisibility(View.GONE);
-                    commbtn.setVisibility(View.GONE);
-                    btn.setVisibility(View.GONE);
+            playbtn.setOnClickListener(view -> {
+                playbtn.setVisibility(View.GONE);
+                moviebtn.setVisibility(View.GONE);
+                galbtn.setVisibility(View.GONE);
+                commbtn.setVisibility(View.GONE);
+                btn.setVisibility(View.GONE);
 
-                    ViewGroup.LayoutParams params = navibtn.getLayoutParams();
-                    params.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
-                    params.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
-                    navibtn.requestLayout();
-                    navibtn.setImageResource(R.drawable.mn_default);
-                    navibtn.setTag(R.drawable.mn_default);
-                    ViewPagerAdapter.setViewPagerTabListener.setTab(2);
-                    //      Toast.makeText(getContext(), " movie", Toast.LENGTH_LONG).show();
+                ViewGroup.LayoutParams params1 = navibtn.getLayoutParams();
+                params1.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+                params1.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+                navibtn.requestLayout();
+                navibtn.setImageResource(R.drawable.mn_default);
+                navibtn.setTag(R.drawable.mn_default);
+                ViewPagerAdapter.setViewPagerTabListener.setTab(1);
+                //Toast.makeText(getContext(), "music", Toast.LENGTH_LONG).show();
+            });
 
-                }
+            moviebtn.setOnClickListener(view -> {
+                playbtn.setVisibility(View.GONE);
+                moviebtn.setVisibility(View.GONE);
+                galbtn.setVisibility(View.GONE);
+                commbtn.setVisibility(View.GONE);
+                btn.setVisibility(View.GONE);
+
+                ViewGroup.LayoutParams params12 = navibtn.getLayoutParams();
+                params12.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+                params12.height =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+                navibtn.requestLayout();
+                navibtn.setImageResource(R.drawable.mn_default);
+                navibtn.setTag(R.drawable.mn_default);
+                ViewPagerAdapter.setViewPagerTabListener.setTab(2);
+                //      Toast.makeText(getContext(), " movie", Toast.LENGTH_LONG).show();
+
             });
 
             galbtn.setOnClickListener(new View.OnClickListener() {
@@ -237,12 +204,9 @@ public class VideoFragment extends Fragment
                 }
             });
 /////
-        youtubeListener=new YoutubeListener() {
-            @Override
-            public void startYoutube(int position) {
-                Intent intent=new Intent(getContext(),VideoActivity.class);
-                startActivity(intent);
-            }
+        youtubeListener= position -> {
+            Intent intent=new Intent(getContext(),VideoActivity.class);
+            startActivity(intent);
         };
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());

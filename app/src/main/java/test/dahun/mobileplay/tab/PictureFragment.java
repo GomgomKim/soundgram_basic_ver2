@@ -11,16 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.azoft.carousellayoutmanager.CarouselLayoutManager;
 import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
@@ -28,16 +25,12 @@ import com.azoft.carousellayoutmanager.CenterScrollListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
-import org.w3c.dom.Text;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.PictureRecyclerViewAdapter;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
-import test.dahun.mobileplay.main.MainActivity;
-import test.dahun.mobileplay.model.ApplicationStatus;
-import test.dahun.mobileplay.ui.VerticalViewPager;
+import test.dahun.mobileplay.interfaces.ApplicationStatus;
 
 /**
  * Created by jeongdahun on 2017. 9. 11..

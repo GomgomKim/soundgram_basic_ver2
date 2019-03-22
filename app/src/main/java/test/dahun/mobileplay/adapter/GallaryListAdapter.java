@@ -98,25 +98,25 @@ public class GallaryListAdapter extends BaseAdapter {
                 final String image_title = current_item.getTitle();
                 final int img_resource = current_item.getImg_resource();
 
-                gallary_img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(context, ImageActivity.class);
-                        intent.putExtra("image_title", image_title);
-                        intent.putExtra("img_resource", img_resource);
-                        context.startActivity(intent);
-                    }
+                gallary_img.setOnClickListener(view -> {
+                    Intent intent = new Intent(context, ImageActivity.class);
+                    intent.putExtra("image_title", image_title);
+                    intent.putExtra("img_resource", img_resource);
+                    context.startActivity(intent);
                 });
                 break;
             case 1: // 동영상
                 gallary_video_img = (ImageView) convertView.findViewById(R.id.gallary_video_img);
                 gallary_video_play = (ImageButton) convertView.findViewById(R.id.gallary_video_play);
                 gallary_video_title = (TextView) convertView.findViewById(R.id.gallary_video_title);
+                Glide.with(context).load(current_item.getImg_resource())
+                        .apply(new RequestOptions().fitCenter()).into(gallary_video_img);
+                String url = "https://img.youtube.com/vi/"+current_item.getVideo_code()+"/0.jpg";
+                Glide.with(context).load(url)
+                        .apply(new RequestOptions().fitCenter()).into(gallary_video_img);
                 final String video_id = current_item.getVideo_code();
                 final String video_title = current_item.getTitle();
 
-                Glide.with(context).load(current_item.getImg_resource())
-                        .apply(new RequestOptions().fitCenter()).into(gallary_video_img);
 
                 // play 버튼
                 gallary_video_play.setOnClickListener(new View.OnClickListener() {

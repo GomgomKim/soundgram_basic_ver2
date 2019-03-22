@@ -78,44 +78,35 @@ public class ImageActivity extends Activity {
         popup_img.getLayoutParams().height = 3000;
 
         // title 나타내기
-        whole_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(top_layout.getVisibility() == View.GONE){
-                    top_layout.setVisibility(View.VISIBLE);
-                    bottom_layout.setBackgroundColor(Color.WHITE);
-                    popup_img.getLayoutParams().height = 1000;
-                } else if(top_layout.getVisibility() == View.VISIBLE){
-                    top_layout.setVisibility(View.GONE);
-                    bottom_layout.setBackgroundColor(Color.BLACK);
-                    popup_img.getLayoutParams().height = 3000;
-                }
+        whole_layout.setOnClickListener(view -> {
+            if(top_layout.getVisibility() == View.GONE){
+                top_layout.setVisibility(View.VISIBLE);
+                bottom_layout.setBackgroundColor(Color.WHITE);
+                popup_img.getLayoutParams().height = 1000;
+            } else if(top_layout.getVisibility() == View.VISIBLE){
+                top_layout.setVisibility(View.GONE);
+                bottom_layout.setBackgroundColor(Color.BLACK);
+                popup_img.getLayoutParams().height = 3000;
             }
         });
 
-        popup_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(top_layout.getVisibility() == View.GONE){
-                    top_layout.setVisibility(View.VISIBLE);
-                    bottom_layout.setBackgroundColor(Color.WHITE);
-                    popup_img.getLayoutParams().height = 1000;
-                } else if(top_layout.getVisibility() == View.VISIBLE){
-                    top_layout.setVisibility(View.GONE);
-                    bottom_layout.setBackgroundColor(Color.BLACK);
-                    popup_img.getLayoutParams().height = 3000;
-                }
+        popup_img.setOnClickListener(view -> {
+            if(top_layout.getVisibility() == View.GONE){
+                top_layout.setVisibility(View.VISIBLE);
+                bottom_layout.setBackgroundColor(Color.WHITE);
+                popup_img.getLayoutParams().height = 1000;
+            } else if(top_layout.getVisibility() == View.VISIBLE){
+                top_layout.setVisibility(View.GONE);
+                bottom_layout.setBackgroundColor(Color.BLACK);
+                popup_img.getLayoutParams().height = 3000;
             }
         });
 
         // X 버튼
-        btn_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottom_layout.setBackgroundColor(Color.BLACK);
-                top_layout.setVisibility(View.GONE);
-                finish();
-            }
+        btn_close.setOnClickListener(view -> {
+            bottom_layout.setBackgroundColor(Color.BLACK);
+            top_layout.setVisibility(View.GONE);
+            finish();
         });
     }
 
@@ -138,44 +129,35 @@ public class ImageActivity extends Activity {
 
 
         // title 나타내기
-        land_whole_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(land_top_layout.getVisibility() == View.GONE){
-                    land_top_layout.setVisibility(View.VISIBLE);
-                    land_bottom_layout.setBackgroundColor(Color.WHITE);
-                    land_popup_img.getLayoutParams().width = 1500;
-                } else if(land_top_layout.getVisibility() == View.VISIBLE){
-                    land_top_layout.setVisibility(View.GONE);
-                    land_bottom_layout.setBackgroundColor(Color.BLACK);
-                    land_popup_img.getLayoutParams().width = 2500;
-                }
+        land_whole_layout.setOnClickListener(view -> {
+            if(land_top_layout.getVisibility() == View.GONE){
+                land_top_layout.setVisibility(View.VISIBLE);
+                land_bottom_layout.setBackgroundColor(Color.WHITE);
+                land_popup_img.getLayoutParams().width = 1000;
+            } else if(land_top_layout.getVisibility() == View.VISIBLE){
+                land_top_layout.setVisibility(View.GONE);
+                land_bottom_layout.setBackgroundColor(Color.BLACK);
+                land_popup_img.getLayoutParams().width = 2500;
             }
         });
 
-        land_popup_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(land_top_layout.getVisibility() == View.GONE){
-                    land_top_layout.setVisibility(View.VISIBLE);
-                    land_bottom_layout.setBackgroundColor(Color.WHITE);
-                    land_popup_img.getLayoutParams().width = 1500;
-                } else if(land_top_layout.getVisibility() == View.VISIBLE){
-                    land_top_layout.setVisibility(View.GONE);
-                    land_bottom_layout.setBackgroundColor(Color.BLACK);
-                    land_popup_img.getLayoutParams().width = 2500;
-                }
+        land_popup_img.setOnClickListener(view -> {
+            if(land_top_layout.getVisibility() == View.GONE){
+                land_top_layout.setVisibility(View.VISIBLE);
+                land_bottom_layout.setBackgroundColor(Color.WHITE);
+                land_popup_img.getLayoutParams().width = 1000;
+            } else if(land_top_layout.getVisibility() == View.VISIBLE){
+                land_top_layout.setVisibility(View.GONE);
+                land_bottom_layout.setBackgroundColor(Color.BLACK);
+                land_popup_img.getLayoutParams().width = 2500;
             }
         });
 
         // X 버튼
-        land_btn_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                land_bottom_layout.setBackgroundColor(Color.BLACK);
-                land_top_layout.setVisibility(View.GONE);
-                finish();
-            }
+        land_btn_close.setOnClickListener(view -> {
+            land_bottom_layout.setBackgroundColor(Color.BLACK);
+            land_top_layout.setVisibility(View.GONE);
+            finish();
         });
     }
 }

@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPagerAdapter viewPagerAdapter;
     SetViewPagerTabListener setViewPagerTabListener;
     public static int position=0;
-    public static int state=0;
+    public static int state=1;
 
     public interface SetViewPagerTabListener{
         void setTab(int position);

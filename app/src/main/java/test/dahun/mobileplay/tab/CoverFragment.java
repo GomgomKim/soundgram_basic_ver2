@@ -23,7 +23,7 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
-import test.dahun.mobileplay.model.ApplicationStatus;
+import test.dahun.mobileplay.interfaces.ApplicationStatus;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
@@ -91,36 +91,11 @@ public class CoverFragment extends Fragment
     }
 
     public void btnSetting(){
-        home_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(0);
-            }
-        });
-        list_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(1);
-            }
-        });
-        play_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(2);
-            }
-        });
-        gallery_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(3);
-            }
-        });
-        sns_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(4);
-            }
-        });
+        home_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(0));
+        list_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(1));
+        play_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(2));
+        gallery_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(3));
+        sns_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(4));
     }
 
 

@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.GallaryListAdapter;
-import test.dahun.mobileplay.model.ApplicationStatus;
+import test.dahun.mobileplay.interfaces.ApplicationStatus;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
@@ -67,77 +67,17 @@ public class GallaryFragment extends Fragment {
 
         gallaryListAdapter = new GallaryListAdapter(getContext());
         gallaryListAdapter.addItem(0, "검정치마 '조휴일'", R.drawable.galleryimg_01);
-        gallaryListAdapter.addItem(1, "한국대중음악상이 사랑한 인디밴드", R.drawable.galleryimg_02, "aCj1Igctb8s");
+        gallaryListAdapter.addItem(1, "[M/V] 검정치마(The Black Skirts) - 'EVERYTHING'", R.drawable.galleryimg_02, "Aq_gsctWHtQ");
 //        gallaryListAdapter.addItem(0, "음반작업 현장", R.drawable.galleryimg_03);
         gallary_list.setAdapter(gallaryListAdapter);
     }
 
-    public void resizeLayout(){
-        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        float context_height = pxToDp(dm.heightPixels);
-        final int layout_height = dpToPx(context_height - 132);
-        gallary_list.post(new Runnable() {
-            @Override
-            public void run() {
-                LinearLayout.LayoutParams position = new LinearLayout.LayoutParams(
-                        gallary_list.getWidth(), layout_height
-                );
-                gallary_list.setLayoutParams(position);
-            }
-        });
-
-    }
-
-    //dp를 px로
-    public int dpToPx(float dp){
-        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, dm);
-        return px;
-    }
-
-    //px를 dp로
-    public float pxToDp(float px){
-        float density = getContext().getResources().getDisplayMetrics().density;
-
-        if(density == 1.0) density *= 4.0;
-        else if(density == 1.5) density *= (8/3);
-        else if(density == 2.0) density *= 2.0;
-
-        float dp = px/density;
-        return dp;
-    }
-
     public void btnSetting(){
-        home_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(0);
-            }
-        });
-        list_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(1);
-            }
-        });
-        play_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(2);
-            }
-        });
-        gallery_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(3);
-            }
-        });
-        sns_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(4);
-            }
-        });
+        home_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(0));
+        list_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(1));
+        play_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(2));
+        gallery_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(3));
+        sns_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(4));
     }
 
     @Override
