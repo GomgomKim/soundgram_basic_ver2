@@ -395,23 +395,20 @@ public class MusicFragment extends Fragment
         seekBar.getThumb().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 
         // thumb 수정
-        seekBar.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                // custom seekbar thumb
-                /*if (seekBar.getHeight() > 0) {
-                    Drawable thumb = getResources().getDrawable(R.drawable.play_page_on);
-                    int h = seekBar.getMeasuredHeight();
-                    int w = h;
-                    Bitmap bmpOrg = ((BitmapDrawable) thumb).getBitmap();
-                    Bitmap bmpScaled = Bitmap.createScaledBitmap(bmpOrg, w, h, true);
-                    Drawable newThumb = new BitmapDrawable(getResources(), bmpScaled);
-                    newThumb.setBounds(0, 0, newThumb.getIntrinsicWidth(), newThumb.getIntrinsicHeight());
-                    seekBar.setThumb(newThumb);
-                    seekBar.getViewTreeObserver().removeOnPreDrawListener(this);
-                }*/
-                return true;
-            }
+        seekBar.getViewTreeObserver().addOnPreDrawListener(() -> {
+            // custom seekbar thumb
+            /*if (seekBar.getHeight() > 0) {
+                Drawable thumb = getResources().getDrawable(R.drawable.play_page_on);
+                int h = seekBar.getMeasuredHeight();
+                int w = h;
+                Bitmap bmpOrg = ((BitmapDrawable) thumb).getBitmap();
+                Bitmap bmpScaled = Bitmap.createScaledBitmap(bmpOrg, w, h, true);
+                Drawable newThumb = new BitmapDrawable(getResources(), bmpScaled);
+                newThumb.setBounds(0, 0, newThumb.getIntrinsicWidth(), newThumb.getIntrinsicHeight());
+                seekBar.setThumb(newThumb);
+                seekBar.getViewTreeObserver().removeOnPreDrawListener(this);
+            }*/
+            return true;
         });
 
         // 시크바 세팅
@@ -824,7 +821,12 @@ public class MusicFragment extends Fragment
     // 하트갯수 수정
     public void setHeartNum(int current_like_count){
         String heart_count = "";
-        if(current_like_count >= 1000)  heart_count = (current_like_count/1000)+"k";
+        if(current_like_count >= 1000) {
+            int thousand = current_like_count/1000;
+            int rest = current_like_count - thousand*1000;
+            if(rest/500 == 1) heart_count = (current_like_count/1000)+".5k";
+            else heart_count = (current_like_count/1000)+"k";
+        }
         else heart_count = String.valueOf(current_like_count);
         like_count.set(index, current_like_count);
         heart_num.setText(heart_count);
@@ -836,7 +838,7 @@ public class MusicFragment extends Fragment
         like_count = new ArrayList<>();
         musicarr.add("Big Love");  like_count.add(13);
         musicarr.add("좋아해줘");  like_count.add(1789);
-        musicarr.add("Dientes");   like_count.add(542);
+        musicarr.add("Dientes");   like_count.add(1142);
         musicarr.add("Stand Still"); like_count.add(486);
         musicarr.add("상아");  like_count.add(992);
         musicarr.add("강아지");  like_count.add(96);

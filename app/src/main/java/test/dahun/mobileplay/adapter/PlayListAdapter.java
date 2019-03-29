@@ -154,7 +154,12 @@ public class PlayListAdapter extends BaseAdapter {
     // 하트갯수 수정
     public String setHeartNum(int current_like_count){
         String heart_count = "";
-        if(current_like_count >= 1000)  heart_count = (current_like_count/1000)+"k";
+        if(current_like_count >= 1000)  {
+            int thousand = current_like_count/1000;
+            int rest = current_like_count - thousand*1000;
+            if(rest/500 == 1) heart_count = (current_like_count/1000)+".5k";
+            else heart_count = (current_like_count/1000)+"k";
+        }
         else heart_count = String.valueOf(current_like_count);
         return heart_count;
     }

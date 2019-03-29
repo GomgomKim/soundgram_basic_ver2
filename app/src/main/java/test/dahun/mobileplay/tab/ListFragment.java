@@ -139,7 +139,7 @@ public class ListFragment extends Fragment {
         heart_nums = new ArrayList<>();
         titles.add("Big Love");      heart_nums.add(13);
         titles.add("좋아해줘");      heart_nums.add(1789);
-        titles.add("Dientes");       heart_nums.add(542);
+        titles.add("Dientes");       heart_nums.add(1142);
         titles.add("Stand Still");   heart_nums.add(486);
         titles.add("상아");           heart_nums.add(992);
         titles.add("강아지");         heart_nums.add(96);

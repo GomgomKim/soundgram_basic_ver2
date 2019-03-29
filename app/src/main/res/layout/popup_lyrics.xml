@@ -29,12 +29,26 @@
              />
       </RelativeLayout>
 
-
+      <TextView
+          android:id="@+id/title"
+          android:layout_below="@+id/title_bar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:fontFamily="@font/notosanskr_regular"
+          android:gravity="center"
+          android:includeFontPadding="false"
+          android:paddingTop="16dp"
+          android:paddingBottom="16dp"
+          android:text="She's a Baby"
+          android:textColor="#454545"
+          android:textSize="24dp"
+          android:background="#D8D8D8"
+          />
 
       <ScrollView
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:layout_below="@+id/title_bar"
+          android:layout_below="@+id/title"
           android:paddingTop="20dp"
           android:paddingBottom="40dp"
           android:paddingLeft="20dp"
@@ -54,18 +68,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 >
-               <TextView
-                   android:id="@+id/title"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:fontFamily="@font/notosanskr_regular"
-                   android:gravity="center"
-                   android:includeFontPadding="false"
-                   android:paddingTop="16dp"
-                   android:paddingBottom="16dp"
-                   android:text="She's a Baby"
-                   android:textColor="#454545"
-                   android:textSize="24dp" />
+
                <TextView
                    android:id="@+id/info"
                    android:layout_width="match_parent"

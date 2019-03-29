@@ -91,7 +91,6 @@ public class MusicService extends Service {
         switch (state){
             case "play":
 //                setNotification();
-
                 mp = changeMusicPlayer(music_index);
                 mp.seekTo(pos);
                 mp.setLooping(false);
@@ -107,7 +106,7 @@ public class MusicService extends Service {
                 timer = new Timer();
                 timer_update = new Timer();
                 timer.schedule(new MusicTimer(), 1000, 1000);
-                timer_update.schedule(new PageUpdateTimer(), 500, 500);
+                timer_update.schedule(new PageUpdateTimer(), 400, 400);
                 is_timer_on = true;
 
                 ApplicationStatus.isPlaying = true;
