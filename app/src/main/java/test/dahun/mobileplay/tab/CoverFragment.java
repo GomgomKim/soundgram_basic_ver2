@@ -39,6 +39,7 @@ public class CoverFragment extends Fragment
 
     @BindView(R.id.cover_img) ImageView cover_img;
     @BindView(R.id.reflect_img) ImageView reflect_img;
+    @BindView(R.id.cover_bottom) ImageView cover_bottom;
 
     @BindView(R.id.info_btn) ImageButton info_btn;
 
@@ -73,20 +74,20 @@ public class CoverFragment extends Fragment
         if(ApplicationStatus.isPlaying)
             Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
         else
-            Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
+            Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
 
-        Glide.with(getContext()).load(R.drawable.albumimg_01)
+        Glide.with(getContext()).load(R.drawable.cover)
                 .apply(new RequestOptions().fitCenter()).into(cover_img);
+
+        Glide.with(getContext()).load(R.drawable.bg_home)
+                .apply(new RequestOptions().fitCenter()).into(cover_bottom);
+
+        cover.bringToFront();
 
         Glide.with(getContext()).load(R.drawable.album_reflectlight)
                 .apply(new RequestOptions().fitCenter()).into(reflect_img);
 
-        info_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), SurviceInfoActivity.class));
-            }
-        });
+        info_btn.setOnClickListener(view -> startActivity(new Intent(getActivity(), SurviceInfoActivity.class)));
 
     }
 
@@ -110,7 +111,7 @@ public class CoverFragment extends Fragment
                     return;
                 }
                 else{
-                    Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
+                    Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
                     return;
                 }
             }

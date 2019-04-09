@@ -35,47 +35,27 @@ public class SubMusicView extends LinearLayout {
       case 0:
 //        path = Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.play_2_trackimg_01);
 //        imageView.setImageURI(path);
-        Glide.with(getContext()).load(R.drawable.albumimg_02).apply(new RequestOptions().circleCrop()).into(imageView);
+        Glide.with(getContext()).load(R.drawable.gallary1).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 1:
-        Glide.with(getContext()).load(R.drawable.albumimg_03).apply(new RequestOptions().circleCrop()).into(imageView);
+        Glide.with(getContext()).load(R.drawable.gallary2).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 2:
-        Glide.with(getContext()).load(R.drawable.albumimg_04).apply(new RequestOptions().circleCrop()).into(imageView);
+        Glide.with(getContext()).load(R.drawable.gallary3).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 3:
-        Glide.with(getContext()).load(R.drawable.albumimg_05).apply(new RequestOptions().circleCrop()).into(imageView);
+        Glide.with(getContext()).load(R.drawable.gallary4).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 4:
-        Glide.with(getContext()).load(R.drawable.albumimg_06).apply(new RequestOptions().circleCrop()).into(imageView);
+        Glide.with(getContext()).load(R.drawable.gallary5).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 5:
-        Glide.with(getContext()).load(R.drawable.albumimg_02).apply(new RequestOptions().circleCrop()).into(imageView);
-        break;
-
-      case 6:
-        Glide.with(getContext()).load(R.drawable.albumimg_03).apply(new RequestOptions().circleCrop()).into(imageView);
-        break;
-
-      case 7:
-        Glide.with(getContext()).load(R.drawable.albumimg_04).apply(new RequestOptions().circleCrop()).into(imageView);
-        break;
-
-      case 8:
-        Glide.with(getContext()).load(R.drawable.albumimg_05).apply(new RequestOptions().circleCrop()).into(imageView);
-        break;
-
-      case 9:
-        Glide.with(getContext()).load(R.drawable.albumimg_06).apply(new RequestOptions().circleCrop()).into(imageView);
-        break;
-
-      case 10:
-        Glide.with(getContext()).load(R.drawable.albumimg_02).apply(new RequestOptions().circleCrop()).into(imageView);
+        Glide.with(getContext()).load(R.drawable.gallary6).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
     }
 

@@ -2,6 +2,7 @@ package test.dahun.mobileplay.tab;
 
 
 import android.content.res.AssetManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -42,6 +43,8 @@ public class ThanksToFragment extends Fragment {
 
     @BindView(R.id.intro_list) ListView intro_list;
 
+    @BindView(R.id.middle_bg) ImageView middle_bg;
+
     @BindView(R.id.home_btn) ImageButton home_btn;
     @BindView(R.id.list_btn) ImageButton list_btn;
     @BindView(R.id.play_btn) ImageButton play_btn;
@@ -69,7 +72,7 @@ public class ThanksToFragment extends Fragment {
         if(ApplicationStatus.isPlaying)
             Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
         else
-            Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
+            Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
 
 
         // make content
@@ -92,49 +95,26 @@ public class ThanksToFragment extends Fragment {
             e.printStackTrace();
         }
 
+        Glide.with(getContext()).load(R.drawable.bg_thanks).into(middle_bg);
+
         // 리스트 생성
         thanksToAdapter = new ThanksToAdapter(getContext());
-        thanksToAdapter.addItem("Thanks to FAN", "from 검정치마", intro);
+        thanksToAdapter.addItem("Thanks to FAN", "from 신현희", intro);
         intro_list.setAdapter(thanksToAdapter);
 
         // 이미지 원형으로 만들기
-        Glide.with(getContext()).load(R.drawable.sns_mainimg)
+        Glide.with(getContext()).load(R.drawable.album_story_profile)
                                 .apply(new RequestOptions().circleCrop())
                                 .into(singer_img);
     }
 
 
     public void btnSetting(){
-        home_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(0);
-            }
-        });
-        list_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(1);
-            }
-        });
-        play_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(2);
-            }
-        });
-        gallery_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(3);
-            }
-        });
-        sns_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewPagerTabListener.setTab(4);
-            }
-        });
+        home_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(0));
+        list_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(1));
+        play_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(2));
+        gallery_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(3));
+        sns_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(4));
     }
 
     @Override
@@ -148,7 +128,7 @@ public class ThanksToFragment extends Fragment {
                     return;
                 }
                 else{
-                    Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
+                    Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
                     return;
                 }
             }

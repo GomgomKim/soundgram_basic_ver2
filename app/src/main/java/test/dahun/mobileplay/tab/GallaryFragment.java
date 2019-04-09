@@ -63,11 +63,11 @@ public class GallaryFragment extends Fragment {
         if(ApplicationStatus.isPlaying)
             Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
         else
-            Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
+            Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
 
         gallaryListAdapter = new GallaryListAdapter(getContext());
-        gallaryListAdapter.addItem(0, "검정치마 '조휴일'", R.drawable.galleryimg_01);
-        gallaryListAdapter.addItem(1, "[M/V] 검정치마(The Black Skirts) - 'EVERYTHING'", R.drawable.galleryimg_02, "Aq_gsctWHtQ");
+        gallaryListAdapter.addItem(0, "신현희와김루트 싸우지 말자 '작업일기'", R.drawable.gallary1);
+        gallaryListAdapter.addItem(1, "[M/V] 신현희와김루트 '오빠야'", R.drawable.video1, "OmjN_b07syo");
 //        gallaryListAdapter.addItem(0, "음반작업 현장", R.drawable.galleryimg_03);
         gallary_list.setAdapter(gallaryListAdapter);
     }
@@ -91,7 +91,7 @@ public class GallaryFragment extends Fragment {
                     return;
                 }
                 else{
-                    Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
+                    Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
                     return;
                 }
             }

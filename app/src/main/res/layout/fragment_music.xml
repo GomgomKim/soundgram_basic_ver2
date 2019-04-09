@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ba2b28"
+    android:background="#faf5dc"
     tools:context="test.dahun.mobileplay.main.MainActivity">
 
     <ImageView
@@ -32,11 +32,11 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosanskr_regular"
+            android:fontFamily="@font/daehan_regular"
             android:includeFontPadding="false"
             android:paddingBottom="6dp"
-            android:text="Big Love"
-            android:textColor="#f2efe0"
+            android:text="오빠야"
+            android:textColor="#333333"
             android:textSize="28dp" />
 
         <TextView
@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosanskr_regular"
             android:includeFontPadding="false"
-            android:text="검정치마"
-            android:textColor="#f2efe0"
+            android:text="신현희와김루트"
+            android:textColor="#333333"
             android:textSize="16dp" />
     </LinearLayout>
 
@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/notosanskr_regular"
                 android:text="0"
-                android:textColor="#f2efe0"
+                android:textColor="#333333"
                 android:textSize="14dp" />
         </LinearLayout>
         <LinearLayout

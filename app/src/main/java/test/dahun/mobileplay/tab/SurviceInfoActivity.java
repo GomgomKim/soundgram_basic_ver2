@@ -75,63 +75,23 @@ public class SurviceInfoActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.sns_twt)
                 .apply(new RequestOptions().fitCenter().circleCrop()).into(twt_btn);
 
-        insta_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/explore/tags/%EB%B9%84%ED%8B%80%EC%9B%8D%EC%8A%A4/?hl=ko")));
-            }
-        });
+        insta_btn.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/explore/tags/%EB%B9%84%ED%8B%80%EC%9B%8D%EC%8A%A4/?hl=ko"))));
 
-        facebook_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://ko-kr.facebook.com/")));
-            }
-        });
+        facebook_btn.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://ko-kr.facebook.com/"))));
 
-        twt_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/?lang=ko")));
-            }
-        });
+        twt_btn.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/?lang=ko"))));
     }
 
     public void utilSetting(){
-        btn_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        btn_close.setOnClickListener(view -> finish());
 
-        evaluation_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.nhn.android.search")));
-            }
-        });
+        evaluation_btn.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.nhn.android.search"))));
 
-        support_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                send_mail();
-            }
-        });
+        support_btn.setOnClickListener(view -> send_mail());
 
-        intro_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://soundgram.co.kr/")));
-            }
-        });
+        intro_btn.setOnClickListener(view -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://soundgram.co.kr/"))));
 
-        terms_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                terms_popup_window(view);
-            }
-        });
+        terms_btn.setOnClickListener(view -> terms_popup_window(view));
     }
 
     public void terms_popup_window(View v){

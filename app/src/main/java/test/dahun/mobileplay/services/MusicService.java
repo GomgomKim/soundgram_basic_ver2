@@ -254,37 +254,22 @@ public class MusicService extends Service {
     public MediaPlayer changeMusicPlayer(int index){
         switch(index){
             case 0:
-                mp = MediaPlayer.create(this, R.raw.biglove);
+                mp = MediaPlayer.create(this, R.raw.track1);
                 break;
             case 1:
-                mp = MediaPlayer.create(this, R.raw.everything);
+                mp = MediaPlayer.create(this, R.raw.track2);
                 break;
             case 2:
-                mp = MediaPlayer.create(this, R.raw.free_land);
+                mp = MediaPlayer.create(this, R.raw.track3);
                 break;
             case 3:
-                mp = MediaPlayer.create(this, R.raw.hollywood);
+                mp = MediaPlayer.create(this, R.raw.track4);
                 break;
             case 4:
-                mp = MediaPlayer.create(this, R.raw.if_not_me);
+                mp = MediaPlayer.create(this, R.raw.track5);
                 break;
             case 5:
-                mp = MediaPlayer.create(this, R.raw.international_love_song);
-                break;
-            case 6:
-                mp = MediaPlayer.create(this, R.raw.kisado);
-                break;
-            case 7:
-                mp = MediaPlayer.create(this, R.raw.love_shine);
-                break;
-            case 8:
-                mp = MediaPlayer.create(this, R.raw.my_home_seoul);
-                break;
-            case 9:
-                mp = MediaPlayer.create(this, R.raw.our_young_love);
-                break;
-            case 10:
-                mp = MediaPlayer.create(this, R.raw.if_not_me);
+                mp = MediaPlayer.create(this, R.raw.track6);
                 break;
         }
         mp.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
@@ -297,17 +282,12 @@ public class MusicService extends Service {
     public void dataSetting(){
         musicarr = new ArrayList<>();
         albumarr = new ArrayList<>();
-        albumarr.add(R.drawable.albumimg_02); musicarr.add("Big Love");
-        albumarr.add(R.drawable.albumimg_03); musicarr.add("좋아해줘");
-        albumarr.add(R.drawable.albumimg_04); musicarr.add("Dientes");
-        albumarr.add(R.drawable.albumimg_05); musicarr.add("Stand Still");
-        albumarr.add(R.drawable.albumimg_06); musicarr.add("상아");
-        albumarr.add(R.drawable.albumimg_02); musicarr.add("강아지");
-        albumarr.add(R.drawable.albumimg_03); musicarr.add("Antifreeze");
-        albumarr.add(R.drawable.albumimg_04); musicarr.add("Kiss And Tell");
-        albumarr.add(R.drawable.albumimg_05); musicarr.add("LE Fu Muet");
-        albumarr.add(R.drawable.albumimg_06); musicarr.add("Diamond");
-        albumarr.add(R.drawable.albumimg_02); musicarr.add("난 아니에요");
+        albumarr.add(R.drawable.albumimg_02); musicarr.add("신현희와김루트");
+        albumarr.add(R.drawable.albumimg_03); musicarr.add("오빠야");
+        albumarr.add(R.drawable.albumimg_04); musicarr.add("Cap Song");
+        albumarr.add(R.drawable.albumimg_05); musicarr.add("집 비던날");
+        albumarr.add(R.drawable.albumimg_06); musicarr.add("편한노래");
+        albumarr.add(R.drawable.albumimg_02); musicarr.add("날개");
     }
 
 }

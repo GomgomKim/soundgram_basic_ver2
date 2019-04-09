@@ -83,7 +83,7 @@ public class ListFragment extends Fragment {
         if(ApplicationStatus.isPlaying)
             Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
         else
-            Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
+            Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
 
         playListAdapter = new PlayListAdapter(getContext(), this);
         for(int i=0; i<titles.size(); i++){
@@ -113,7 +113,7 @@ public class ListFragment extends Fragment {
             e.printStackTrace();
         }
 
-        playListAdapter.addItem(1, "안녕하세요 '검정치마' 입니다.", content);
+        playListAdapter.addItem(1, "안녕하세요 '신현희와김루트' 입니다.", content);
         play_list.setAdapter(playListAdapter);
     }
 
@@ -137,17 +137,12 @@ public class ListFragment extends Fragment {
     public void makeData(){
         titles = new ArrayList<>();
         heart_nums = new ArrayList<>();
-        titles.add("Big Love");      heart_nums.add(13);
-        titles.add("좋아해줘");      heart_nums.add(1789);
-        titles.add("Dientes");       heart_nums.add(1142);
-        titles.add("Stand Still");   heart_nums.add(486);
-        titles.add("상아");           heart_nums.add(992);
-        titles.add("강아지");         heart_nums.add(96);
-        titles.add("Antifreeze");    heart_nums.add(9);
-        titles.add("Kiss And Tell"); heart_nums.add(75);
-        titles.add("LE Fou Muet");   heart_nums.add(123);
-        titles.add("Diamond");       heart_nums.add(47);
-        titles.add("난 아니에요");    heart_nums.add(7);
+        titles.add("신현희와김루트");      heart_nums.add(13);
+        titles.add("오빠야");      heart_nums.add(1789);
+        titles.add("Cap Song");       heart_nums.add(1142);
+        titles.add("집 비던날");   heart_nums.add(486);
+        titles.add("편한노래");           heart_nums.add(992);
+        titles.add("날개");         heart_nums.add(96);
     }
 
     @Override
@@ -161,7 +156,7 @@ public class ListFragment extends Fragment {
                     return;
                 }
                 else{
-                    Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
+                    Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
                     return;
                 }
             }

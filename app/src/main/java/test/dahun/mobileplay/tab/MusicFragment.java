@@ -199,13 +199,13 @@ public class MusicFragment extends Fragment
 
         musicPager.setCurrentItem(mEvent.getPosition());
         if(isPlaying){
-            Glide.with(getContext()).load(R.drawable.btn_pause)
+            Glide.with(getContext()).load(R.drawable.btn_pause2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
             Glide.with(getContext()).load(R.raw.mn_equalizer).into(play_btn);
         } else{
-            Glide.with(getContext()).load(R.drawable.btn_play)
+            Glide.with(getContext()).load(R.drawable.btn_play2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
-            Glide.with(getContext()).load(R.drawable.mn_play_off).into(play_btn);
+            Glide.with(getContext()).load(R.drawable.mn_play_on2).into(play_btn);
         }
     }
 
@@ -215,13 +215,13 @@ public class MusicFragment extends Fragment
         // 이벤트가 발생한뒤 수행할 작업
         isPlaying = mEvent.isPlaying();
         if(isPlaying == true) { // 재생
-            Glide.with(getContext()).load(R.drawable.btn_pause)
+            Glide.with(getContext()).load(R.drawable.btn_pause2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
             Glide.with(getContext()).load(R.raw.mn_equalizer).into(play_btn);
         } else{ // 정지
-            Glide.with(getContext()).load(R.drawable.btn_play)
+            Glide.with(getContext()).load(R.drawable.btn_play2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
-            Glide.with(getContext()).load(R.drawable.mn_play_off).into(play_btn);
+            Glide.with(getContext()).load(R.drawable.mn_play_on2).into(play_btn);
         }
     }
 
@@ -262,7 +262,7 @@ public class MusicFragment extends Fragment
                 }
                 seekBar.setProgress(0);
                 currentTime.setText(timeTranslation(0));
-                Glide.with(getContext()).load(R.drawable.mn_play_off).into(play_btn);
+                Glide.with(getContext()).load(R.drawable.mn_play_on2).into(play_btn);
                 break;
             case 1:
                 ApplicationStatus.isPlaying = true;
@@ -273,7 +273,7 @@ public class MusicFragment extends Fragment
                 Glide.with(getContext()).load(R.drawable.btn_play)
                         .apply(new RequestOptions().fitCenter()).into(btn_play);
                 ApplicationStatus.isPlaying = false;
-                Glide.with(getContext()).load(R.drawable.mn_play_off).into(play_btn);
+                Glide.with(getContext()).load(R.drawable.mn_play_on2).into(play_btn);
                 break;
         }
     }
@@ -301,28 +301,28 @@ public class MusicFragment extends Fragment
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void initSetting() {
-        singer.setText("검정치마");
+        singer.setText("신현희와김루트");
 
-        Glide.with(getContext()).load(R.drawable.mn_play_off).into(play_btn);
+        Glide.with(getContext()).load(R.drawable.mn_play_on2).into(play_btn);
 
         heart.setTag(0); // 하트의 상태 / 0 : off / 1 : on
         title.setText(musicarr.get(0)); // 첫번째 노래제목
         heart_num.setText(String.valueOf(like_count.get(0))); // 첫번째 노래 하트개수
 
-        Glide.with(getContext()).load(R.drawable.btn_prevplay)
+        Glide.with(getContext()).load(R.drawable.btn_prevplay2)
                 .apply(new RequestOptions().fitCenter()).into(btn_prevplay);
-        Glide.with(getContext()).load(R.drawable.btn_nextplay)
+        Glide.with(getContext()).load(R.drawable.btn_nextplay2)
                 .apply(new RequestOptions().fitCenter()).into(btn_nextplay);
         btn_prevplay.setAlpha(0.5f); // 첫번째곡 이전버튼 반투명
 
-        Glide.with(getContext()).load(R.drawable.btn_lyrics)
+        Glide.with(getContext()).load(R.drawable.btn_lyrics2)
                 .apply(new RequestOptions().fitCenter()).into(btn_lyric);
 
         if(isPlaying){
-            Glide.with(getContext()).load(R.drawable.btn_pause)
+            Glide.with(getContext()).load(R.drawable.btn_pause2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
         } else{
-            Glide.with(getContext()).load(R.drawable.btn_play)
+            Glide.with(getContext()).load(R.drawable.btn_play2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
         }
 
@@ -391,8 +391,8 @@ public class MusicFragment extends Fragment
         seekBar.setProgress(0);
 
         // 시크바 색상 변경
-        seekBar.getProgressDrawable().setColorFilter(Color.parseColor("#80f2efe0"), PorterDuff.Mode.SRC_IN);
-        seekBar.getThumb().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        seekBar.getProgressDrawable().setColorFilter(Color.parseColor("#80222222"), PorterDuff.Mode.SRC_IN);
+        seekBar.getThumb().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
 
         // thumb 수정
         seekBar.getViewTreeObserver().addOnPreDrawListener(() -> {
@@ -633,90 +633,6 @@ public class MusicFragment extends Fragment
                     e.printStackTrace();
                 }
                 break;
-            case 5:
-                try {
-                    inputStream = am.open("sixth.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
-                    br = new BufferedReader(inputStreamReader);
-
-                    while((read=br.readLine())!=null){
-                        lyrics+=read;
-                        lyrics+="\n";
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 6:
-                try {
-                    inputStream = am.open("seventh.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
-                    br = new BufferedReader(inputStreamReader);
-
-                    while((read=br.readLine())!=null){
-                        lyrics+=read;
-                        lyrics+="\n";
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 7:
-                try {
-                    inputStream = am.open("first.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
-                    br = new BufferedReader(inputStreamReader);
-
-                    while((read=br.readLine())!=null){
-                        lyrics+=read;
-                        lyrics+="\n";
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 8:
-                try {
-                    inputStream = am.open("second.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
-                    br = new BufferedReader(inputStreamReader);
-
-                    while((read=br.readLine())!=null){
-                        lyrics+=read;
-                        lyrics+="\n";
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 9:
-                try {
-                    inputStream = am.open("third.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
-                    br = new BufferedReader(inputStreamReader);
-
-                    while((read=br.readLine())!=null){
-                        lyrics+=read;
-                        lyrics+="\n";
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 10:
-                try {
-                    inputStream = am.open("fourth.txt");
-                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
-                    br = new BufferedReader(inputStreamReader);
-
-                    while((read=br.readLine())!=null){
-                        lyrics+=read;
-                        lyrics+="\n";
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
         }
 
         lyricsText.setText(lyrics);
@@ -836,32 +752,22 @@ public class MusicFragment extends Fragment
         // make title data - database 연동예정
         musicarr = new ArrayList<>();
         like_count = new ArrayList<>();
-        musicarr.add("Big Love");  like_count.add(13);
-        musicarr.add("좋아해줘");  like_count.add(1789);
-        musicarr.add("Dientes");   like_count.add(1142);
-        musicarr.add("Stand Still"); like_count.add(486);
-        musicarr.add("상아");  like_count.add(992);
-        musicarr.add("강아지");  like_count.add(96);
-        musicarr.add("Antifreeze");  like_count.add(9);
-        musicarr.add("Kiss And Tell");  like_count.add(75);
-        musicarr.add("LE Fou Muet");   like_count.add(123);
-        musicarr.add("Diamond");       like_count.add(47);
-        musicarr.add("난 아니에요");    like_count.add(7);
+        musicarr.add("신현희와김루트");  like_count.add(13);
+        musicarr.add("오빠야");  like_count.add(1789);
+        musicarr.add("Cap Song");   like_count.add(1142);
+        musicarr.add("집 비던날"); like_count.add(486);
+        musicarr.add("편한노래");  like_count.add(992);
+        musicarr.add("날개");  like_count.add(96);
 
 
         // make music info - database 연동예정
         music_info = new ArrayList<>();
-        music_info.add(new MusicInfoItem("Big Love", "검정치마", "검정치마", "검정치마"));
-        music_info.add(new MusicInfoItem("좋아해줘", "검정치마", "검정치마", "검정치마"));
-        music_info.add(new MusicInfoItem("Dientes", "검정치마", "검정치마", "검정치마"));
-        music_info.add(new MusicInfoItem("Stand Still", "검정치마", "검정치마", "검정치마"));
-        music_info.add(new MusicInfoItem("상아", "검정치마", "검정치마", "검정치마"));
-        music_info.add(new MusicInfoItem("강아지", "검정치마", "검정치마", "검정치마"));
-        music_info.add(new MusicInfoItem("Antifreeze", "검정치마", "검정치마", "검정치마"));
-        music_info.add(new MusicInfoItem("Kiss And Tell", "검정치마", "검정치마", "검정치마"));
-        music_info.add(new MusicInfoItem("LE Fou Muet", "검정치마", "검정치마", "검정치마"));
-        music_info.add(new MusicInfoItem("Diamond", "검정치마", "검정치마", "검정치마"));
-        music_info.add(new MusicInfoItem("난 아니에요", "검정치마", "검정치마", "검정치마"));
+        music_info.add(new MusicInfoItem("신현희와김루트", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
+        music_info.add(new MusicInfoItem("오빠야", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
+        music_info.add(new MusicInfoItem("Cap Song", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
+        music_info.add(new MusicInfoItem("집 비던날", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
+        music_info.add(new MusicInfoItem("편한노래", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
+        music_info.add(new MusicInfoItem("날개", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
     }
 
     @Override
@@ -882,7 +788,7 @@ public class MusicFragment extends Fragment
                     return;
                 }
                 else{
-                    Glide.with(getContext()).load(R.drawable.mn_play_off).into(imageViewTarget);
+                    Glide.with(getContext()).load(R.drawable.mn_play_on2).into(imageViewTarget);
                     return;
                 }
             }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="test.dahun.mobileplay.main.MainActivity"
-    android:background="#ba2b28"
+    android:background="#faf5dc"
     >
 
     <RelativeLayout
@@ -27,17 +27,17 @@
         <ImageView
             android:id="@+id/reflect_img"
             android:layout_width="match_parent"
-            android:layout_height="340dp"
-            android:scaleType="fitXY"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
             />
 
         <ImageView
-            android:id="@+id/bg_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
+            android:id="@+id/cover_bottom"
             android:layout_below="@+id/cover_img"
-            android:background="@drawable/bg_main"
+            android:layout_above="@+id/btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             />
 
         <LinearLayout
@@ -45,7 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="145dp"
             android:layout_below="@+id/cover_img"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#d9faf5dc"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,11 +56,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notosanskr_thin"
+                android:fontFamily="@font/daehan_regular"
                 android:gravity="center"
-                android:text="Special Edition 2018"
-                android:textColor="#f2efe0"
-                android:textSize="30dp"
+                android:text="신현희와김루트"
+                android:textColor="#333333"
+                android:textSize="36dp"
                 android:includeFontPadding="false"
                 />
 
@@ -69,9 +71,11 @@
                 android:background="#333333"
                 android:fontFamily="@font/notosanskr_regular"
                 android:includeFontPadding="false"
-                android:text="  검정치마  "
+                android:text="  신현희와김루트  "
                 android:textColor="#f2efe0"
-                android:textSize="19dp" />
+                android:textSize="14dp"
+                android:layout_marginTop="8dp"
+                />
 
             <TextView
                 android:layout_width="match_parent"
@@ -79,9 +83,10 @@
                 android:fontFamily="@font/notosanskr_regular"
                 android:gravity="center"
                 android:text="EP"
-                android:textColor="#f2efe0"
+                android:textColor="#333333"
                 android:textSize="20dp"
                 android:includeFontPadding="false"
+                android:layout_marginTop="8dp"
                 />
 
         </LinearLayout>
@@ -95,58 +100,57 @@
             android:layout_marginTop="18dp"
             android:layout_gravity="center"
             android:scaleType="fitXY"
-            android:background="@drawable/btn_info"
+            android:background="@drawable/home_btn_info"
             />
 
+        <LinearLayout
+            android:id="@+id/btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            >
+            <ImageButton
+                android:id="@+id/home_btn"
+                android:layout_marginLeft="23dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/mn_home_on"
+                />
+            <ImageButton
+                android:id="@+id/list_btn"
+                android:layout_marginLeft="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/mn_list_off"
+                />
+
+            <ImageButton
+                android:id="@+id/play_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="35dp"
+                android:background="@null"
+                android:scaleType="fitXY"
+                />
+
+            <ImageButton
+                android:id="@+id/gallery_btn"
+                android:layout_marginLeft="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/mn_gallery_off"
+                />
+            <ImageButton
+                android:id="@+id/sns_btn"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="23dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/mn_sns_off"
+                />
+        </LinearLayout>
     </RelativeLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        >
-        <ImageButton
-            android:id="@+id/home_btn"
-            android:layout_marginLeft="23dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_home_on"
-            />
-        <ImageButton
-            android:id="@+id/list_btn"
-            android:layout_marginLeft="35dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_list_off"
-            />
-
-        <ImageButton
-            android:id="@+id/play_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="35dp"
-            android:background="@null"
-            android:scaleType="fitXY"
-            />
-
-        <ImageButton
-            android:id="@+id/gallery_btn"
-            android:layout_marginLeft="35dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_gallery_off"
-            />
-        <ImageButton
-            android:id="@+id/sns_btn"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="23dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_sns_off"
-            />
-    </LinearLayout>
 
 
 </RelativeLayout>

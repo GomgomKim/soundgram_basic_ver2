@@ -7,15 +7,15 @@
     >
     <TextView
         android:id="@+id/top_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/bg_gallary"
-        android:text="G       A       L       L       E       R       Y"
+        android:background="#faf5dc"
+        android:text="G    A    L    L    E    R    Y"
         android:gravity="center"
         android:textSize="17dp"
-        android:textColor="#f2efe0"
-        android:fontFamily="@font/notosanskr_thin"
+        android:textColor="#454545"
+        android:fontFamily="@font/daehan_regular"
         />
 
     <ListView
@@ -35,7 +35,7 @@
         android:layout_height="52dp"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:background="#ba2b28"
+        android:background="#faf5dc"
         >
         <ImageButton
             android:id="@+id/home_btn"
