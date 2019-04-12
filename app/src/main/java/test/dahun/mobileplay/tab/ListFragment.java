@@ -25,12 +25,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.PlayListAdapter;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
+import test.dahun.mobileplay.interfaces.ButtonInterface;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
@@ -42,12 +44,6 @@ public class ListFragment extends Fragment {
     @BindView(R.id.like_gif) ImageView like_gif;
 
     @BindView(R.id.play_list) ListView play_list;
-
-    @BindView(R.id.home_btn) ImageButton home_btn;
-    @BindView(R.id.list_btn) ImageButton list_btn;
-    @BindView(R.id.play_btn) ImageButton play_btn;
-    @BindView(R.id.gallery_btn) ImageButton gallery_btn;
-    @BindView(R.id.sns_btn) ImageButton sns_btn;
 
     RelativeLayout layout = null;
     PlayListAdapter playListAdapter;
@@ -74,23 +70,16 @@ public class ListFragment extends Fragment {
         makeData();
 
         initSetting();
-        btnSetting();
         return layout;
     }
 
     public void initSetting(){
-        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-        if(ApplicationStatus.isPlaying)
-            Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
-        else
-            Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
-
         playListAdapter = new PlayListAdapter(getContext(), this);
         for(int i=0; i<titles.size(); i++){
-            if ( i == 0 )
-                playListAdapter.addItem(0, i+1, R.drawable.like_off, heart_nums.get(i), titles.get(i), "검정치마", 1);
+            if ( i == 1 )
+                playListAdapter.addItem(0, i+1, R.drawable.like_off, heart_nums.get(i), titles.get(i), "신현희와김루트", 1);
             else
-                playListAdapter.addItem(0, i+1, R.drawable.like_off, heart_nums.get(i), titles.get(i), "검정치마", 0);
+                playListAdapter.addItem(0, i+1, R.drawable.like_off, heart_nums.get(i), titles.get(i), "신현희와김루트", 0);
         }
 
         // make content
@@ -113,17 +102,10 @@ public class ListFragment extends Fragment {
             e.printStackTrace();
         }
 
-        playListAdapter.addItem(1, "안녕하세요 '신현희와김루트' 입니다.", content);
+//        playListAdapter.addItem(1, "안녕하세요 '신현희와김루트' 입니다.", content);
         play_list.setAdapter(playListAdapter);
     }
 
-    public void btnSetting(){
-        home_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(0));
-        list_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(1));
-        play_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(2));
-        gallery_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(3));
-        sns_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(4));
-    }
 
     public void viewGif(){
         like_gif.setBackgroundResource(R.drawable.like);
@@ -150,20 +132,15 @@ public class ListFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){ // 유저가 화면을 보고있을 때
             if(this.layout != null){
-                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-                if(ApplicationStatus.isPlaying){
-                    Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
-                    return;
-                }
-                else{
-                    Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
-                    return;
-                }
+                ((ButtonInterface)getContext()).reset();
+                ((ButtonInterface)getContext()).listOn();
             }
             return;
         }
         else
             Log.d("SetUserHint","Cover OFF");
     }
+
+
 
 }

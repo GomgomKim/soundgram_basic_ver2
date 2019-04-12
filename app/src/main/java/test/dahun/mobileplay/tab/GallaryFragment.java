@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.GallaryListAdapter;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
+import test.dahun.mobileplay.interfaces.ButtonInterface;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
@@ -34,12 +35,6 @@ public class GallaryFragment extends Fragment {
     RelativeLayout layout = null;
 
     @BindView(R.id.gallary_list) ListView gallary_list;
-
-    @BindView(R.id.home_btn) ImageButton home_btn;
-    @BindView(R.id.list_btn) ImageButton list_btn;
-    @BindView(R.id.play_btn) ImageButton play_btn;
-    @BindView(R.id.gallery_btn) ImageButton gallery_btn;
-    @BindView(R.id.sns_btn) ImageButton sns_btn;
 
     GallaryListAdapter gallaryListAdapter;
 
@@ -54,30 +49,28 @@ public class GallaryFragment extends Fragment {
         ButterKnife.bind(this, layout);
         initSetting();
         //resizeLayout();
-        btnSetting();
         return layout;
     }
 
     public void initSetting(){
-        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-        if(ApplicationStatus.isPlaying)
-            Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
-        else
-            Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
-
         gallaryListAdapter = new GallaryListAdapter(getContext());
-        gallaryListAdapter.addItem(0, "신현희와김루트 싸우지 말자 '작업일기'", R.drawable.gallary1);
-        gallaryListAdapter.addItem(1, "[M/V] 신현희와김루트 '오빠야'", R.drawable.video1, "OmjN_b07syo");
-//        gallaryListAdapter.addItem(0, "음반작업 현장", R.drawable.galleryimg_03);
+        gallaryListAdapter.addItem(1, "오빠야 M/V", R.drawable.video1, "OmjN_b07syo");
+        gallaryListAdapter.addItem(1, "캡송 M/V", R.drawable.video1, "Zjh6mkkZsMo");
+        gallaryListAdapter.addItem(1, "집 비던 날 M/V", R.drawable.video1, "BTsy1VWx6mM");
+        gallaryListAdapter.addItem(1, "캡송 공연 (델리스파이스 부산 콘서트 게스트)", R.drawable.video1, "TtpYuDjfBV0");
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary1);
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary2);
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary3);
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary4);
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary5);
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary6);
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary7);
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary8);
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary9);
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary10);
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary11);
+        gallaryListAdapter.addItem(0, "", R.drawable.gallary12);
         gallary_list.setAdapter(gallaryListAdapter);
-    }
-
-    public void btnSetting(){
-        home_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(0));
-        list_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(1));
-        play_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(2));
-        gallery_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(3));
-        sns_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(4));
     }
 
     @Override
@@ -85,15 +78,8 @@ public class GallaryFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){ // 유저가 화면을 보고있을 때
             if(this.layout != null){
-                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-                if(ApplicationStatus.isPlaying){
-                    Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
-                    return;
-                }
-                else{
-                    Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
-                    return;
-                }
+                ((ButtonInterface)getContext()).reset();
+                ((ButtonInterface)getContext()).galleryOn();
             }
             return;
         }

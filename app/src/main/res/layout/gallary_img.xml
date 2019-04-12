@@ -7,23 +7,32 @@
     android:background="#ffffff"
     >
 
-    <ImageButton
-        android:id="@+id/gallary_img"
+    <RelativeLayout
+        android:id="@+id/gallary_img_layout"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@null"
-        android:scaleType="fitXY"
-        />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/gallary_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/gallary_img_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="24dp"
-        android:text="검정치마"
+        android:text="신현희와김루트"
         android:textSize="17dp"
         android:textColor="#222222"
         android:fontFamily="@font/notosanskr_medium"
         android:paddingBottom="8dp"
+        android:visibility="gone"
         />
 
 </LinearLayout>

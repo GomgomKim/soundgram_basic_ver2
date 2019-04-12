@@ -2,12 +2,14 @@ package test.dahun.mobileplay.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -24,7 +26,8 @@ public class GallaryListAdapter extends BaseAdapter {
     Context context;
 
     private ArrayList<GallaryListItem> mItems = new ArrayList<>();
-    private ImageButton gallary_img;
+    private RelativeLayout gallary_img_layout;
+    private ImageView gallary_img;
     private TextView gallary_img_title;
 
     GallaryListItem current_item;
@@ -86,19 +89,20 @@ public class GallaryListAdapter extends BaseAdapter {
         res = getItemViewType(position);
         switch (res){
             case 0: // 사진
-                gallary_img = (ImageButton) convertView.findViewById(R.id.gallary_img);
+                gallary_img_layout = (RelativeLayout) convertView.findViewById(R.id.gallary_img_layout);
+                gallary_img = (ImageView) convertView.findViewById(R.id.gallary_img);
                 gallary_img_title = (TextView) convertView.findViewById(R.id.gallary_img_title);
 
-                if(current_item != null){
-                    Glide.with(context).load(current_item.getImg_resource())
-                            .apply(new RequestOptions().fitCenter()).into(gallary_img);
-                    gallary_img_title.setText(current_item.getTitle());
-                }
+
+                Glide.with(context).load(current_item.getImg_resource()).apply(new RequestOptions().fitCenter()).into(gallary_img);
+                gallary_img.bringToFront();
+                gallary_img_title.setText(current_item.getTitle());
+
 
                 final String image_title = current_item.getTitle();
                 final int img_resource = current_item.getImg_resource();
 
-                gallary_img.setOnClickListener(view -> {
+                gallary_img_layout.setOnClickListener(view -> {
                     Intent intent = new Intent(context, ImageActivity.class);
                     intent.putExtra("image_title", image_title);
                     intent.putExtra("img_resource", img_resource);
@@ -119,14 +123,11 @@ public class GallaryListAdapter extends BaseAdapter {
 
 
                 // play 버튼
-                gallary_video_play.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(context, VideoActivity.class);
-                        intent.putExtra("video_id", video_id);
-                        intent.putExtra("video_title", video_title);
-                        context.startActivity(intent);
-                    }
+                gallary_video_play.setOnClickListener(view -> {
+                    Intent intent = new Intent(context, VideoActivity.class);
+                    intent.putExtra("video_id", video_id);
+                    intent.putExtra("video_name", video_title);
+                    context.startActivity(intent);
                 });
                 gallary_video_title.setText(video_title);
                 break;

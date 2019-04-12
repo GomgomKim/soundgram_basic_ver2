@@ -7,14 +7,15 @@
     android:background="#ffffff"
     >
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="wrap_content"
         android:paddingTop="18dp"
         >
         <TextView
             android:id="@+id/intro_title"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Thanks to FAN"
             android:textSize="17dp"
             android:textColor="#222222"
@@ -25,11 +26,12 @@
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_marginLeft="6dp"
-            android:text="From 검정치마"
+            android:text="From 신현희와김루트"
             android:textSize="16dp"
             android:textColor="#454545"
             android:fontFamily="@font/notosanskr_medium"
             android:textStyle="italic"
+            android:visibility="gone"
             />
 
     </LinearLayout>

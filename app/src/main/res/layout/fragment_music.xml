@@ -50,41 +50,40 @@
             android:textSize="16dp" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/bg_img"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/top_layout"
-        android:layout_above="@+id/musicProgress"
-        android:scaleType="fitXY"
-        />
-
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/album_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/play_layout"
+        android:layout_above="@+id/play_layout"
         android:layout_below="@+id/top_layout"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="-5dp"
-        android:gravity="center">
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/pager_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            />
 
         <test.dahun.mobileplay.ui.VerticalViewPager
             android:id="@+id/musicPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="36dp"></test.dahun.mobileplay.ui.VerticalViewPager>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="36dp">
+        </test.dahun.mobileplay.ui.VerticalViewPager>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/play_layout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_above="@+id/control_layout"
-        android:paddingBottom="20dp"
         android:gravity="center"
+        android:layout_marginTop="10dp"
         >
         <ImageButton
             android:id="@+id/btn_prevplay"
@@ -180,13 +179,14 @@
 
     <LinearLayout
         android:id="@+id/time_rate"
+        android:layout_alignParentBottom="true"
         android:paddingBottom="10dp"
         android:layout_width="332dp"
         android:layout_height="42dp"
-        android:layout_above="@+id/bottom_layout"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
         >
         <LinearLayout
             android:layout_width="0dp"
@@ -199,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:text="00:00"
                 android:textSize="14dp"
-                android:textColor="#f2efe0"
+                android:textColor="#333333"
                 android:fontFamily="@font/notosanskr_regular"
                 />
         </LinearLayout>
@@ -215,56 +215,9 @@
                 android:layout_height="wrap_content"
                 android:text="00:00"
                 android:textSize="14dp"
-                android:textColor="#80f2efe0"
+                android:textColor="#80333333"
                 android:fontFamily="@font/notosanskr_regular"
                 />
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        >
-        <ImageButton
-            android:id="@+id/home_btn"
-            android:layout_marginLeft="23dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_home_off"
-            />
-        <ImageButton
-            android:id="@+id/list_btn"
-            android:layout_marginLeft="35dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_list_off"
-            />
-        <ImageButton
-            android:id="@+id/play_btn"
-            android:layout_marginLeft="35dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@null"
-            android:scaleType="fitXY"
-            />
-        <ImageButton
-            android:id="@+id/gallery_btn"
-            android:layout_marginLeft="35dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_gallery_off"
-            />
-        <ImageButton
-            android:id="@+id/sns_btn"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="23dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_sns_off"
-            />
-
     </LinearLayout>
 </RelativeLayout>

@@ -39,16 +39,29 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.Authenticator;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.PasswordAuthentication;
+import java.net.ProtocolException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.http.HTTP;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.MusicCustomPagerAdapter;
 import test.dahun.mobileplay.adapter.MusicInfoItem;
+import test.dahun.mobileplay.database.GetSongData;
 import test.dahun.mobileplay.events.DurationEvent;
 import test.dahun.mobileplay.events.EndFragEvent;
 import test.dahun.mobileplay.events.FinishMusicEvent;
@@ -56,6 +69,7 @@ import test.dahun.mobileplay.events.GetSongPlayInfoEvent;
 import test.dahun.mobileplay.events.IsPlayEvent;
 import test.dahun.mobileplay.events.SeekbarEvent;
 import test.dahun.mobileplay.events.TimerEvent;
+import test.dahun.mobileplay.interfaces.ButtonInterface;
 import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
 import test.dahun.mobileplay.services.BusProvider;
@@ -91,16 +105,9 @@ public class MusicFragment extends Fragment
     @BindView(R.id.maxTime) TextView maxTime;
 
     @BindView(R.id.musicPager) VerticalViewPager musicPager;
+    @BindView(R.id.pager_bg) ImageView pager_bg;
 
     @BindView(R.id.musicProgress) SeekBar seekBar; // 음악 재생위치를 나타내는 시크바
-
-    @BindView(R.id.play_btn) ImageButton play_btn;
-    @BindView(R.id.home_btn) ImageButton home_btn;
-    @BindView(R.id.list_btn) ImageButton list_btn;
-    @BindView(R.id.gallery_btn) ImageButton gallery_btn;
-    @BindView(R.id.sns_btn) ImageButton sns_btn;
-
-
 
 
     final String TAG="MusicFragment";
@@ -163,10 +170,10 @@ public class MusicFragment extends Fragment
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_music, container, false);
         ButterKnife.bind(this, layout);
         getService();
+        getDatabase();
         eventBus();
         makeData();
         initSetting();
-        btnSetting();
         initPlay();
         musicPagerSetting();
         seekBarSetting();
@@ -201,11 +208,11 @@ public class MusicFragment extends Fragment
         if(isPlaying){
             Glide.with(getContext()).load(R.drawable.btn_pause2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
-            Glide.with(getContext()).load(R.raw.mn_equalizer).into(play_btn);
+            ((ButtonInterface)getContext()).playMusic();
         } else{
             Glide.with(getContext()).load(R.drawable.btn_play2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
-            Glide.with(getContext()).load(R.drawable.mn_play_on2).into(play_btn);
+            ((ButtonInterface)getContext()).playOn();
         }
     }
 
@@ -217,11 +224,11 @@ public class MusicFragment extends Fragment
         if(isPlaying == true) { // 재생
             Glide.with(getContext()).load(R.drawable.btn_pause2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
-            Glide.with(getContext()).load(R.raw.mn_equalizer).into(play_btn);
+            ((ButtonInterface)getContext()).playMusic();
         } else{ // 정지
             Glide.with(getContext()).load(R.drawable.btn_play2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
-            Glide.with(getContext()).load(R.drawable.mn_play_on2).into(play_btn);
+            ((ButtonInterface)getContext()).playOn();
         }
     }
 
@@ -255,14 +262,14 @@ public class MusicFragment extends Fragment
             case 0:
                 ApplicationStatus.isPlaying = true;
                 auto_move = true;
-                if(index == 7){
+                if(index == 5){
                     musicPager.setCurrentItem(0);
                 } else{
                     musicPager.setCurrentItem(index+1);
                 }
                 seekBar.setProgress(0);
                 currentTime.setText(timeTranslation(0));
-                Glide.with(getContext()).load(R.drawable.mn_play_on2).into(play_btn);
+                ((ButtonInterface)getContext()).playOn();
                 break;
             case 1:
                 ApplicationStatus.isPlaying = true;
@@ -273,7 +280,7 @@ public class MusicFragment extends Fragment
                 Glide.with(getContext()).load(R.drawable.btn_play)
                         .apply(new RequestOptions().fitCenter()).into(btn_play);
                 ApplicationStatus.isPlaying = false;
-                Glide.with(getContext()).load(R.drawable.mn_play_on2).into(play_btn);
+                ((ButtonInterface)getContext()).playOn();
                 break;
         }
     }
@@ -303,11 +310,12 @@ public class MusicFragment extends Fragment
     public void initSetting() {
         singer.setText("신현희와김루트");
 
-        Glide.with(getContext()).load(R.drawable.mn_play_on2).into(play_btn);
-
         heart.setTag(0); // 하트의 상태 / 0 : off / 1 : on
         title.setText(musicarr.get(0)); // 첫번째 노래제목
         heart_num.setText(String.valueOf(like_count.get(0))); // 첫번째 노래 하트개수
+
+        Glide.with(getContext()).load(R.drawable.bg_play1)
+                .apply(new RequestOptions().fitCenter()).into(pager_bg);
 
         Glide.with(getContext()).load(R.drawable.btn_prevplay2)
                 .apply(new RequestOptions().fitCenter()).into(btn_prevplay);
@@ -435,14 +443,6 @@ public class MusicFragment extends Fragment
         });
     }
 
-    public void btnSetting(){
-        home_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(0));
-        list_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(1));
-        play_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(2));
-        gallery_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(3));
-        sns_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(4));
-    }
-
     public void music_play(){
         Intent intent = new Intent(getContext(), MusicService.class);
         intent.putExtra("index", index);
@@ -529,7 +529,7 @@ public class MusicFragment extends Fragment
                 btn_prevplay.setAlpha(0.5f);
                 btn_nextplay.setAlpha(1f);
                 break;
-            case 7:
+            case 5:
                 btn_prevplay.setAlpha(1f);
                 btn_nextplay.setAlpha(0.5f);
                 break;
@@ -549,19 +549,6 @@ public class MusicFragment extends Fragment
         BufferedReader br;
         String read="";
         String lyrics="";
-        try {
-            inputStream = am.open("first.txt");
-            inputStreamReader = new InputStreamReader(inputStream,"utf-8");
-            br = new BufferedReader(inputStreamReader);
-
-            while((read=br.readLine())!=null){
-                lyrics+=read;
-                lyrics+="\n";
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         switch(index){
             case 0:
                 try {
@@ -622,6 +609,20 @@ public class MusicFragment extends Fragment
             case 4:
                 try {
                     inputStream = am.open("fifth.txt");
+                    inputStreamReader = new InputStreamReader(inputStream,"utf-8");
+                    br = new BufferedReader(inputStreamReader);
+
+                    while((read=br.readLine())!=null){
+                        lyrics+=read;
+                        lyrics+="\n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 5:
+                try {
+                    inputStream = am.open("sixth.txt");
                     inputStreamReader = new InputStreamReader(inputStream,"utf-8");
                     br = new BufferedReader(inputStreamReader);
 
@@ -782,15 +783,9 @@ public class MusicFragment extends Fragment
                     ft.detach(this).attach(this).commit();
                     refresh++;
                 }
-                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-                if(ApplicationStatus.isPlaying){
-                    Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
-                    return;
-                }
-                else{
-                    Glide.with(getContext()).load(R.drawable.mn_play_on2).into(imageViewTarget);
-                    return;
-                }
+
+                ((ButtonInterface)getContext()).reset();
+                if(!ApplicationStatus.isPlaying) ((ButtonInterface)getContext()).playOn();
             }
             return;
         }
@@ -798,8 +793,7 @@ public class MusicFragment extends Fragment
             Log.d("SetUserHint","Cover OFF");
     }
 
+    public void getDatabase(){
 
-
-
-
+    }
 }

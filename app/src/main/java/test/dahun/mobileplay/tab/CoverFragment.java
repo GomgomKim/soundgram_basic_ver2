@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
+import test.dahun.mobileplay.interfaces.ButtonInterface;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
@@ -43,12 +45,6 @@ public class CoverFragment extends Fragment
 
     @BindView(R.id.info_btn) ImageButton info_btn;
 
-    @BindView(R.id.home_btn) ImageButton home_btn;
-    @BindView(R.id.list_btn) ImageButton list_btn;
-    @BindView(R.id.play_btn) ImageButton play_btn;
-    @BindView(R.id.gallery_btn) ImageButton gallery_btn;
-    @BindView(R.id.sns_btn) ImageButton sns_btn;
-
     RelativeLayout layout = null;
 
 
@@ -65,17 +61,10 @@ public class CoverFragment extends Fragment
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_cover, container, false);
         ButterKnife.bind(this, layout);
         initSetting();
-        btnSetting();
         return layout;
     }
 
     public void initSetting() {
-        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-        if(ApplicationStatus.isPlaying)
-            Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
-        else
-            Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
-
         Glide.with(getContext()).load(R.drawable.cover)
                 .apply(new RequestOptions().fitCenter()).into(cover_img);
 
@@ -91,29 +80,13 @@ public class CoverFragment extends Fragment
 
     }
 
-    public void btnSetting(){
-        home_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(0));
-        list_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(1));
-        play_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(2));
-        gallery_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(3));
-        sns_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(4));
-    }
-
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){ // 유저가 화면을 보고있을 때
             if(this.layout != null){
-                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-                if(ApplicationStatus.isPlaying){
-                    Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
-                    return;
-                }
-                else{
-                    Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
-                    return;
-                }
+                ((ButtonInterface)getContext()).reset();
+                ((ButtonInterface)getContext()).homeOn();
             }
             return;
         }

@@ -29,53 +29,5 @@
         >
     </ListView>
 
-    <LinearLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:background="#faf5dc"
-        >
-        <ImageButton
-            android:id="@+id/home_btn"
-            android:layout_marginLeft="23dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_home_off"
-            />
-        <ImageButton
-            android:id="@+id/list_btn"
-            android:layout_marginLeft="35dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_list_off"
-            />
-
-        <ImageButton
-            android:id="@+id/play_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="35dp"
-            android:background="@null"
-            android:scaleType="fitXY"
-            />
-        <ImageButton
-            android:id="@+id/gallery_btn"
-            android:layout_marginLeft="35dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_gallery_on"
-            />
-        <ImageButton
-            android:id="@+id/sns_btn"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="23dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/mn_sns_off"
-            />
-    </LinearLayout>
-
 
 </RelativeLayout>

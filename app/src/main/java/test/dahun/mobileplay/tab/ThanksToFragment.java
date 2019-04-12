@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.ThanksToAdapter;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
+import test.dahun.mobileplay.interfaces.ButtonInterface;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
@@ -45,12 +46,6 @@ public class ThanksToFragment extends Fragment {
 
     @BindView(R.id.middle_bg) ImageView middle_bg;
 
-    @BindView(R.id.home_btn) ImageButton home_btn;
-    @BindView(R.id.list_btn) ImageButton list_btn;
-    @BindView(R.id.play_btn) ImageButton play_btn;
-    @BindView(R.id.gallery_btn) ImageButton gallery_btn;
-    @BindView(R.id.sns_btn) ImageButton sns_btn;
-
     ThanksToAdapter thanksToAdapter;
 
     public ThanksToFragment() {  }
@@ -63,18 +58,10 @@ public class ThanksToFragment extends Fragment {
         ButterKnife.bind(this, layout);
         initSetting();
         //resizeLayout();
-        btnSetting();
         return layout;
     }
 
     public void initSetting(){
-        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-        if(ApplicationStatus.isPlaying)
-            Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
-        else
-            Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
-
-
         // make content
         AssetManager am = getContext().getAssets();
         InputStream inputStream;
@@ -99,7 +86,7 @@ public class ThanksToFragment extends Fragment {
 
         // 리스트 생성
         thanksToAdapter = new ThanksToAdapter(getContext());
-        thanksToAdapter.addItem("Thanks to FAN", "from 신현희", intro);
+        thanksToAdapter.addItem("기똥찬 오리엔탈 명랑 어쿠스틱 듀오 ‘신현희와김루트’ 다양한 분위기로 대중들을 사로잡는다.", "", intro);
         intro_list.setAdapter(thanksToAdapter);
 
         // 이미지 원형으로 만들기
@@ -109,28 +96,13 @@ public class ThanksToFragment extends Fragment {
     }
 
 
-    public void btnSetting(){
-        home_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(0));
-        list_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(1));
-        play_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(2));
-        gallery_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(3));
-        sns_btn.setOnClickListener(view -> setViewPagerTabListener.setTab(4));
-    }
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){ // 유저가 화면을 보고있을 때
             if(this.layout != null){
-                DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(play_btn);
-                if(ApplicationStatus.isPlaying){
-                    Glide.with(getContext()).load(R.raw.mn_equalizer).into(imageViewTarget);
-                    return;
-                }
-                else{
-                    Glide.with(getContext()).load(R.drawable.mn_play_off2).into(imageViewTarget);
-                    return;
-                }
+                ((ButtonInterface)getContext()).reset();
+                ((ButtonInterface)getContext()).snsOn();
             }
             return;
         }

@@ -122,7 +122,7 @@ public class PlayListAdapter extends BaseAdapter {
                         if(is_heart == R.drawable.like_off){
                             mItems.get(position).setHeart(R.drawable.like_on);
                             mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()+1);
-                            listFragment.viewGif();
+//                            listFragment.viewGif();
                         } else if (is_heart == R.drawable.like_on) {
                             mItems.get(position).setHeart(R.drawable.like_off);
                             mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()-1);

@@ -85,7 +85,7 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
         youTubePlayerView=(YouTubePlayerView) findViewById(R.id.youtube);
         mv_close_btn=(ImageButton) findViewById(R.id.mv_close_btn);
         mv_pop_title=(TextView) findViewById(R.id.mv_pop_title);
-        //mv_pop_title.setText(video_name);
+        mv_pop_title.setText(video_name);
 
 
         //리스너 등록부분

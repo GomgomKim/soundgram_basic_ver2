@@ -155,11 +155,11 @@ public class SurviceInfoActivity extends AppCompatActivity {
         String phone_name = Build.MODEL;
         email.putExtra(Intent.EXTRA_EMAIL, address);
         email.putExtra(Intent.EXTRA_SUBJECT,"[Soundgram 문의]");
-        email.putExtra(Intent.EXTRA_TEXT, "어플리케이션 : Special Edition 2018\n"+
+        email.putExtra(Intent.EXTRA_TEXT, "어플리케이션 : 신현희와김루트\n"+
                 "기기 종류 : "+phone_name+"\n"+
                 "OS 버전 : "+user_os_version+"\n"+
                 "앱 버전 : 1.3"+"\n"+
-                "음반 정보 : Special Edition 2018 (검정치마).\n");
+                "음반 정보 : 신현희와김루트\n");
         startActivity(email);
     }
 }

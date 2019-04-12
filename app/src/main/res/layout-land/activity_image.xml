@@ -18,10 +18,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="검정치마 '조휴일'"
+            android:text="신현희와김루트"
             android:textSize="17dp"
             android:textColor="#454545"
             android:fontFamily="@font/notosanskr_medium"
+            android:visibility="gone"
             />
         <ImageButton
             android:id="@+id/land_btn_close"
