@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,8 +37,6 @@ import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabList
 
 public class CoverFragment extends Fragment
 {
-    final String TAG="CoverFragment";
-
     @BindView(R.id.cover) LinearLayout cover;
 
     @BindView(R.id.cover_img) ImageView cover_img;
@@ -46,7 +46,6 @@ public class CoverFragment extends Fragment
     @BindView(R.id.info_btn) ImageButton info_btn;
 
     RelativeLayout layout = null;
-
 
     public CoverFragment() {
         super();
@@ -61,6 +60,7 @@ public class CoverFragment extends Fragment
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_cover, container, false);
         ButterKnife.bind(this, layout);
         initSetting();
+        setAni();
         return layout;
     }
 
@@ -77,7 +77,12 @@ public class CoverFragment extends Fragment
                 .apply(new RequestOptions().fitCenter()).into(reflect_img);
 
         info_btn.setOnClickListener(view -> startActivity(new Intent(getActivity(), SurviceInfoActivity.class)));
+    }
 
+    public void setAni() {
+        Animation animTransRight = AnimationUtils
+                .loadAnimation(getContext(), R.anim.cover_ani);
+        cover_img.startAnimation(animTransRight);
     }
 
     @Override

@@ -9,13 +9,19 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -55,6 +61,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,13 +79,16 @@ import test.dahun.mobileplay.events.SeekbarEvent;
 import test.dahun.mobileplay.events.TimerEvent;
 import test.dahun.mobileplay.interfaces.ButtonInterface;
 import test.dahun.mobileplay.interfaces.HeartNumInterface;
+import test.dahun.mobileplay.interfaces.ServiceStateInterface;
 import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
 import test.dahun.mobileplay.services.BusProvider;
 import test.dahun.mobileplay.services.MusicService;
 import test.dahun.mobileplay.ui.VerticalViewPager;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
+
 
 
 /**
@@ -148,15 +159,21 @@ public class MusicFragment extends Fragment implements HeartNumInterface
     //사용자 스크롤 방향
     boolean checkDirection, scrollStarted = false;
 
-    //서비스 연결
-    MusicService mService;
-    boolean mBound = false;
-
     // 자동넘어감
     boolean auto_move = false;
 
     //하트 애니메이션
     private AnimationDrawable frameAnimation;
+
+    //시크바, 타이머 컨트롤
+//    Timer seek_timer, cur_time_timer;
+    TimerHandler timerHandler;
+
+    //현재뮤직정보
+    MediaPlayer mp;
+    MusicService mService;
+
+    int service_flag = 0;
 
     public MusicFragment() {
         super();
@@ -169,7 +186,6 @@ public class MusicFragment extends Fragment implements HeartNumInterface
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_music, container, false);
         ButterKnife.bind(this, layout);
-//        getService();
         getDatabase();
         eventBus();
         makeData();
@@ -196,23 +212,59 @@ public class MusicFragment extends Fragment implements HeartNumInterface
         BusProvider.getInstance().register(this);
     }
 
-    // 초기화
-    @Subscribe
-    public void FinishLoad(GetSongPlayInfoEvent mEvent) {
-        // 이벤트가 발생한뒤 수행할 작업
-        seekBar.setMax(mEvent.getDuration());
-        maxTime.setText(timeTranslation(mEvent.getDuration()/1000));
-        isPlaying = mEvent.getIsPlay();
+    class MusicTimer extends Thread { // 1초씩 증가
+        Message message;
 
-        musicPager.setCurrentItem(mEvent.getPosition());
-        if(isPlaying){
-            Glide.with(getContext()).load(R.drawable.btn_pause2)
-                    .apply(new RequestOptions().fitCenter()).into(btn_play);
-            ((ButtonInterface)getContext()).playMusic();
-        } else{
-            Glide.with(getContext()).load(R.drawable.btn_play2)
-                    .apply(new RequestOptions().fitCenter()).into(btn_play);
-            ((ButtonInterface)getContext()).playOn();
+        @Override
+        public void run() {
+            while(true){
+                try {
+                    time = mp.getCurrentPosition()/1000;
+
+                    message=timerHandler.obtainMessage();
+                    message.arg1=time;
+                    timerHandler.sendMessage(message);
+                    time++;
+                } catch (IllegalStateException e){
+
+                }
+
+
+                try {
+                    Thread.sleep(300); // 1초간 Thread를 잠재운다
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+    }
+
+    class SeekbarTimer extends Thread{ // 시크바
+        @Override
+        public void run() {
+            while(isPlaying){
+                try{
+                    seekBar.setProgress(mp.getCurrentPosition());
+                } catch (IllegalStateException e){
+                    Log.i("gomgomKim", "illegal");
+                }
+
+                try {
+                    Thread.sleep(1000); // 1초간 Thread를 잠재운다
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
+    }
+
+    class TimerHandler extends Handler{
+        public void handleMessage(Message msg){
+            currentTime.setText(timeTranslation(msg.arg1));
         }
     }
 
@@ -225,18 +277,16 @@ public class MusicFragment extends Fragment implements HeartNumInterface
             Glide.with(getContext()).load(R.drawable.btn_pause2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
             ((ButtonInterface)getContext()).playMusic();
+
+            timer_start();
         } else{ // 정지
             Glide.with(getContext()).load(R.drawable.btn_play2)
                     .apply(new RequestOptions().fitCenter()).into(btn_play);
             ((ButtonInterface)getContext()).playOn();
-        }
-    }
 
-    // 타이머 이벤트
-    @Subscribe
-    public void FinishLoad(TimerEvent mEvent) {
-        // 이벤트가 발생한뒤 수행할 작업
-        currentTime.setText(timeTranslation(mEvent.getTime()));
+            timer_stop();
+
+        }
     }
 
     // 음악 길이 이벤트
@@ -245,13 +295,6 @@ public class MusicFragment extends Fragment implements HeartNumInterface
         // 이벤트가 발생한뒤 수행할 작업
         maxTime.setText(timeTranslation(mEvent.getDuration()/1000));
         seekBar.setMax(mEvent.getDuration());
-    }
-
-    // 시크바 이벤트
-    @Subscribe
-    public void FinishLoad(SeekbarEvent mEvent) {
-        // 이벤트가 발생한뒤 수행할 작업
-        seekBar.setProgress(mEvent.getSeekPosition());
     }
 
     // 음악종료 이벤트
@@ -285,29 +328,16 @@ public class MusicFragment extends Fragment implements HeartNumInterface
         }
     }
 
-    public void getService(){
-        Intent intent = new Intent(getContext(), MusicService.class);
-        getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
-
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            MusicService.LocalBinder binder = (MusicService.LocalBinder) iBinder;
-            mService = binder.getService();
-            mBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            mBound = false;
-        }
-
-    };
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void initSetting() {
+        timerHandler = new TimerHandler();
+        mService = ((ServiceStateInterface)getContext()).getServiceState();
+
         singer.setText("신현희와김루트");
 
         heart.setTag(0); // 하트의 상태 / 0 : off / 1 : on
@@ -338,9 +368,24 @@ public class MusicFragment extends Fragment implements HeartNumInterface
         currentTime.setText("00:00");
     }
 
+    public void timer_start(){
+        try {
+            mp = mService.getMp();
+            new MusicTimer().start();
+            new SeekbarTimer().start();
+        } catch (IllegalThreadStateException e){
+            Log.i("gomgomKim", "illegal");
+        }
+    }
+
+    public void timer_stop(){
+        /*seek_timer.cancel();
+        cur_time_timer.cancel();*/
+    }
+
     public void initPlay(){
-        auto_move = true;
         if(MainActivity.getState() == 0){
+            auto_move = true;
             index = MainActivity.getPosition();
             musicPager.setCurrentItem(index);
             title.setText(musicarr.get(index));
@@ -371,7 +416,8 @@ public class MusicFragment extends Fragment implements HeartNumInterface
             public void onPageSelected(int position) {
                 index = position;
                 if(!auto_move){
-                    if(isPlaying) music_stop();
+                    Log.i("gomgomgom", "in");
+                    if(mService.getMp().isPlaying()) music_stop();
                     music_play();
                 }
                 currentTime.setText(timeTranslation(0));
@@ -379,7 +425,6 @@ public class MusicFragment extends Fragment implements HeartNumInterface
                 auto_move = false;
                 changePlay();
                 changeLyrics(index);
-//                setHeartNum(like_count.get(index));
                 setHeartNum(HeartNumInterface.getHeartNum(index));
                 title.setText(musicarr.get(position));
             }
@@ -659,10 +704,7 @@ public class MusicFragment extends Fragment implements HeartNumInterface
     @Override
     public void onStop() {
         super.onStop();
-        if(mBound){
-            getActivity().unbindService(mConnection);
-            mBound = false;
-        }
+
     }
 
     // 전체재생, 1곡재생 눌렀을 때
@@ -698,19 +740,32 @@ public class MusicFragment extends Fragment implements HeartNumInterface
     // 하트 눌렀을때
     public void like_music(){
         heart_touch_area.setOnClickListener(view -> {
-            if((Integer)heart.getTag() == 0){
-                heart.setBackgroundResource(R.drawable.like_on);
-                int current_like_count = like_count.get(index)+1;
-                setHeartNum(current_like_count);
-                heart.setTag(1);
-                HeartNumInterface.setIsHeart(index, 1);
-                viewGif();
-            } else if ((Integer)heart.getTag() == 1){
-                heart.setBackgroundResource(R.drawable.like_off);
-                int current_like_count = like_count.get(index)-1;
-                setHeartNum(current_like_count);
-                heart.setTag(0);
-                HeartNumInterface.setIsHeart(index, 0);
+
+            ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if(networkInfo != null && networkInfo.isConnected()){
+
+                if((Integer)heart.getTag() == 0){
+                    heart.setBackgroundResource(R.drawable.like_on);
+                    int current_like_count = like_count.get(index)+1;
+                    setHeartNum(current_like_count);
+                    heart.setTag(1);
+                    HeartNumInterface.setIsHeart(index, 1);
+                    viewGif();
+                } else if ((Integer)heart.getTag() == 1){
+                    heart.setBackgroundResource(R.drawable.like_off);
+                    int current_like_count = like_count.get(index)-1;
+                    setHeartNum(current_like_count);
+                    heart.setTag(0);
+                    HeartNumInterface.setIsHeart(index, 0);
+                }
+
+            } else{
+                // alert
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setPositiveButton("확인", (dialog, which) -> dialog.dismiss());
+                alert.setMessage("네트워크가 연결되지 않았습니다. Wi-Fi 또는 데이터를 활성화 해주세요.");
+                alert.show();
             }
         });
     }
@@ -747,8 +802,7 @@ public class MusicFragment extends Fragment implements HeartNumInterface
         if(current_like_count >= 1000) {
             int thousand = current_like_count/1000;
             int rest = current_like_count - thousand*1000;
-            if(rest/500 == 1) heart_count = (current_like_count/1000)+".5k";
-            else heart_count = (current_like_count/1000)+"k";
+            heart_count = (current_like_count/1000)+"."+(rest/100)+"k";
         }
         else heart_count = String.valueOf(current_like_count);
         like_count.set(index, current_like_count);
@@ -799,6 +853,29 @@ public class MusicFragment extends Fragment implements HeartNumInterface
 
                 ((ButtonInterface)getContext()).reset();
                 if(!ApplicationStatus.isPlaying) ((ButtonInterface)getContext()).playOn();
+
+                // get music data
+                mService = ((ServiceStateInterface)getContext()).getServiceState();
+                mp = mService.getMp();
+
+                isPlaying = mp.isPlaying();
+
+                seekBar.setMax(mp.getDuration());
+                seekBar.setProgress(mp.getCurrentPosition());
+                maxTime.setText(timeTranslation(mp.getDuration()/1000));
+
+
+//                    musicPager.setCurrentItem(mEvent.getPosition());
+                if(isPlaying){
+                    Glide.with(getContext()).load(R.drawable.btn_pause2)
+                            .apply(new RequestOptions().fitCenter()).into(btn_play);
+                    ((ButtonInterface)getContext()).playMusic();
+                } else{
+                    Glide.with(getContext()).load(R.drawable.btn_play2)
+                            .apply(new RequestOptions().fitCenter()).into(btn_play);
+                    ((ButtonInterface)getContext()).playOn();
+                }
+
             }
             return;
         }

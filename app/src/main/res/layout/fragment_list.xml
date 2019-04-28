@@ -116,6 +116,8 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:background="#ffffff"
+        android:paddingBottom="23dp"
+        android:clipToPadding="false"
         >
     </ListView>
 

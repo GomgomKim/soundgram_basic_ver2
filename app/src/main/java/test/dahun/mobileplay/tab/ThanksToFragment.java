@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -58,7 +60,14 @@ public class ThanksToFragment extends Fragment {
         ButterKnife.bind(this, layout);
         initSetting();
         //resizeLayout();
+        setAni();
         return layout;
+    }
+
+    public void setAni() {
+        Animation animTransRight = AnimationUtils
+                .loadAnimation(getContext(), R.anim.cover_ani);
+        singer_img.startAnimation(animTransRight);
     }
 
     public void initSetting(){

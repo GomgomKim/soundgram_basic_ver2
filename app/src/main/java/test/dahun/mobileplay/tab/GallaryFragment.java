@@ -54,10 +54,10 @@ public class GallaryFragment extends Fragment {
 
     public void initSetting(){
         gallaryListAdapter = new GallaryListAdapter(getContext());
-        gallaryListAdapter.addItem(1, "오빠야 M/V", R.drawable.video1, "OmjN_b07syo");
-        gallaryListAdapter.addItem(1, "캡송 M/V", R.drawable.video1, "Zjh6mkkZsMo");
-        gallaryListAdapter.addItem(1, "집 비던 날 M/V", R.drawable.video1, "BTsy1VWx6mM");
-        gallaryListAdapter.addItem(1, "캡송 공연 (델리스파이스 부산 콘서트 게스트)", R.drawable.video1, "TtpYuDjfBV0");
+        gallaryListAdapter.addItem(1, "오빠야 M/V", R.drawable.gallary2, "OmjN_b07syo");
+        gallaryListAdapter.addItem(1, "캡송 M/V", R.drawable.gallary14, "Zjh6mkkZsMo");
+        gallaryListAdapter.addItem(1, "집 비던 날 M/V", R.drawable.gallary3, "BTsy1VWx6mM");
+        gallaryListAdapter.addItem(1, "캡송 공연 (델리스파이스 부산 콘서트 게스트)", R.drawable.gallary15, "TtpYuDjfBV0");
         gallaryListAdapter.addItem(0, "", R.drawable.gallary1);
         gallaryListAdapter.addItem(0, "", R.drawable.gallary4);
         gallaryListAdapter.addItem(0, "", R.drawable.gallary5);

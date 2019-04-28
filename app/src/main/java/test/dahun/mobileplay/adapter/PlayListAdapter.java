@@ -2,6 +2,9 @@ package test.dahun.mobileplay.adapter;
 
 import android.content.Context;
 import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import test.dahun.mobileplay.interfaces.HeartNumInterface;
 import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.tab.ListFragment;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
 public class PlayListAdapter extends BaseAdapter {
@@ -123,19 +127,32 @@ public class PlayListAdapter extends BaseAdapter {
 
                     // 하트 터치
                     heart_touch_area.setOnClickListener(view -> {
-                        int is_heart = mItems.get(position).getHeart();
-                        if(is_heart == R.drawable.like_off){
-                            mItems.get(position).setHeart(R.drawable.like_on);
-                            mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()+1);
-                            HeartNumInterface.setHeartNum(position, mItems.get(position).getHeart_num());
-                            HeartNumInterface.setIsHeart(position, 1);
+                        ConnectivityManager connectivityManager = (ConnectivityManager) listFragment.getActivity().getSystemService(CONNECTIVITY_SERVICE);
+                        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                        if(networkInfo != null && networkInfo.isConnected()){
+
+                            int is_heart = mItems.get(position).getHeart();
+                            if(is_heart == R.drawable.like_off){
+                                mItems.get(position).setHeart(R.drawable.like_on);
+                                mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()+1);
+                                HeartNumInterface.setHeartNum(position, mItems.get(position).getHeart_num());
+                                HeartNumInterface.setIsHeart(position, 1);
 //                            listFragment.viewGif();
-                        } else if (is_heart == R.drawable.like_on) {
-                            mItems.get(position).setHeart(R.drawable.like_off);
-                            mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()-1);
-                            HeartNumInterface.setHeartNum(position, mItems.get(position).getHeart_num());
-                            HeartNumInterface.setIsHeart(position, 0);
+                            } else if (is_heart == R.drawable.like_on) {
+                                mItems.get(position).setHeart(R.drawable.like_off);
+                                mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()-1);
+                                HeartNumInterface.setHeartNum(position, mItems.get(position).getHeart_num());
+                                HeartNumInterface.setIsHeart(position, 0);
+                            }
+
+                        } else{
+                            // alert
+                            AlertDialog.Builder alert = new AlertDialog.Builder(listFragment.getContext());
+                            alert.setPositiveButton("확인", (dialog, which) -> dialog.dismiss());
+                            alert.setMessage("네트워크가 연결되지 않았습니다. Wi-Fi 또는 데이터를 활성화 해주세요.");
+                            alert.show();
                         }
+
                         notifyDataSetChanged();
                     });
 
@@ -166,8 +183,7 @@ public class PlayListAdapter extends BaseAdapter {
         if(current_like_count >= 1000)  {
             int thousand = current_like_count/1000;
             int rest = current_like_count - thousand*1000;
-            if(rest/500 == 1) heart_count = (current_like_count/1000)+".5k";
-            else heart_count = (current_like_count/1000)+"k";
+            heart_count = (current_like_count/1000)+"."+(rest/100)+"k";
         }
         else heart_count = String.valueOf(current_like_count);
         return heart_count;

@@ -1,8 +1,18 @@
 package test.dahun.mobileplay.main;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -15,8 +25,12 @@ import test.dahun.mobileplay.adapter.BackPressCloseHandler;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
 import test.dahun.mobileplay.interfaces.ButtonInterface;
+import test.dahun.mobileplay.interfaces.ServiceStateInterface;
+import test.dahun.mobileplay.services.MusicService;
 
-public class MainActivity extends AppCompatActivity implements ButtonInterface {
+import test.dahun.mobileplay.services.MusicService.LocalBinder;
+
+public class MainActivity extends AppCompatActivity implements ButtonInterface, ServiceStateInterface {
     ViewPager mainPager;
     ViewPagerAdapter viewPagerAdapter;
     SetViewPagerTabListener setViewPagerTabListener;
@@ -24,6 +38,16 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface {
     public static int state=1;
     ImageButton home_btn, list_btn, play_btn, gallery_btn, sns_btn;
     BackPressCloseHandler backPressCloseHandler;
+
+    //서비스 연결
+    MusicService mService;
+    boolean isService = false;
+    ServiceConnection conn;
+
+    @Override
+    public MusicService getServiceState() {
+        return mService;
+    }
 
     public interface SetViewPagerTabListener{
         void setTab(int position);
@@ -33,31 +57,50 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getService();
         initSetting();
         btnSetting();
+        setIsNetwork();
      }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-//        viewPagerAdapter.notifyDataSetChanged();
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(conn);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    public void getService(){
+        conn = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                LocalBinder binder = (LocalBinder) service;
+                mService = binder.getService();
+                isService = true;
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                isService = false;
+            }
+        };
+
+        Intent intent = new Intent(MainActivity.this, MusicService.class);
+        bindService(intent, conn, Context.BIND_AUTO_CREATE);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
+     public void setIsNetwork(){
+         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isConnected()){
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
+        } else{
+            // alert
+            AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+            alert.setPositiveButton("확인", (dialog, which) -> dialog.dismiss());
+            alert.setMessage("네트워크가 연결되지 않았습니다. 일부 기능이 제한될 수 있습니다");
+            alert.show();
+        }
+     }
 
     public void initSetting(){
         backPressCloseHandler = new BackPressCloseHandler(this);

@@ -34,40 +34,11 @@ public class MusicService extends Service {
     int current_time = 0;
     boolean is_timer_on = false;
 
-    private final IBinder mBinder = new LocalBinder();
+    IBinder mBinder = new LocalBinder();
 
     // notification data
     ArrayList<String> musicarr;
     ArrayList<Integer> albumarr;
-
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mp = changeMusicPlayer(0); //mp 초기화
-        dataSetting();
-    }
-
-    class MusicTimer extends TimerTask{
-        @Override
-        public void run() {
-            current_time++;
-            BusProvider.getInstance().post(new TimerEvent(current_time));
-        }
-    }
-
-    class PageUpdateTimer extends TimerTask{
-        @Override
-        public void run() {
-            try{
-                BusProvider.getInstance().post(new SeekbarEvent(mp.getCurrentPosition()));
-                BusProvider.getInstance().post(new GetSongPlayInfoEvent(mp.isPlaying(), mp.getDuration(), music_index));
-            } catch (IllegalStateException e){
-                Log.i("gomgom", "illegal accessed");
-            }
-
-        }
-    }
 
     @Nullable
     @Override
@@ -81,6 +52,16 @@ public class MusicService extends Service {
         }
     }
 
+    public MediaPlayer getMp(){
+        return mp;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mp = changeMusicPlayer(0); //mp 초기화
+        dataSetting();
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -103,11 +84,6 @@ public class MusicService extends Service {
                 BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
                 BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
 
-                timer = new Timer();
-                timer_update = new Timer();
-                timer.schedule(new MusicTimer(), 1000, 1000);
-                timer_update.schedule(new PageUpdateTimer(), 400, 400);
-                is_timer_on = true;
 
                 ApplicationStatus.isPlaying = true;
 
@@ -123,11 +99,6 @@ public class MusicService extends Service {
                 }
                 current_time = 0;
                 BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
-                if(is_timer_on){
-                    timer.cancel();
-                    timer_update.cancel();
-                    is_timer_on = false;
-                }
 
                 ApplicationStatus.isPlaying = false;
                 break;
@@ -136,11 +107,6 @@ public class MusicService extends Service {
                 pos = mp.getCurrentPosition();
                 mp.pause();
                 BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
-                if(is_timer_on){
-                    timer.cancel();
-                    timer_update.cancel();
-                    is_timer_on = false;
-                }
 
                 ApplicationStatus.isPlaying = false;
                 break;
@@ -192,21 +158,23 @@ public class MusicService extends Service {
                     mp.release(); // 자원 해제
                     mp = changeMusicPlayer(music_index);
                     mp.start();
+                    BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
+                    BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
                     BusProvider.getInstance().post(new FinishMusicEvent(1));
                     break;
 
                 case 2: // 반복없음
-                    if(mp.isPlaying()){
-                        mp.stop(); // 멈춤
-                        mp.reset();
-                        mp.release(); // 자원 해제
-                    }
-                    if(is_timer_on){
-                        timer.cancel();
-                        timer_update.cancel();
-                        is_timer_on = false;
-                    }
+
+                    mp.stop(); // 멈춤
+
+                    BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
+                    BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
                     BusProvider.getInstance().post(new FinishMusicEvent(2));
+
+                    mp.reset();
+                    mp.release(); // 자원 해제
+
+
                     break;
             }
         });
