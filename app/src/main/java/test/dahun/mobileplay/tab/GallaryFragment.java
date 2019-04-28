@@ -59,8 +59,6 @@ public class GallaryFragment extends Fragment {
         gallaryListAdapter.addItem(1, "집 비던 날 M/V", R.drawable.video1, "BTsy1VWx6mM");
         gallaryListAdapter.addItem(1, "캡송 공연 (델리스파이스 부산 콘서트 게스트)", R.drawable.video1, "TtpYuDjfBV0");
         gallaryListAdapter.addItem(0, "", R.drawable.gallary1);
-        gallaryListAdapter.addItem(0, "", R.drawable.gallary2);
-        gallaryListAdapter.addItem(0, "", R.drawable.gallary3);
         gallaryListAdapter.addItem(0, "", R.drawable.gallary4);
         gallaryListAdapter.addItem(0, "", R.drawable.gallary5);
         gallaryListAdapter.addItem(0, "", R.drawable.gallary6);

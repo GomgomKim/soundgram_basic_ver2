@@ -31,8 +31,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.PlayListAdapter;
+import test.dahun.mobileplay.database.HttpRequest;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
 import test.dahun.mobileplay.interfaces.ButtonInterface;
+import test.dahun.mobileplay.interfaces.HeartNumInterface;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
@@ -42,6 +44,7 @@ import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabList
 public class ListFragment extends Fragment {
 
     @BindView(R.id.like_gif) ImageView like_gif;
+    @BindView(R.id.list_bg) ImageView list_bg;
 
     @BindView(R.id.play_list) ListView play_list;
 
@@ -125,6 +128,12 @@ public class ListFragment extends Fragment {
         titles.add("집 비던날");   heart_nums.add(486);
         titles.add("편한노래");           heart_nums.add(992);
         titles.add("날개");         heart_nums.add(96);
+
+        HeartNumInterface.numSetting();
+        heart_nums = new ArrayList<>();
+        heart_nums.addAll(HeartNumInterface.getHeartArray());
+
+        new HttpRequest().getSongList();
     }
 
     @Override
@@ -134,6 +143,8 @@ public class ListFragment extends Fragment {
             if(this.layout != null){
                 ((ButtonInterface)getContext()).reset();
                 ((ButtonInterface)getContext()).listOn();
+
+                playListAdapter.notifyDataSetChanged();
             }
             return;
         }

@@ -39,11 +39,11 @@ public class SubMusicView extends LinearLayout {
         break;
 
       case 1:
-        Glide.with(getContext()).load(R.drawable.gallary2).apply(new RequestOptions().circleCrop()).into(imageView);
+        Glide.with(getContext()).load(R.drawable.gallary7).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 2:
-        Glide.with(getContext()).load(R.drawable.gallary3).apply(new RequestOptions().circleCrop()).into(imageView);
+        Glide.with(getContext()).load(R.drawable.gallary8).apply(new RequestOptions().circleCrop()).into(imageView);
         break;
 
       case 3:

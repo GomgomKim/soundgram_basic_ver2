@@ -91,17 +91,26 @@
 
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/info_btn"
-            android:layout_below="@id/cover"
-            android:layout_centerHorizontal="true"
+        <RelativeLayout
+            android:id="@+id/info_btn_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="18dp"
-            android:layout_gravity="center"
-            android:scaleType="fitXY"
-            android:background="@drawable/home_btn_info"
-            />
+            android:background="#faf5dc"
+            android:layout_below="@id/cover"
+            android:layout_centerHorizontal="true"
+            >
+
+            <ImageButton
+                android:id="@+id/info_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:background="@drawable/info_btn"
+                />
+
+        </RelativeLayout>
     </RelativeLayout>
 
 

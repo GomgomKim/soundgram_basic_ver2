@@ -19,17 +19,15 @@
     <LinearLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="224dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@drawable/bg_list"
         android:orientation="vertical"
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:paddingBottom="20dp"
+            android:gravity="center"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -42,6 +40,14 @@
                 />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/list_bg"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:src="@drawable/bg_list"
+            android:scaleType="centerCrop"
+            android:paddingTop="75dp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"

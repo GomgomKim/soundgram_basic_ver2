@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#ffffff"
     tools:context="test.dahun.mobileplay.main.MainActivity">
 
     <RelativeLayout
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="한국대중음악상이 사랑한 인디밴드"
             android:textSize="17dp"
-            android:textColor="#ebebeb"
+            android:textColor="#000000"
             android:fontFamily="@font/notosanskr_medium"
             android:layout_centerInParent="true"
             />

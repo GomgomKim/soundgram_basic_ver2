@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,7 +62,6 @@ import retrofit2.http.HTTP;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.MusicCustomPagerAdapter;
 import test.dahun.mobileplay.adapter.MusicInfoItem;
-import test.dahun.mobileplay.database.GetSongData;
 import test.dahun.mobileplay.events.DurationEvent;
 import test.dahun.mobileplay.events.EndFragEvent;
 import test.dahun.mobileplay.events.FinishMusicEvent;
@@ -70,6 +70,7 @@ import test.dahun.mobileplay.events.IsPlayEvent;
 import test.dahun.mobileplay.events.SeekbarEvent;
 import test.dahun.mobileplay.events.TimerEvent;
 import test.dahun.mobileplay.interfaces.ButtonInterface;
+import test.dahun.mobileplay.interfaces.HeartNumInterface;
 import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
 import test.dahun.mobileplay.services.BusProvider;
@@ -83,7 +84,7 @@ import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabList
  * Created by gomgomKim on 2019. 2. 11..
  */
 
-public class MusicFragment extends Fragment
+public class MusicFragment extends Fragment implements HeartNumInterface
 {
     @BindView(R.id.like_gif) ImageView like_gif;
 
@@ -97,7 +98,7 @@ public class MusicFragment extends Fragment
     @BindView(R.id.btn_nextplay) ImageButton btn_nextplay;
 
     @BindView(R.id.btn_lyric) ImageButton btn_lyric;
-    @BindView(R.id.heart) ImageButton heart;
+    @BindView(R.id.heart) ImageView heart;
     @BindView(R.id.heart_num) TextView heart_num;
     @BindView(R.id.btn_repeat) ImageButton btn_repeat;
 
@@ -157,7 +158,6 @@ public class MusicFragment extends Fragment
     //하트 애니메이션
     private AnimationDrawable frameAnimation;
 
-
     public MusicFragment() {
         super();
     }
@@ -169,16 +169,16 @@ public class MusicFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_music, container, false);
         ButterKnife.bind(this, layout);
-        getService();
+//        getService();
         getDatabase();
         eventBus();
         makeData();
         initSetting();
         initPlay();
+        lyrics_popupSetting();
         musicPagerSetting();
         seekBarSetting();
         playBtnSetting();
-        lyrics_popupSetting();
         playmode();
         like_music();
         switch_music();
@@ -312,7 +312,8 @@ public class MusicFragment extends Fragment
 
         heart.setTag(0); // 하트의 상태 / 0 : off / 1 : on
         title.setText(musicarr.get(0)); // 첫번째 노래제목
-        heart_num.setText(String.valueOf(like_count.get(0))); // 첫번째 노래 하트개수
+//        heart_num.setText(String.valueOf(like_count.get(0))); // 첫번째 노래 하트개수
+        heart_num.setText(String.valueOf(HeartNumInterface.getHeartNum(0)));
 
         Glide.with(getContext()).load(R.drawable.bg_play1)
                 .apply(new RequestOptions().fitCenter()).into(pager_bg);
@@ -378,7 +379,8 @@ public class MusicFragment extends Fragment
                 auto_move = false;
                 changePlay();
                 changeLyrics(index);
-                setHeartNum(like_count.get(index));
+//                setHeartNum(like_count.get(index));
+                setHeartNum(HeartNumInterface.getHeartNum(index));
                 title.setText(musicarr.get(position));
             }
 
@@ -486,9 +488,11 @@ public class MusicFragment extends Fragment
             RelativeLayout popupLayout = (RelativeLayout)layout.findViewById(R.id.whole_layout);
             popup.showAtLocation(popupLayout, Gravity.CENTER, 0, 0);
 
+            ScrollView lyric_scroll = (ScrollView) popupView.findViewById(R.id.lyric_scroll);
             ImageButton btn_close = (ImageButton) popupView.findViewById(R.id.btn_close);
             TextView title = (TextView) popupView.findViewById(R.id.title);
             TextView info = (TextView) popupView.findViewById(R.id.info);
+            lyric_scroll.scrollTo(0, 0);
             title.setText(music_info.get(index).getMusic_title());
             info.setText(
                     "작곡 : "+music_info.get(index).getComposition()+"\n"+
@@ -699,12 +703,14 @@ public class MusicFragment extends Fragment
                 int current_like_count = like_count.get(index)+1;
                 setHeartNum(current_like_count);
                 heart.setTag(1);
+                HeartNumInterface.setIsHeart(index, 1);
                 viewGif();
             } else if ((Integer)heart.getTag() == 1){
                 heart.setBackgroundResource(R.drawable.like_off);
                 int current_like_count = like_count.get(index)-1;
                 setHeartNum(current_like_count);
                 heart.setTag(0);
+                HeartNumInterface.setIsHeart(index, 0);
             }
         });
     }
@@ -746,6 +752,9 @@ public class MusicFragment extends Fragment
         }
         else heart_count = String.valueOf(current_like_count);
         like_count.set(index, current_like_count);
+//        heart_num.setText(heart_count);
+
+        HeartNumInterface.setHeartNum(index, current_like_count);
         heart_num.setText(heart_count);
     }
 
@@ -777,6 +786,10 @@ public class MusicFragment extends Fragment
         if(isVisibleToUser){ // 유저가 화면을 보고있을 때
             if(this.layout != null){
                 initPlay();
+
+                setHeartNum(HeartNumInterface.getHeartNum(index));
+                if(HeartNumInterface.getIsHeart(index) == 0) heart.setBackgroundResource(R.drawable.like_off);
+                else if(HeartNumInterface.getIsHeart(index) == 1) heart.setBackgroundResource(R.drawable.like_on);
 
                 if(refresh == 0){
                     FragmentTransaction ft = getFragmentManager().beginTransaction();

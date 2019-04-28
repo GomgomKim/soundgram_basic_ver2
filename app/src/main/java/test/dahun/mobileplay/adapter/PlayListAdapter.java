@@ -1,6 +1,7 @@
 package test.dahun.mobileplay.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.interfaces.HeartNumInterface;
 import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.tab.ListFragment;
 
@@ -94,7 +96,7 @@ public class PlayListAdapter extends BaseAdapter {
                 index = (TextView) convertView.findViewById(R.id.index);
                 heart_touch_area = (LinearLayout) convertView.findViewById(R.id.heart_touch_area);
                 song_touch_area = (LinearLayout) convertView.findViewById(R.id.song_touch_area);
-                heart = (ImageButton) convertView.findViewById(R.id.heart);
+                heart = (ImageView) convertView.findViewById(R.id.heart);
                 heart_num = (TextView) convertView.findViewById(R.id.heart_num);
                 title_img = (ImageView) convertView.findViewById(R.id.title_img);
                 title = (TextView) convertView.findViewById(R.id.title);
@@ -102,8 +104,11 @@ public class PlayListAdapter extends BaseAdapter {
 
                 if(current_item != null){
                     index.setText(current_item.getIndex());
-                    heart.setBackgroundResource(current_item.getHeart());
-                    heart_num.setText(setHeartNum(current_item.getHeart_num()));
+//                    heart.setBackgroundResource(current_item.getHeart());
+                    if(HeartNumInterface.getIsHeart(position) == 0) heart.setBackgroundResource(R.drawable.like_off);
+                    else if(HeartNumInterface.getIsHeart(position) == 1) heart.setBackgroundResource(R.drawable.like_on);
+                    heart_num.setText(setHeartNum(HeartNumInterface.getHeartNum(position)));
+//                    heart_num.setText(setHeartNum(current_item.getHeart_num()));
                     title.setText(current_item.getTitle());
                     singer.setText(current_item.getSinger());
 
@@ -122,10 +127,14 @@ public class PlayListAdapter extends BaseAdapter {
                         if(is_heart == R.drawable.like_off){
                             mItems.get(position).setHeart(R.drawable.like_on);
                             mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()+1);
+                            HeartNumInterface.setHeartNum(position, mItems.get(position).getHeart_num());
+                            HeartNumInterface.setIsHeart(position, 1);
 //                            listFragment.viewGif();
                         } else if (is_heart == R.drawable.like_on) {
                             mItems.get(position).setHeart(R.drawable.like_off);
                             mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()-1);
+                            HeartNumInterface.setHeartNum(position, mItems.get(position).getHeart_num());
+                            HeartNumInterface.setIsHeart(position, 0);
                         }
                         notifyDataSetChanged();
                     });
