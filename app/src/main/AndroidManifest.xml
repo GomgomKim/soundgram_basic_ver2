@@ -43,9 +43,9 @@
 
         <receiver android:name=".services.NotificationIntentService">
             <intent-filter>
-                <action android:name="prev_click"></action>
-                <action android:name="next_click"></action>
-                <action android:name="play_click"></action>
+                <action android:name="music_prev"></action>
+                <action android:name="music_next"></action>
+                <action android:name="music_play"></action>
             </intent-filter>
         </receiver>
 

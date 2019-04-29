@@ -1,5 +1,8 @@
 package test.dahun.mobileplay.services;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -7,7 +10,9 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -18,9 +23,11 @@ import test.dahun.mobileplay.events.DurationEvent;
 import test.dahun.mobileplay.events.FinishMusicEvent;
 import test.dahun.mobileplay.events.GetSongPlayInfoEvent;
 import test.dahun.mobileplay.events.IsPlayEvent;
+import test.dahun.mobileplay.events.PositionEvent;
 import test.dahun.mobileplay.events.SeekbarEvent;
 import test.dahun.mobileplay.events.TimerEvent;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
+import test.dahun.mobileplay.main.MainActivity;
 
 
 public class MusicService extends Service {
@@ -37,8 +44,15 @@ public class MusicService extends Service {
     IBinder mBinder = new LocalBinder();
 
     // notification data
+    RemoteViews customView;
+    Intent prev_intent, play_intent, next_intent;
+    PendingIntent prev_p_intent, play_p_intent, next_p_intent, content_intent;
+    NotificationCompat.Builder builder;
+    Notification notification;
+    NotificationManager notificationManager;
     ArrayList<String> musicarr;
     ArrayList<Integer> albumarr;
+
 
     @Nullable
     @Override
@@ -56,6 +70,8 @@ public class MusicService extends Service {
         return mp;
     }
 
+    public int getIndex(){ return music_index; }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -71,7 +87,6 @@ public class MusicService extends Service {
 
         switch (state){
             case "play":
-//                setNotification();
                 mp = changeMusicPlayer(music_index);
                 mp.seekTo(pos);
                 mp.setLooping(false);
@@ -83,9 +98,12 @@ public class MusicService extends Service {
 
                 BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
                 BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
+                BusProvider.getInstance().post(new PositionEvent(music_index));
 
 
                 ApplicationStatus.isPlaying = true;
+
+                startNotification();
 
                 break;
 
@@ -101,6 +119,8 @@ public class MusicService extends Service {
                 BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
 
                 ApplicationStatus.isPlaying = false;
+
+                setNotification();
                 break;
 
             case "pause":
@@ -109,6 +129,8 @@ public class MusicService extends Service {
                 BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
 
                 ApplicationStatus.isPlaying = false;
+
+                setNotification();
                 break;
 
             case "play_mode":
@@ -180,43 +202,51 @@ public class MusicService extends Service {
         });
     }
 
-    /*public void setNotification() {
-        RemoteViews customView = new RemoteViews(getPackageName(), R.layout.layout_notification);
+    public void startNotification(){
+        customView = new RemoteViews(getPackageName(), R.layout.layout_notification);
+        setNotification();
+    }
+
+    public void setNotification() {
         customView.setImageViewResource(R.id.img_noti, albumarr.get(music_index));
         customView.setTextViewText(R.id.title_noti, musicarr.get(music_index));
 
+        if(mp.isPlaying()) customView.setImageViewResource(R.id.play_img, R.drawable.btn_pause);
+        else customView.setImageViewResource(R.id.play_img, R.drawable.btn_play);
+
+        content_intent = PendingIntent.getActivity(this, 10, new Intent(this, MainActivity.class), PendingIntent.FLAG_ONE_SHOT);
+        customView.setOnClickPendingIntent(R.id.noti_layout, content_intent);
+
         // click events
-        Intent prev_intent = new Intent("prev_click");
+        prev_intent = new Intent("music_prev");
         prev_intent.putExtra("id", -1);
         prev_intent.putExtra("music_index", music_index);
         prev_intent.putExtra("is_play", mp.isPlaying());
-        PendingIntent prev_p_intent = PendingIntent.getBroadcast(this, -1, prev_intent, 0);
+        prev_p_intent = PendingIntent.getBroadcast(this, -1, prev_intent, PendingIntent.FLAG_UPDATE_CURRENT);
         customView.setOnClickPendingIntent(R.id.music_prev, prev_p_intent);
 
-        Intent next_intent = new Intent("next_click");
+        next_intent = new Intent("music_next");
         next_intent.putExtra("id", 1);
         next_intent.putExtra("music_index", music_index);
         next_intent.putExtra("is_play", mp.isPlaying());
-        PendingIntent next_p_intent = PendingIntent.getBroadcast(this, 1, next_intent, 0);
+        next_p_intent = PendingIntent.getBroadcast(this, 1, next_intent, PendingIntent.FLAG_UPDATE_CURRENT);
         customView.setOnClickPendingIntent(R.id.music_next, next_p_intent);
 
-        Intent play_intent = new Intent("play_click");
+        play_intent = new Intent("music_play");
         play_intent.putExtra("id", 0);
         play_intent.putExtra("music_index", music_index);
         play_intent.putExtra("is_play", mp.isPlaying());
-        PendingIntent play_p_intent = PendingIntent.getBroadcast(this, 0, play_intent, 0);
+        play_p_intent = PendingIntent.getBroadcast(this, 0, play_intent, PendingIntent.FLAG_UPDATE_CURRENT);
         customView.setOnClickPendingIntent(R.id.music_now, play_p_intent);
 
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.booklet_img_01)
+        builder = new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.gallary1)
                         .setCustomContentView(customView);
 
-        Notification notification = builder.build();
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(0, notification);
-
-    }*/
+        notification = builder.build();
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(1, notification);
+    }
 
 
     public MediaPlayer changeMusicPlayer(int index){
@@ -250,12 +280,12 @@ public class MusicService extends Service {
     public void dataSetting(){
         musicarr = new ArrayList<>();
         albumarr = new ArrayList<>();
-        albumarr.add(R.drawable.albumimg_02); musicarr.add("신현희와김루트");
-        albumarr.add(R.drawable.albumimg_03); musicarr.add("오빠야");
-        albumarr.add(R.drawable.albumimg_04); musicarr.add("Cap Song");
-        albumarr.add(R.drawable.albumimg_05); musicarr.add("집 비던날");
-        albumarr.add(R.drawable.albumimg_06); musicarr.add("편한노래");
-        albumarr.add(R.drawable.albumimg_02); musicarr.add("날개");
+        albumarr.add(R.drawable.gallary1); musicarr.add("신현희와김루트");
+        albumarr.add(R.drawable.gallary7); musicarr.add("오빠야");
+        albumarr.add(R.drawable.gallary8); musicarr.add("Cap Song");
+        albumarr.add(R.drawable.gallary4); musicarr.add("집 비던날");
+        albumarr.add(R.drawable.gallary5); musicarr.add("편한노래");
+        albumarr.add(R.drawable.gallary6); musicarr.add("날개");
     }
 
 }

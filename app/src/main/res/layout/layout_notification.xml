@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/noti_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_centerVertical="true"
-    android:background="#ba2b28"
+    android:background="#faf5dc"
     >
     <ImageView
         android:id="@+id/img_noti"
@@ -20,8 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="title"
-        android:textColor="#ffffff"
-        android:fontFamily="@font/notosanskr_regular"
+        android:textColor="#000000"
+        android:fontFamily="@font/daehan_regular"
         android:textSize="20dp"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/img_noti"
@@ -46,12 +47,21 @@
             android:layout_height="30dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/btn_prevplay" />
-        <ImageButton
+        <RelativeLayout
             android:id="@+id/music_now"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/btn_pause" />
+            >
+
+            <ImageView
+                android:id="@+id/play_img"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="0dp" />
+        </RelativeLayout>
+
         <ImageButton
             android:id="@+id/music_next"
             android:layout_width="30dp"

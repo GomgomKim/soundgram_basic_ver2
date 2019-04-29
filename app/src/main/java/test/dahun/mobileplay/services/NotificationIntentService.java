@@ -4,13 +4,19 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 public class NotificationIntentService extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        int music_state = intent.getExtras().getInt("id");
         int music_index = intent.getExtras().getInt("music_index");
         boolean is_play = intent.getExtras().getBoolean("is_play");
+
+        Log.i("gomgomnoti", String.valueOf(music_state));
+        Log.i("gomgomnoti", String.valueOf(music_index));
+        Log.i("gomgomnoti", String.valueOf(is_play));
 
         switch (intent.getExtras().getInt("id")){
             case -1:
@@ -24,7 +30,7 @@ public class NotificationIntentService extends BroadcastReceiver {
                 break;
             case 0:
                 if(is_play){
-                    music_pause(context);
+                    music_pause(context, music_index);
                 } else{
                     music_play(context, music_index);
                 }
@@ -59,8 +65,9 @@ public class NotificationIntentService extends BroadcastReceiver {
         context.startService(intent_service_play);
     }
 
-    public void music_pause(Context context){
+    public void music_pause(Context context, int music_index){
         Intent intent_service_play = new Intent(context, MusicService.class);
+        intent_service_play.putExtra("index", music_index);
         intent_service_play.putExtra("state", "pause");
         context.startService(intent_service_play);
     }

@@ -75,6 +75,7 @@ import test.dahun.mobileplay.events.EndFragEvent;
 import test.dahun.mobileplay.events.FinishMusicEvent;
 import test.dahun.mobileplay.events.GetSongPlayInfoEvent;
 import test.dahun.mobileplay.events.IsPlayEvent;
+import test.dahun.mobileplay.events.PositionEvent;
 import test.dahun.mobileplay.events.SeekbarEvent;
 import test.dahun.mobileplay.events.TimerEvent;
 import test.dahun.mobileplay.interfaces.ButtonInterface;
@@ -268,6 +269,14 @@ public class MusicFragment extends Fragment implements HeartNumInterface
         }
     }
 
+
+    // 플레이 이벤트
+    @Subscribe
+    public void FinishLoad(PositionEvent mEvent) {
+        auto_move=true;
+        musicPager.setCurrentItem(mEvent.getPosition());
+    }
+
     // 플레이 이벤트
     @Subscribe
     public void FinishLoad(IsPlayEvent mEvent) {
@@ -335,8 +344,20 @@ public class MusicFragment extends Fragment implements HeartNumInterface
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void initSetting() {
+
         timerHandler = new TimerHandler();
         mService = ((ServiceStateInterface)getContext()).getServiceState();
+        Log.i("musicfrag", String.valueOf(mService));
+        if(mService != null) {
+            mp = mService.getMp();
+            maxTime.setText(timeTranslation(mp.getDuration()/1000));
+            seekBar.setMax(mp.getDuration());
+            seekBar.setProgress(mp.getCurrentPosition());
+            if(mp.isPlaying()){
+                new SeekbarTimer().start();
+                new MusicTimer().start();
+            }
+        }
 
         singer.setText("신현희와김루트");
 
@@ -416,7 +437,6 @@ public class MusicFragment extends Fragment implements HeartNumInterface
             public void onPageSelected(int position) {
                 index = position;
                 if(!auto_move){
-                    Log.i("gomgomgom", "in");
                     if(mService.getMp().isPlaying()) music_stop();
                     music_play();
                 }
@@ -864,8 +884,6 @@ public class MusicFragment extends Fragment implements HeartNumInterface
                 seekBar.setProgress(mp.getCurrentPosition());
                 maxTime.setText(timeTranslation(mp.getDuration()/1000));
 
-
-//                    musicPager.setCurrentItem(mEvent.getPosition());
                 if(isPlaying){
                     Glide.with(getContext()).load(R.drawable.btn_pause2)
                             .apply(new RequestOptions().fitCenter()).into(btn_play);
