@@ -55,6 +55,7 @@ public class NotificationIntentService extends BroadcastReceiver {
         Intent intent_service_stop = new Intent(context, MusicService.class);
         intent_service_stop.putExtra("index", music_index);
         intent_service_stop.putExtra("state", "stop");
+        intent_service_stop.putExtra("is_broad", true);
         context.startService(intent_service_stop);
     }
 
@@ -62,6 +63,7 @@ public class NotificationIntentService extends BroadcastReceiver {
         Intent intent_service_play = new Intent(context, MusicService.class);
         intent_service_play.putExtra("index", music_index);
         intent_service_play.putExtra("state", "play");
+        intent_service_play.putExtra("is_broad", true);
         context.startService(intent_service_play);
     }
 
@@ -69,6 +71,7 @@ public class NotificationIntentService extends BroadcastReceiver {
         Intent intent_service_play = new Intent(context, MusicService.class);
         intent_service_play.putExtra("index", music_index);
         intent_service_play.putExtra("state", "pause");
+        intent_service_play.putExtra("is_broad", true);
         context.startService(intent_service_play);
     }
 

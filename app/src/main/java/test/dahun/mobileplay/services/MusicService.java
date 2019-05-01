@@ -52,6 +52,7 @@ public class MusicService extends Service {
     NotificationManager notificationManager;
     ArrayList<String> musicarr;
     ArrayList<Integer> albumarr;
+    boolean is_noti_broad = false;
 
 
     @Nullable
@@ -84,6 +85,7 @@ public class MusicService extends Service {
         music_index = intent.getExtras().getInt("index", 0);
         String state = intent.getExtras().getString("state");
         int seekBarPosition = intent.getExtras().getInt("seekBar_position", -1);
+        is_noti_broad = intent.getExtras().getBoolean("is_broad", false);
 
         switch (state){
             case "play":
@@ -98,7 +100,7 @@ public class MusicService extends Service {
 
                 BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
                 BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
-                BusProvider.getInstance().post(new PositionEvent(music_index));
+                if(is_noti_broad) BusProvider.getInstance().post(new PositionEvent(music_index));
 
 
                 ApplicationStatus.isPlaying = true;
@@ -116,11 +118,15 @@ public class MusicService extends Service {
                     pos = 0;
                 }
                 current_time = 0;
-                BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
+                try {
+                    BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
+                } catch (IllegalStateException e){
+                    Log.i("gomgomKim", "illegal_stop");
+                }
 
                 ApplicationStatus.isPlaying = false;
 
-                setNotification();
+                if(customView != null) setNotification();
                 break;
 
             case "pause":
@@ -130,7 +136,7 @@ public class MusicService extends Service {
 
                 ApplicationStatus.isPlaying = false;
 
-                setNotification();
+                if(customView != null) setNotification();
                 break;
 
             case "play_mode":

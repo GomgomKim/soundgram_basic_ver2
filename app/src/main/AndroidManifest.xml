@@ -28,6 +28,7 @@
         </activity>
         <activity
             android:name=".tab.VideoActivity"
+            android:configChanges="screenSize|orientation|layoutDirection"
             android:screenOrientation="portrait"
             />
         <activity
