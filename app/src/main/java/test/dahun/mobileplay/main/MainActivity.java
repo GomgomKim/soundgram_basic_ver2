@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
             // alert
             AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
             alert.setPositiveButton("확인", (dialog, which) -> dialog.dismiss());
-            alert.setMessage("네트워크가 연결되지 않았습니다. 일부 기능이 제한될 수 있습니다");
+            alert.setMessage("네트워크가 연결되지 않았습니다. 일부 기능이 제한될 수 있습니다.");
             alert.show();
         }
      }

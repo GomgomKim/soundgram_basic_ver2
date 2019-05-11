@@ -25,25 +25,25 @@
         android:id="@+id/middle_layout"
         android:layout_below="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="190dp"
         android:background="#ffffff"
         >
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="140dp"
             android:scaleType="centerCrop"
             android:background="#faf5dc"
             />
         <ImageView
             android:id="@+id/middle_bg"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="140dp"
             android:scaleType="centerCrop"
             />
         <ImageView
             android:id="@+id/singer_img"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="155dp"
+            android:layout_height="155dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:background="@null"

@@ -19,10 +19,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.interfaces.ServiceStateInterface;
 import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.tab.GallaryFragment;
 import test.dahun.mobileplay.tab.ImageActivity;
@@ -105,7 +107,8 @@ public class GallaryListAdapter extends BaseAdapter {
                 gallary_img_title = (TextView) convertView.findViewById(R.id.gallary_img_title);
 
 
-                Glide.with(context).load(current_item.getImg_resource()).apply(new RequestOptions().fitCenter()).into(gallary_img);
+                Picasso.with(context).load(current_item.getImg_resource()).into(gallary_img);
+//                gallary_img.setImageResource(current_item.getImg_resource());
                 gallary_img.bringToFront();
                 gallary_img_title.setText(current_item.getTitle());
 
@@ -124,8 +127,8 @@ public class GallaryListAdapter extends BaseAdapter {
                 gallary_video_img = (ImageView) convertView.findViewById(R.id.gallary_video_img);
                 gallary_video_play = (ImageButton) convertView.findViewById(R.id.gallary_video_play);
                 gallary_video_title = (TextView) convertView.findViewById(R.id.gallary_video_title);
-                Glide.with(context).load(current_item.getImg_resource())
-                        .apply(new RequestOptions().fitCenter()).into(gallary_video_img);
+                Picasso.with(context).load(current_item.getImg_resource()).into(gallary_video_img);
+//                gallary_video_img.setImageResource(current_item.getImg_resource());
                 /*String url = "https://img.youtube.com/vi/"+current_item.getVideo_code()+"/0.jpg";
                 Glide.with(context).load(url)
                         .apply(new RequestOptions().fitCenter()).into(gallary_video_img);*/
@@ -143,6 +146,7 @@ public class GallaryListAdapter extends BaseAdapter {
                         Intent intent = new Intent(context, VideoActivity.class);
                         intent.putExtra("video_id", video_id);
                         intent.putExtra("video_name", video_title);
+                        intent.putExtra("music_index", ((ServiceStateInterface)context).getServiceState().getIndex());
                         context.startActivity(intent);
 
                     } else{
@@ -162,7 +166,7 @@ public class GallaryListAdapter extends BaseAdapter {
     }
 
 
-     public void addItem(int type, String title, int img_resource) {
+    public void addItem(int type, String title, int img_resource) {
         GallaryListItem mItem = new GallaryListItem();
 
         mItem.setType(type);

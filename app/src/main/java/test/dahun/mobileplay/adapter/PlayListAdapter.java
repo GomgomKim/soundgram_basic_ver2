@@ -17,8 +17,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.events.EndFragEvent;
+import test.dahun.mobileplay.events.PositionEvent;
+import test.dahun.mobileplay.events.SelectSongEvent;
 import test.dahun.mobileplay.interfaces.HeartNumInterface;
 import test.dahun.mobileplay.main.MainActivity;
+import test.dahun.mobileplay.services.BusProvider;
 import test.dahun.mobileplay.tab.ListFragment;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
@@ -46,6 +50,7 @@ public class PlayListAdapter extends BaseAdapter {
     public PlayListAdapter(Context context, ListFragment listFragment){
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.listFragment = listFragment;
+        BusProvider.getInstance().register(listFragment.getContext());
     }
 
     @Override
@@ -161,6 +166,8 @@ public class PlayListAdapter extends BaseAdapter {
                         MainActivity.setPosition(position);
                         MainActivity.setState(0);
                         setViewPagerTabListener.setTab(2);
+
+//                        BusProvider.getInstance().post(new SelectSongEvent(position));
                     });
 
                 }

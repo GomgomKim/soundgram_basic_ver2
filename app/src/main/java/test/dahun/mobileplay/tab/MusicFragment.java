@@ -61,6 +61,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -77,6 +78,7 @@ import test.dahun.mobileplay.events.GetSongPlayInfoEvent;
 import test.dahun.mobileplay.events.IsPlayEvent;
 import test.dahun.mobileplay.events.PositionEvent;
 import test.dahun.mobileplay.events.SeekbarEvent;
+import test.dahun.mobileplay.events.SelectSongEvent;
 import test.dahun.mobileplay.events.TimerEvent;
 import test.dahun.mobileplay.interfaces.ButtonInterface;
 import test.dahun.mobileplay.interfaces.HeartNumInterface;
@@ -122,6 +124,8 @@ public class MusicFragment extends Fragment implements HeartNumInterface
 
     @BindView(R.id.musicProgress) SeekBar seekBar; // 음악 재생위치를 나타내는 시크바
 
+    // 이미지
+    ArrayList<Integer> album_arr;
 
     final String TAG="MusicFragment";
     RelativeLayout layout;
@@ -191,7 +195,6 @@ public class MusicFragment extends Fragment implements HeartNumInterface
         eventBus();
         makeData();
         initSetting();
-        initPlay();
         lyrics_popupSetting();
         musicPagerSetting();
         seekBarSetting();
@@ -269,6 +272,18 @@ public class MusicFragment extends Fragment implements HeartNumInterface
         }
     }
 
+  /*  // 플레이 이벤트
+    @Subscribe
+    public void FinishLoad(SelectSongEvent mEvent) {
+//        auto_move = true;
+        index = mEvent.getPosition();
+        Log.i("testMusic", "index :"+index);
+        musicPager.setCurrentItem(index);
+        title.setText(musicarr.get(index));
+       *//* music_stop();
+        music_play();*//*
+        setViewPagerTabListener.setTab(2);
+    }*/
 
     // 플레이 이벤트
     @Subscribe
@@ -408,6 +423,7 @@ public class MusicFragment extends Fragment implements HeartNumInterface
         if(MainActivity.getState() == 0){
             auto_move = true;
             index = MainActivity.getPosition();
+            Log.i("testMusic", "index :"+index);
             musicPager.setCurrentItem(index);
             title.setText(musicarr.get(index));
             music_stop();
@@ -417,7 +433,8 @@ public class MusicFragment extends Fragment implements HeartNumInterface
     }
 
     public void musicPagerSetting(){
-        musicPager.setAdapter(new MusicCustomPagerAdapter(getContext()));
+        setMusicImg();
+        musicPager.setAdapter(new MusicCustomPagerAdapter(getContext(), album_arr));
         musicPager.setOnPageChangeListener(new VerticalViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -859,8 +876,6 @@ public class MusicFragment extends Fragment implements HeartNumInterface
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){ // 유저가 화면을 보고있을 때
             if(this.layout != null){
-                initPlay();
-
                 setHeartNum(HeartNumInterface.getHeartNum(index));
                 if(HeartNumInterface.getIsHeart(index) == 0) heart.setBackgroundResource(R.drawable.like_off);
                 else if(HeartNumInterface.getIsHeart(index) == 1) heart.setBackgroundResource(R.drawable.like_on);
@@ -875,23 +890,29 @@ public class MusicFragment extends Fragment implements HeartNumInterface
                 if(!ApplicationStatus.isPlaying) ((ButtonInterface)getContext()).playOn();
 
                 // get music data
-                mService = ((ServiceStateInterface)getContext()).getServiceState();
-                mp = mService.getMp();
+                if(MainActivity.getState() == 0) initPlay();
+                else{
+                    mService = ((ServiceStateInterface)getContext()).getServiceState();
+                    mp = mService.getMp();
 
-                isPlaying = mp.isPlaying();
+                    isPlaying = mp.isPlaying();
 
-                seekBar.setMax(mp.getDuration());
-                seekBar.setProgress(mp.getCurrentPosition());
-                maxTime.setText(timeTranslation(mp.getDuration()/1000));
+                    seekBar.setMax(mp.getDuration());
+                    seekBar.setProgress(mp.getCurrentPosition());
+                    maxTime.setText(timeTranslation(mp.getDuration()/1000));
 
-                if(isPlaying){
-                    Glide.with(getContext()).load(R.drawable.btn_pause2)
-                            .apply(new RequestOptions().fitCenter()).into(btn_play);
-                    ((ButtonInterface)getContext()).playMusic();
-                } else{
-                    Glide.with(getContext()).load(R.drawable.btn_play2)
-                            .apply(new RequestOptions().fitCenter()).into(btn_play);
-                    ((ButtonInterface)getContext()).playOn();
+                    auto_move = true;
+                    musicPager.setCurrentItem(mService.getIndex());
+
+                    if(isPlaying){
+                        Glide.with(getContext()).load(R.drawable.btn_pause2)
+                                .apply(new RequestOptions().fitCenter()).into(btn_play);
+                        ((ButtonInterface)getContext()).playMusic();
+                    } else{
+                        Glide.with(getContext()).load(R.drawable.btn_play2)
+                                .apply(new RequestOptions().fitCenter()).into(btn_play);
+                        ((ButtonInterface)getContext()).playOn();
+                    }
                 }
 
             }
@@ -903,5 +924,31 @@ public class MusicFragment extends Fragment implements HeartNumInterface
 
     public void getDatabase(){
 
+    }
+
+    public void setMusicImg(){
+        album_arr = new ArrayList<>();
+
+        album_arr.add(R.drawable.gallary1);
+        album_arr.add(R.drawable.gallary7);
+        album_arr.add(R.drawable.gallary8);
+        album_arr.add(R.drawable.gallary4);
+        album_arr.add(R.drawable.gallary5);
+        album_arr.add(R.drawable.gallary6);
+
+        Collections.shuffle(album_arr);
+
+        for(int i=0; i<album_arr.size(); i++){
+            Log.i("arr_test", "arr :"+album_arr.get(i));
+        }
+
+        Intent intent = new Intent(getContext(), MusicService.class);
+        intent.putExtra("album_arr", album_arr);
+        intent.putExtra("state", "arr");
+        try {
+            getActivity().startService(intent);
+        } catch (IllegalStateException e){
+
+        }
     }
 }

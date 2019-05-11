@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    tools:context="test.dahun.mobileplay.main.MainActivity">
+    android:background="#000000"
+    tools:context="test.dahun.mobileplay.tab.VideoActivity">
 
     <RelativeLayout
         android:id="@+id/top_layout"
@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="#80000000"
         >
         <TextView
             android:id="@+id/mv_pop_title"
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="한국대중음악상이 사랑한 인디밴드"
             android:textSize="17dp"
-            android:textColor="#000000"
+            android:textColor="#ebebeb"
             android:fontFamily="@font/notosanskr_medium"
             android:layout_centerInParent="true"
             />

@@ -43,11 +43,11 @@
             android:exported="true" />
 
         <receiver android:name=".services.NotificationIntentService">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="music_prev"></action>
                 <action android:name="music_next"></action>
                 <action android:name="music_play"></action>
-            </intent-filter>
+            </intent-filter>-->
         </receiver>
 
     </application>

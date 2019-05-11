@@ -4,26 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="test.dahun.mobileplay.tab.GallaryFragment"
+    android:background="#faf5dc"
     >
-    <TextView
+
+    <RelativeLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentTop="true"
-        android:background="#faf5dc"
-        android:text="G    A    L    L    E    R    Y"
-        android:gravity="center"
-        android:textSize="17dp"
-        android:textColor="#454545"
-        android:fontFamily="@font/daehan_regular"
-        />
+        android:layout_height="140dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:background="#faf5dc"
+            android:text="G    A    L    L    E    R    Y"
+            android:gravity="center"
+            android:textSize="17dp"
+            android:textColor="#454545"
+            android:fontFamily="@font/daehan_regular"
+            />
+
+        <ImageView
+            android:id="@+id/gallary_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            />
+    </RelativeLayout>
+
+
 
     <ListView
         android:id="@+id/gallary_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/top_layout"
-        android:layout_above="@+id/bottom_layout"
         android:background="#ffffff"
         android:divider="#ffffff"
         >

@@ -1,7 +1,12 @@
 package test.dahun.mobileplay.tab;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -16,8 +21,12 @@ import com.squareup.otto.Subscribe;
 
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.events.GetSongPlayInfoEvent;
+import test.dahun.mobileplay.interfaces.ApplicationStatus;
+import test.dahun.mobileplay.interfaces.ServiceStateInterface;
+import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.services.BusProvider;
 import test.dahun.mobileplay.services.MusicService;
+import test.dahun.mobileplay.services.MusicService.LocalBinder;
 
 public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener{
 
@@ -34,49 +43,38 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
     private boolean isPlaying = false;
     private boolean musicPlayed = false;
 
+    int music_index =0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-        eventBus();
+//        getService();
         getVideoInfo();
         initSetting();
+        musicSetting();
         closeActivity();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(musicPlayed){
+        /*if(musicPlayed){
+            Log.i("videoooo", "index / play : "+music_index);
+            Log.i("videoooo", "play!");
             Intent intent_service = new Intent(this, MusicService.class);
+            intent_service.putExtra("index", music_index);
             intent_service.putExtra("state", "play");
             startService(intent_service);
-
-        }
-        BusProvider.getInstance().unregister(this);
+        }*/
     }
 
-    public void eventBus(){
-        BusProvider.getInstance().register(this);
-    }
-
-    // 초기화
-    @Subscribe
-    public void FinishLoad(GetSongPlayInfoEvent mEvent) {
-        // 이벤트가 발생한뒤 수행할 작업
-        isPlaying = mEvent.getIsPlay();
-        if(isPlaying && !musicPlayed){
-            Intent intent_service = new Intent(this, MusicService.class);
-            intent_service.putExtra("state", "pause");
-            startService(intent_service);
-            musicPlayed = true;
-        }
-    }
 
     public void getVideoInfo(){
         Intent intent = getIntent();
         video_id = intent.getExtras().getString("video_id");
         video_name = intent.getExtras().getString("video_name");
+        music_index = intent.getExtras().getInt("music_index", 0);
         Log.i("gomgom", "id : "+video_id);
         Log.i("gomgom", "name : "+video_name);
     }
@@ -108,8 +106,30 @@ public class VideoActivity extends YouTubeBaseActivity implements YouTubePlayer.
 
     }
 
+    public void musicSetting(){
+        if(ApplicationStatus.isPlaying){
+            Log.i("videoooo", "pause!");
+            Intent intent_service = new Intent(this, MusicService.class);
+            intent_service.putExtra("state", "pause");
+            startService(intent_service);
+            musicPlayed = true;
+        }
+    }
+
     public void closeActivity(){
-         if(mv_close_btn != null) mv_close_btn.setOnClickListener(view -> finish());
+         if(mv_close_btn != null) {
+//             mv_close_btn.setOnClickListener(view -> finish());
+             mv_close_btn.setOnClickListener(v -> {
+                 if(musicPlayed){
+                     Intent intent_service = new Intent(getApplicationContext(), MusicService.class);
+                     intent_service.putExtra("index", music_index);
+                     intent_service.putExtra("state", "play");
+                     startService(intent_service);
+                     musicPlayed = false;
+                 }
+                 finish();
+             });
+         }
     }
 
     @Override

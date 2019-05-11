@@ -16,14 +16,21 @@
         android:adjustViewBounds="true"
         />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="264dp"
         android:layout_alignParentTop="true"
         android:orientation="vertical"
         >
+        <ImageView
+            android:id="@+id/list_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
         <LinearLayout
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:orientation="vertical"
@@ -40,18 +47,13 @@
                 />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/list_bg"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:src="@drawable/bg_list"
-            android:scaleType="centerCrop"
-            android:paddingTop="75dp"
-            />
 
         <LinearLayout
+            android:layout_below="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="124dp">
+            android:layout_height="124dp"
+            android:layout_marginTop="60dp"
+            >
             <LinearLayout
                 android:layout_width="129dp"
                 android:layout_height="124dp"
@@ -81,7 +83,7 @@
                     android:textSize="22dp"
                     android:lineSpacingExtra="-5dp"
                     android:includeFontPadding="false"
-                    android:paddingBottom="8dp"
+                    android:paddingBottom="4dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -104,8 +106,7 @@
                     />
             </LinearLayout>
         </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
     
     <ListView
         android:id="@+id/play_list"

@@ -15,7 +15,6 @@
         android:textSize="17dp"
         android:textColor="#222222"
         android:fontFamily="@font/notosanskr_medium"
-        android:paddingBottom="8dp"
         />
 
     <RelativeLayout

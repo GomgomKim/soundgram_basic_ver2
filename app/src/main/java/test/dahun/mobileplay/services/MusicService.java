@@ -1,12 +1,15 @@
 package test.dahun.mobileplay.services;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
@@ -53,6 +56,10 @@ public class MusicService extends Service {
     ArrayList<String> musicarr;
     ArrayList<Integer> albumarr;
     boolean is_noti_broad = false;
+    String channel_id="";
+
+    //Image
+    ArrayList<Integer> album_arr = new ArrayList<>();
 
 
     @Nullable
@@ -142,6 +149,11 @@ public class MusicService extends Service {
             case "play_mode":
                 play_mode = intent.getExtras().getInt("play_mode", 0);
                 break;
+            case "arr":
+                album_arr = (ArrayList<Integer>) intent.getSerializableExtra("album_arr");
+                albumarr = new ArrayList<>();
+                albumarr.addAll(album_arr);
+                break;
         }
 
         return START_NOT_STICKY;
@@ -214,44 +226,69 @@ public class MusicService extends Service {
     }
 
     public void setNotification() {
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
         customView.setImageViewResource(R.id.img_noti, albumarr.get(music_index));
         customView.setTextViewText(R.id.title_noti, musicarr.get(music_index));
 
         if(mp.isPlaying()) customView.setImageViewResource(R.id.play_img, R.drawable.btn_pause);
         else customView.setImageViewResource(R.id.play_img, R.drawable.btn_play);
 
-        content_intent = PendingIntent.getActivity(this, 10, new Intent(this, MainActivity.class), PendingIntent.FLAG_ONE_SHOT);
+        // 안드로이드 8.0.0 이상은 채널 설정 해줘야함
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.i("MusicService", "is phone version");
+            // 채널의 ID
+            channel_id = "soundgram_channel";
+            // 사용자에게 보이는 채널의 이름
+            CharSequence name = getString(R.string.channel_name);
+            // 사용자에게 보이는 채널의 설명
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel mChannel = new NotificationChannel(channel_id, name, importance);
+            // 알림 채널 설정
+            mChannel.setDescription(description);
+            /*mChannel.enableLights(true);
+            // 기기가 이 기능을 지원한다면, 이 채널에 게시되는 알림에 대한 알림 불빛 색상을 설정
+            mChannel.setLightColor(Color.RED);
+            mChannel.enableVibration(true);
+            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});*/
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        content_intent = PendingIntent.getActivity(this, 10, new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         customView.setOnClickPendingIntent(R.id.noti_layout, content_intent);
 
         // click events
-        prev_intent = new Intent("music_prev");
+        prev_intent = new Intent(getApplicationContext(), NotificationIntentService.class);
         prev_intent.putExtra("id", -1);
         prev_intent.putExtra("music_index", music_index);
         prev_intent.putExtra("is_play", mp.isPlaying());
         prev_p_intent = PendingIntent.getBroadcast(this, -1, prev_intent, PendingIntent.FLAG_UPDATE_CURRENT);
         customView.setOnClickPendingIntent(R.id.music_prev, prev_p_intent);
 
-        next_intent = new Intent("music_next");
+        next_intent = new Intent(getApplicationContext(), NotificationIntentService.class);
         next_intent.putExtra("id", 1);
         next_intent.putExtra("music_index", music_index);
         next_intent.putExtra("is_play", mp.isPlaying());
         next_p_intent = PendingIntent.getBroadcast(this, 1, next_intent, PendingIntent.FLAG_UPDATE_CURRENT);
         customView.setOnClickPendingIntent(R.id.music_next, next_p_intent);
 
-        play_intent = new Intent("music_play");
+        play_intent = new Intent(getApplicationContext(), NotificationIntentService.class);
         play_intent.putExtra("id", 0);
         play_intent.putExtra("music_index", music_index);
         play_intent.putExtra("is_play", mp.isPlaying());
         play_p_intent = PendingIntent.getBroadcast(this, 0, play_intent, PendingIntent.FLAG_UPDATE_CURRENT);
         customView.setOnClickPendingIntent(R.id.music_now, play_p_intent);
 
-        builder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.gallary1)
-                        .setCustomContentView(customView);
+        builder = new NotificationCompat.Builder(getApplicationContext(), channel_id)
+                .setSmallIcon(R.drawable.gallary1)
+                .setCustomContentView(customView)
+                .setAutoCancel(true);
 
+        builder.setVisibility(Notification.VISIBILITY_PUBLIC);
         notification = builder.build();
-        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(1, notification);
+
+        notificationManager.notify(0, notification);
     }
 
 
@@ -292,6 +329,7 @@ public class MusicService extends Service {
         albumarr.add(R.drawable.gallary4); musicarr.add("집 비던날");
         albumarr.add(R.drawable.gallary5); musicarr.add("편한노래");
         albumarr.add(R.drawable.gallary6); musicarr.add("날개");
+
     }
 
 }

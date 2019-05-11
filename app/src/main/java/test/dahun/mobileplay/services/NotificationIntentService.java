@@ -21,7 +21,7 @@ public class NotificationIntentService extends BroadcastReceiver {
         switch (intent.getExtras().getInt("id")){
             case -1:
                 if(music_index == 0){
-                    music_index = 7;
+                    music_index = 5;
                 } else{
                     music_index--;
                 }
@@ -36,7 +36,7 @@ public class NotificationIntentService extends BroadcastReceiver {
                 }
                 break;
             case 1:
-                if(music_index == 7){
+                if(music_index == 5){
                     music_index = 0;
                 } else{
                     music_index++;

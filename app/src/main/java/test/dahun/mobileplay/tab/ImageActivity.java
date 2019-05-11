@@ -75,18 +75,18 @@ public class ImageActivity extends Activity {
 //        popup_img.setImageResource(image_resource);
         Glide.with(this).load(image_resource)
                 .apply(new RequestOptions().fitCenter()).into(popup_img);
-        popup_img.getLayoutParams().height = 3000;
+//        popup_img.getLayoutParams().height = 3000;
 
         // title 나타내기
         whole_layout.setOnClickListener(view -> {
             if(top_layout.getVisibility() == View.GONE){
                 top_layout.setVisibility(View.VISIBLE);
                 bottom_layout.setBackgroundColor(Color.WHITE);
-                popup_img.getLayoutParams().height = 1000;
+//                popup_img.getLayoutParams().height = 1000;
             } else if(top_layout.getVisibility() == View.VISIBLE){
                 top_layout.setVisibility(View.GONE);
                 bottom_layout.setBackgroundColor(Color.BLACK);
-                popup_img.getLayoutParams().height = 3000;
+//                popup_img.getLayoutParams().height = 3000;
             }
         });
 
@@ -94,11 +94,11 @@ public class ImageActivity extends Activity {
             if(top_layout.getVisibility() == View.GONE){
                 top_layout.setVisibility(View.VISIBLE);
                 bottom_layout.setBackgroundColor(Color.WHITE);
-                popup_img.getLayoutParams().height = 1000;
+//                popup_img.getLayoutParams().height = 1000;
             } else if(top_layout.getVisibility() == View.VISIBLE){
                 top_layout.setVisibility(View.GONE);
                 bottom_layout.setBackgroundColor(Color.BLACK);
-                popup_img.getLayoutParams().height = 3000;
+//                popup_img.getLayoutParams().height = 3000;
             }
         });
 

@@ -1,8 +1,11 @@
 package test.dahun.mobileplay.tab;
 
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -10,11 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
 import butterknife.BindView;
@@ -35,6 +40,8 @@ public class GallaryFragment extends Fragment {
     RelativeLayout layout = null;
 
     @BindView(R.id.gallary_list) ListView gallary_list;
+
+    @BindView(R.id.gallary_bg) ImageView gallary_bg;
 
     GallaryListAdapter gallaryListAdapter;
 
@@ -68,7 +75,15 @@ public class GallaryFragment extends Fragment {
         gallaryListAdapter.addItem(0, "", R.drawable.gallary10);
         gallaryListAdapter.addItem(0, "", R.drawable.gallary11);
         gallaryListAdapter.addItem(0, "", R.drawable.gallary12);
+
         gallary_list.setAdapter(gallaryListAdapter);
+
+//        gallary_list.setSelectionFromTop(0, 2);
+//        gallary_list.smoothScrollByOffset(2);
+
+
+        Glide.with(getContext()).load(R.drawable.bg_gallary).into(gallary_bg);
+
     }
 
     @Override

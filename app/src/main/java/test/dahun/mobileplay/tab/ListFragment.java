@@ -44,9 +44,10 @@ import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabList
 public class ListFragment extends Fragment {
 
     @BindView(R.id.like_gif) ImageView like_gif;
-    @BindView(R.id.list_bg) ImageView list_bg;
 
     @BindView(R.id.play_list) ListView play_list;
+
+    @BindView(R.id.list_bg) ImageView list_bg;
 
     RelativeLayout layout = null;
     PlayListAdapter playListAdapter;
@@ -77,6 +78,8 @@ public class ListFragment extends Fragment {
     }
 
     public void initSetting(){
+        Glide.with(getContext()).load(R.drawable.bg_list).into(list_bg);
+
         playListAdapter = new PlayListAdapter(getContext(), this);
         for(int i=0; i<titles.size(); i++){
             if ( i == 1 )
