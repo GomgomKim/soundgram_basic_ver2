@@ -149,6 +149,7 @@ public class MusicService extends Service {
             case "play_mode":
                 play_mode = intent.getExtras().getInt("play_mode", 0);
                 break;
+
             case "arr":
                 album_arr = (ArrayList<Integer>) intent.getSerializableExtra("album_arr");
                 albumarr = new ArrayList<>();
@@ -243,7 +244,7 @@ public class MusicService extends Service {
             CharSequence name = getString(R.string.channel_name);
             // 사용자에게 보이는 채널의 설명
             String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel mChannel = new NotificationChannel(channel_id, name, importance);
             // 알림 채널 설정
             mChannel.setDescription(description);
@@ -255,7 +256,8 @@ public class MusicService extends Service {
             notificationManager.createNotificationChannel(mChannel);
         }
 
-        content_intent = PendingIntent.getActivity(this, 10, new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+
+        content_intent = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         customView.setOnClickPendingIntent(R.id.noti_layout, content_intent);
 
         // click events
@@ -280,10 +282,20 @@ public class MusicService extends Service {
         play_p_intent = PendingIntent.getBroadcast(this, 0, play_intent, PendingIntent.FLAG_UPDATE_CURRENT);
         customView.setOnClickPendingIntent(R.id.music_now, play_p_intent);
 
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("notificationMessage", "message");
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         builder = new NotificationCompat.Builder(getApplicationContext(), channel_id)
                 .setSmallIcon(R.drawable.gallary1)
                 .setCustomContentView(customView)
-                .setAutoCancel(true);
+                .setAutoCancel(true)
+                .setWhen(System.currentTimeMillis()).setShowWhen(true)
+                .setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_MAX)
+                .setFullScreenIntent(pendingIntent,true)
+                .setContentIntent(pendingIntent);
 
         builder.setVisibility(Notification.VISIBILITY_PUBLIC);
         notification = builder.build();

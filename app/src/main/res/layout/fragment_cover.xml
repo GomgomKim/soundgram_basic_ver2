@@ -31,86 +31,98 @@
             android:adjustViewBounds="true"
             />
 
-        <ImageView
-            android:id="@+id/cover_bottom"
+        <RelativeLayout
+            android:id="@+id/bottom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/cover_img"
             android:layout_above="@+id/btn_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            />
-
-        <LinearLayout
-            android:id="@+id/cover"
-            android:layout_width="match_parent"
-            android:layout_height="145dp"
-            android:layout_below="@+id/cover_img"
-            android:orientation="vertical"
-            android:background="#d9faf5dc"
+            android:background="#faf5dc"
             >
+
+            <ImageView
+                android:id="@+id/cover_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                />
 
             <LinearLayout
+                android:id="@+id/cover"
                 android:layout_width="match_parent"
-                android:layout_height="27dp"></LinearLayout>
+                android:layout_height="145dp"
+                android:orientation="vertical"
+                android:background="#d9faf5dc"
+                >
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/daehan_regular"
-                android:gravity="center"
-                android:text="신현희와김루트"
-                android:textColor="#333333"
-                android:textSize="36dp"
-                android:includeFontPadding="false"
-                />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="27dp"></LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#333333"
-                android:fontFamily="@font/notosanskr_regular"
-                android:includeFontPadding="false"
-                android:text="  신현희와김루트  "
-                android:textColor="#f2efe0"
-                android:textSize="14dp"
-                android:layout_marginTop="8dp"
-                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/daehan_regular"
+                    android:gravity="center"
+                    android:text="신현희와김루트"
+                    android:textColor="#333333"
+                    android:textSize="36dp"
+                    android:includeFontPadding="false"
+                    />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/notosanskr_regular"
-                android:gravity="center"
-                android:text="EP"
-                android:textColor="#333333"
-                android:textSize="20dp"
-                android:includeFontPadding="false"
-                android:layout_marginTop="8dp"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#333333"
+                    android:fontFamily="@font/notosanskr_regular"
+                    android:includeFontPadding="false"
+                    android:text="  신현희와김루트  "
+                    android:textColor="#f2efe0"
+                    android:textSize="14dp"
+                    android:layout_marginTop="8dp"
+                    />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanskr_regular"
+                    android:gravity="center"
+                    android:text="EP"
+                    android:textColor="#333333"
+                    android:textSize="20dp"
+                    android:includeFontPadding="false"
+                    android:layout_marginTop="8dp"
+                    />
 
-        <RelativeLayout
-            android:id="@+id/info_btn_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="18dp"
-            android:background="#faf5dc"
-            android:layout_below="@id/cover"
-            android:layout_centerHorizontal="true"
-            >
+            </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/info_btn"
+            <RelativeLayout
+                android:id="@+id/info_btn_back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:scaleType="fitXY"
-                android:background="@drawable/info_btn"
-                />
+                android:layout_marginTop="18dp"
+                android:background="#faf5dc"
+                android:layout_below="@id/cover"
+                android:layout_centerHorizontal="true"
+                >
+
+                <ImageButton
+                    android:id="@+id/info_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/info_btn"
+                    />
+
+            </RelativeLayout>
 
         </RelativeLayout>
+
+
+
+
     </RelativeLayout>
 
 

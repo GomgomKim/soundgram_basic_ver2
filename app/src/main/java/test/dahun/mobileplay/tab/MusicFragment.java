@@ -80,6 +80,7 @@ import test.dahun.mobileplay.events.PositionEvent;
 import test.dahun.mobileplay.events.SeekbarEvent;
 import test.dahun.mobileplay.events.SelectSongEvent;
 import test.dahun.mobileplay.events.TimerEvent;
+import test.dahun.mobileplay.interfaces.AutoUiInterface;
 import test.dahun.mobileplay.interfaces.ButtonInterface;
 import test.dahun.mobileplay.interfaces.HeartNumInterface;
 import test.dahun.mobileplay.interfaces.ServiceStateInterface;
@@ -98,7 +99,7 @@ import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabList
  * Created by gomgomKim on 2019. 2. 11..
  */
 
-public class MusicFragment extends Fragment implements HeartNumInterface
+public class MusicFragment extends Fragment implements HeartNumInterface, AutoUiInterface
 {
     @BindView(R.id.like_gif) ImageView like_gif;
 
@@ -478,6 +479,11 @@ public class MusicFragment extends Fragment implements HeartNumInterface
         });
     }
 
+    @Override
+    public void setTrueAutoMove(){
+        auto_move = true;
+    }
+
     public void seekBarSetting(){
         // 시크바 초기세팅
         seekBar.setProgress(0);
@@ -536,6 +542,7 @@ public class MusicFragment extends Fragment implements HeartNumInterface
 
     public void music_pause(){
         Intent intent = new Intent(getContext(), MusicService.class);
+        intent.putExtra("index", index);
         intent.putExtra("state", "pause");
         getActivity().startService(intent);
     }

@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -24,11 +25,13 @@ import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.BackPressCloseHandler;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
+import test.dahun.mobileplay.interfaces.AutoUiInterface;
 import test.dahun.mobileplay.interfaces.ButtonInterface;
 import test.dahun.mobileplay.interfaces.ServiceStateInterface;
 import test.dahun.mobileplay.services.MusicService;
 
 import test.dahun.mobileplay.services.MusicService.LocalBinder;
+import test.dahun.mobileplay.tab.MusicFragment;
 
 public class MainActivity extends AppCompatActivity implements ButtonInterface, ServiceStateInterface {
     ViewPager mainPager;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
     boolean isService = false;
     ServiceConnection conn;
 
+    private AutoUiInterface autoUiInterface;
+
     @Override
     public MusicService getServiceState() {
         return mService;
@@ -51,6 +56,15 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
 
     public interface SetViewPagerTabListener{
         void setTab(int position);
+    }
+
+    //noti 누르면 바로 뮤직화면으로
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        String noti_massage = getIntent().getStringExtra("notificationMessage");
+        Log.i("main_test", ""+noti_massage);
+        mainPager.setCurrentItem(2);
     }
 
      @Override
@@ -61,6 +75,21 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
         initSetting();
         btnSetting();
         setIsNetwork();
+
+        Log.i("main_test", "one");
+        String noti_massage = getIntent().getStringExtra("notificationMessage");
+         Log.i("main_test", ""+noti_massage);
+        if(noti_massage != null) {
+            ((MusicFragment)new MusicFragment()).setTrueAutoMove();
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                mainPager.setCurrentItem(2);
+            }, 100);
+        }
+     }
+
+     public void setMusicUI(AutoUiInterface autoUiInterface){
+        this.autoUiInterface = autoUiInterface;
      }
 
     @Override

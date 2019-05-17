@@ -42,6 +42,7 @@ public class CoverFragment extends Fragment
     @BindView(R.id.cover_img) ImageView cover_img;
     @BindView(R.id.reflect_img) ImageView reflect_img;
     @BindView(R.id.cover_bottom) ImageView cover_bottom;
+    @BindView(R.id.bottom_layout) RelativeLayout bottom_layout;
 
     @BindView(R.id.info_btn) ImageButton info_btn;
 
@@ -83,6 +84,8 @@ public class CoverFragment extends Fragment
         Animation animTransRight = AnimationUtils
                 .loadAnimation(getContext(), R.anim.cover_ani);
         cover_img.startAnimation(animTransRight);
+
+        bottom_layout.bringToFront();
     }
 
     @Override
