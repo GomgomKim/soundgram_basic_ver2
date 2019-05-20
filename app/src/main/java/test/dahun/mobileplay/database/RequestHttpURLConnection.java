@@ -1,12 +1,14 @@
 package test.dahun.mobileplay.database;
 
 import android.content.ContentValues;
+import android.os.Build;
 import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -70,8 +72,12 @@ public class RequestHttpURLConnection {
             urlConn.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;cahrset=UTF-8");
 
             String encoded = null;  //Java 8
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 encoded = Base64.getEncoder().encodeToString((USERNAME+":"+PASSWORD).getBytes(StandardCharsets.UTF_8));
+            } else{
+                String authString = USERNAME + ":" + PASSWORD;
+                byte[] authEncBytes = android.util.Base64.encode(authString.getBytes(), android.util.Base64.DEFAULT);
+                encoded = new String(authEncBytes);
             }
             urlConn.setRequestProperty("Authorization", "Basic "+encoded);
 

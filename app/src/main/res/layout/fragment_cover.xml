@@ -102,18 +102,27 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="18dp"
-                android:background="#faf5dc"
                 android:layout_below="@id/cover"
                 android:layout_centerHorizontal="true"
                 >
+                <ImageView
+                    android:id="@+id/info_btn_tint"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="0dp"
+                    android:scaleType="fitXY"
+                    />
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/info_btn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
                     android:layout_gravity="center"
+                    android:layout_marginStart="0dp"
                     android:scaleType="fitXY"
-                    android:background="@drawable/info_btn"
                     />
 
             </RelativeLayout>

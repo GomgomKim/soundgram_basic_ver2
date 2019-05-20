@@ -366,18 +366,17 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
         is_like_arr = new ArrayList<>();
 
         timerHandler = new TimerHandler();
-        mService = ((ServiceStateInterface)getContext()).getServiceState();
-        Log.i("musicfrag", String.valueOf(mService));
-        if(mService != null) {
-            mp = mService.getMp();
-            maxTime.setText(timeTranslation(mp.getDuration()/1000));
-            seekBar.setMax(mp.getDuration());
-            seekBar.setProgress(mp.getCurrentPosition());
-            if(mp.isPlaying()){
-                new SeekbarTimer().start();
-                new MusicTimer().start();
-            }
+        /*mService = ((ServiceStateInterface)getContext()).getServiceState();
+        Log.i("musicfrag", String.valueOf(mService));*/
+        mp = MediaPlayer.create(getContext(), R.raw.track1);
+        maxTime.setText(timeTranslation(mp.getDuration()/1000));
+        seekBar.setMax(mp.getDuration());
+        seekBar.setProgress(mp.getCurrentPosition());
+        if(mp.isPlaying()){
+            new SeekbarTimer().start();
+            new MusicTimer().start();
         }
+
 
         singer.setText("신현희와김루트");
 
@@ -409,11 +408,10 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
 
     public void timer_start(){
         try {
-            if(mService != null){
-                mp = mService.getMp();
-                new MusicTimer().start();
-                new SeekbarTimer().start();
-            }
+            if(mService == null) mService = ((ServiceStateInterface)getContext()).getServiceState();
+            mp = mService.getMp();
+            new MusicTimer().start();
+            new SeekbarTimer().start();
         } catch (IllegalThreadStateException e){
             Log.i("gomgomKim", "illegal");
         }
@@ -459,7 +457,7 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
             public void onPageSelected(int position) {
                 index = position;
                 if(!auto_move){
-                    if(mService.getMp().isPlaying()) music_stop();
+                    if(ApplicationStatus.isPlaying) music_stop();
                     music_play();
                 }
                 currentTime.setText(timeTranslation(0));

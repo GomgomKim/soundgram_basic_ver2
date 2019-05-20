@@ -82,7 +82,7 @@ public class GallaryFragment extends Fragment {
 //        gallary_list.smoothScrollByOffset(2);
 
 
-        Glide.with(getContext()).load(R.drawable.bg_gallary).into(gallary_bg);
+        Glide.with(getContext()).load(R.drawable.gallary_bg).into(gallary_bg);
 
     }
 

@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -71,6 +72,12 @@ public class ListFragment extends Fragment {
     // DB곡 정보 이벤트
     @Subscribe
     public void FinishLoad(SongInfoEvent mEvent) {
+        // 사용자가 보고있는 위치 저장
+        int index = play_list.getFirstVisiblePosition();
+        View v = play_list.getChildAt(0);
+        int top = (v == null) ? 0 : (v.getTop() - play_list.getPaddingTop());
+
+        // 새로 세팅
         is_like_arr.removeAll(is_like_arr);
 
         song_data_DB = new ArrayList<>();
@@ -79,6 +86,9 @@ public class ListFragment extends Fragment {
         Log.i("is_likeSQLTest", "loaded");
         is_like_arr.addAll(((GetSongDataInterface)getContext()).getIsLike());
         adapterSetting();
+
+        // 저장한 위치 불러오기
+        play_list.setSelectionFromTop(index, top);
     }
 
     // like add 후 DB내용에따라 업데이트
@@ -108,7 +118,7 @@ public class ListFragment extends Fragment {
     }
 
     public void initSetting(){
-        Glide.with(getContext()).load(R.drawable.bg_list).into(list_bg);
+        Glide.with(getContext()).load(R.drawable.list_bg).into(list_bg);
 
         is_like_arr = new ArrayList<>();
     }
@@ -128,7 +138,7 @@ public class ListFragment extends Fragment {
             }
         }
         play_list.setAdapter(playListAdapter);
-        playListAdapter.notifyDataSetChanged();
+//        playListAdapter.notifyDataSetChanged();
     }
 
 

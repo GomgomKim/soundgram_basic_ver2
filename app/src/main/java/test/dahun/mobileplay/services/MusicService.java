@@ -96,54 +96,63 @@ public class MusicService extends Service {
 
         switch (state){
             case "play":
-                mp = changeMusicPlayer(music_index);
-                mp.seekTo(pos);
-                mp.setLooping(false);
-                if(seekBarPosition != -1){
-                    mp.seekTo(seekBarPosition);
-                    current_time = seekBarPosition/1000;
+                try{
+                    mp = changeMusicPlayer(music_index);
+                    mp.seekTo(pos);
+                    mp.setLooping(false);
+                    if(seekBarPosition != -1){
+                        mp.seekTo(seekBarPosition);
+                        current_time = seekBarPosition/1000;
+                    }
+                    if(!mp.isPlaying()) mp.start();
+
+                    BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
+                    BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
+                    if(is_noti_broad) BusProvider.getInstance().post(new PositionEvent(music_index));
+
+
+                    ApplicationStatus.isPlaying = true;
+
+                    startNotification();
+                } catch (IllegalStateException e){
+
                 }
-                if(!mp.isPlaying()) mp.start();
-
-                BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
-                BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
-                if(is_noti_broad) BusProvider.getInstance().post(new PositionEvent(music_index));
-
-
-                ApplicationStatus.isPlaying = true;
-
-                startNotification();
-
                 break;
 
             case "stop":
-                if(mp.isPlaying()){
-                    mp.stop(); // 멈춤
-                    mp.reset();
-                    mp.release(); // 자원 해제
-                    mp = changeMusicPlayer(music_index);
-                    pos = 0;
-                }
-                current_time = 0;
                 try {
+                    if(mp.isPlaying()){
+                        mp.stop(); // 멈춤
+                        mp.reset();
+                        mp.release(); // 자원 해제
+                        mp = changeMusicPlayer(music_index);
+                        pos = 0;
+                    }
+                    current_time = 0;
+
                     BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
+
+                    ApplicationStatus.isPlaying = false;
+
+                    if(customView != null) setNotification();
+
                 } catch (IllegalStateException e){
                     Log.i("gomgomKim", "illegal_stop");
                 }
-
-                ApplicationStatus.isPlaying = false;
-
-                if(customView != null) setNotification();
                 break;
 
             case "pause":
-                pos = mp.getCurrentPosition();
-                mp.pause();
-                BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
+                try {
+                    pos = mp.getCurrentPosition();
+                    mp.pause();
+                    BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
 
-                ApplicationStatus.isPlaying = false;
+                    ApplicationStatus.isPlaying = false;
 
-                if(customView != null) setNotification();
+                    if(customView != null) setNotification();
+                } catch (IllegalStateException e){
+
+                }
                 break;
 
             case "play_mode":
@@ -175,46 +184,59 @@ public class MusicService extends Service {
             current_time = 0;
             switch (play_mode){
                 case 0: // 전체반복
-                    mp.stop(); // 멈춤
-                    mp.reset();
-                    mp.release(); // 자원 해제
+                    try {
+                        mp.stop(); // 멈춤
+                        mp.reset();
+                        mp.release(); // 자원 해제
 
-                    if(music_index == 7){
-                        mp = changeMusicPlayer(0);
-                    } else{
-                        music_index++;
-                        mp = changeMusicPlayer(music_index);
+                        if(music_index == 7){
+                            mp = changeMusicPlayer(0);
+                        } else{
+                            music_index++;
+                            mp = changeMusicPlayer(music_index);
+                        }
+
+                        mp.setLooping(false);
+                        mp.start();
+                        BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
+                        BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
+                        BusProvider.getInstance().post(new FinishMusicEvent(0));
+                    } catch (IllegalStateException e){
+
                     }
-                    mp.setLooping(false);
-                    mp.start();
 
-                    BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
-                    BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
-                    BusProvider.getInstance().post(new FinishMusicEvent(0));
                     break;
 
                 case 1: // 한곡반복
-                    mp.stop(); // 멈춤
-                    mp.reset();
-                    mp.release(); // 자원 해제
-                    mp = changeMusicPlayer(music_index);
-                    mp.start();
-                    BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
-                    BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
-                    BusProvider.getInstance().post(new FinishMusicEvent(1));
+
+                    try {
+                        mp.stop(); // 멈춤
+                        mp.reset();
+                        mp.release(); // 자원 해제
+                        mp = changeMusicPlayer(music_index);
+
+                        mp.start();
+                        BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
+                        BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
+                        BusProvider.getInstance().post(new FinishMusicEvent(1));
+                    } catch (IllegalStateException e){
+
+                    }
                     break;
 
                 case 2: // 반복없음
+                    try {
+                        mp.stop(); // 멈춤
 
-                    mp.stop(); // 멈춤
+                        BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
+                        BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
+                        BusProvider.getInstance().post(new FinishMusicEvent(2));
 
-                    BusProvider.getInstance().post(new IsPlayEvent(mp.isPlaying()));
-                    BusProvider.getInstance().post(new DurationEvent(mp.getDuration()));
-                    BusProvider.getInstance().post(new FinishMusicEvent(2));
+                        mp.reset();
+                        mp.release(); // 자원 해제
+                    } catch (IllegalStateException e){
 
-                    mp.reset();
-                    mp.release(); // 자원 해제
-
+                    }
 
                     break;
             }
@@ -291,9 +313,7 @@ public class MusicService extends Service {
         builder = new NotificationCompat.Builder(getApplicationContext(), channel_id)
                 .setSmallIcon(R.drawable.gallary1)
                 .setCustomContentView(customView)
-                .setAutoCancel(true)
-                .setWhen(System.currentTimeMillis()).setShowWhen(true)
-                .setAutoCancel(true).setPriority(NotificationCompat.PRIORITY_MAX)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setFullScreenIntent(pendingIntent,true)
                 .setContentIntent(pendingIntent);
 

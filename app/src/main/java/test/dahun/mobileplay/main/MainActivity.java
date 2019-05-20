@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
 
     DBOpenHelper mDbOpenHelper;
 
+    ConnectivityManager connectivityManager;
+    NetworkInfo networkInfo;
+
     @Override
     public MusicService getServiceState() {
         return mService;
@@ -130,8 +133,8 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
     }
 
      public void setIsNetwork(){
-         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+         connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+         networkInfo = connectivityManager.getActiveNetworkInfo();
         if(networkInfo != null && networkInfo.isConnected()){
 
         } else{
@@ -259,14 +262,17 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
 
     @Override
     public void getSongdata(){
-        String url = "http://211.251.236.130:9000/API/song/getList/";
+        if(networkInfo != null && networkInfo.isConnected()){
+            String url = "http://211.251.236.130:9000/API/song/getList/";
 
-        ContentValues param = new ContentValues();
-        param.put("albumID", 3); // 신루트 앨범
+            ContentValues param = new ContentValues();
+            param.put("albumID", 3); // 신루트 앨범
 
-        // AsyncTask를 통해 HttpURLConnection 수행.
-        NetworkTask networkTask = new NetworkTask(url, param, "song_data");
-        networkTask.execute();
+            // AsyncTask를 통해 HttpURLConnection 수행.
+            NetworkTask networkTask = new NetworkTask(url, param, "song_data");
+            networkTask.execute();
+        } else{
+        }
     }
 
     public void interfaceSetting(){

@@ -40,7 +40,7 @@ public class NetworkTask extends AsyncTask<Void, Void, String>{
         Log.i("httpreqrespon", "result : "+result);
         switch (action){
             case "song_data":
-                new ParseSongData(result).parseData();
+                if(result != null) new ParseSongData(result).parseData();
                 break;
             case "add_like":
                 BusProvider.getInstance().post(new AddLikeFinishEvent());

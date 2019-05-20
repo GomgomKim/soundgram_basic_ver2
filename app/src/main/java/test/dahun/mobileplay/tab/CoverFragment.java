@@ -46,7 +46,9 @@ public class CoverFragment extends Fragment
     @BindView(R.id.cover_bottom) ImageView cover_bottom;
     @BindView(R.id.bottom_layout) RelativeLayout bottom_layout;
 
-    @BindView(R.id.info_btn) ImageButton info_btn;
+    @BindView(R.id.info_btn_back) RelativeLayout info_btn_back;
+    @BindView(R.id.info_btn_tint) ImageView info_btn_tint;
+    @BindView(R.id.info_btn) ImageView info_btn;
 
     RelativeLayout layout = null;
 
@@ -79,7 +81,13 @@ public class CoverFragment extends Fragment
         Glide.with(getContext()).load(R.drawable.album_reflectlight)
                 .apply(new RequestOptions().fitCenter()).into(reflect_img);
 
-        info_btn.setOnClickListener(view -> startActivity(new Intent(getActivity(), SurviceInfoActivity.class)));
+        Glide.with(getContext()).load(R.drawable.cover_back)
+                .apply(new RequestOptions().circleCrop()).into(info_btn_tint);
+
+        Glide.with(getContext()).load(R.drawable.info_btn)
+                .apply(new RequestOptions().circleCrop()).into(info_btn);
+
+        info_btn_back.setOnClickListener(view -> startActivity(new Intent(getActivity(), SurviceInfoActivity.class)));
     }
 
     public void setAni() {
