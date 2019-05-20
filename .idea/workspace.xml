@@ -15,41 +15,16 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1eeba1a-50ec-4e97-8b19-a5f313d3d7a4" name="Default" comment="외장플레이어 오류 해결 / 모션 레이아웃 안늘어나게 수정">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DBOpenHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DataBases.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/NetworkTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/ParseGallaryData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/ParseSongData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/RequestHttpURLConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/SongData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/events/AddLikeFinishEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/events/SongInfoEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/interfaces/GetSongDataInterface.java" afterDir="false" />
+    <list default="true" id="a1eeba1a-50ec-4e97-8b19-a5f313d3d7a4" name="Default" comment="UI개선 / Gallary리스트 최적화 / DB연동 / 커버모션">
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/GallaryListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/GallaryListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/PlayListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/PlayListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/PlayListItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/PlayListItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/HttpRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/interfaces/HeartNumInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/interfaces/HeartNumInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DBOpenHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DBOpenHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/ParseSongData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/ParseSongData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/main/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/main/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/CoverFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/CoverFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/MusicFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/MusicFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/anim/cover_ani.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/anim/cover_ani.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_gallary.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_gallary.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_list.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_music.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_music.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_thanks_to.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_thanks_to.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/play_lists.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/play_lists.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/com/google/android/gms/group-index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/com/google/android/gms/group-index.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -132,7 +107,7 @@
     <session id="1485012086">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="51" />
+          <entry key="project.closed" value="52" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="8" />
           <entry key="project.open.time.10" value="2" />
@@ -148,10 +123,10 @@
           <entry key="project.open.time.3" value="2" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="3" />
-          <entry key="project.open.time.7" value="5" />
+          <entry key="project.open.time.7" value="6" />
           <entry key="project.open.time.8" value="5" />
           <entry key="project.open.time.9" value="4" />
-          <entry key="project.opened" value="52" />
+          <entry key="project.opened" value="53" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -160,7 +135,7 @@
           <entry key="db" value="3" />
           <entry key="db-journal" value="1" />
           <entry key="gradle" value="5" />
-          <entry key="java" value="270" />
+          <entry key="java" value="275" />
           <entry key="jpg" value="34" />
           <entry key="png" value="28" />
           <entry key="properties" value="1" />
@@ -172,7 +147,7 @@
         <counts>
           <entry key="Groovy" value="5" />
           <entry key="Image" value="65" />
-          <entry key="JAVA" value="270" />
+          <entry key="JAVA" value="275" />
           <entry key="PLAIN_TEXT" value="27" />
           <entry key="Properties" value="1" />
           <entry key="XML" value="163" />
@@ -181,16 +156,16 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gradle" value="6" />
-          <entry key="java" value="17357" />
-          <entry key="txt" value="356" />
+          <entry key="java" value="17593" />
+          <entry key="txt" value="399" />
           <entry key="xml" value="2298" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="6" />
-          <entry key="JAVA" value="17357" />
-          <entry key="PLAIN_TEXT" value="356" />
+          <entry key="JAVA" value="17593" />
+          <entry key="PLAIN_TEXT" value="399" />
           <entry key="XML" value="2298" />
         </counts>
       </usages-collector>
@@ -201,7 +176,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/GallaryListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
+            <state relative-caret-position="1824">
               <caret line="138" column="36" selection-start-line="138" selection-start-column="36" selection-end-line="138" selection-end-column="36" />
             </state>
           </provider>
@@ -210,13 +185,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1">
+            <state relative-caret-position="589">
               <caret line="63" column="18" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/MusicFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="183">
@@ -224,6 +199,58 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/main/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="88">
+              <caret line="279" column="17" selection-start-line="279" selection-start-column="17" selection-end-line="279" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/ParseSongData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="456">
+              <caret line="36" column="69" lean-forward="true" selection-start-line="36" selection-start-column="69" selection-end-line="36" selection-end-column="69" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="253">
+              <caret line="125" selection-start-line="125" selection-end-line="125" />
+              <folding>
+                <element signature="e#1831#1832#0" expanded="true" />
+                <element signature="e#1887#1888#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DBOpenHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="592">
+              <caret line="87" column="21" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DataBases.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="9" column="62" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -242,7 +269,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>parse</find>
       <find>http req - respon</find>
       <find>t</find>
       <find>parse_data</find>
@@ -272,6 +298,7 @@
       <find>add_like</find>
       <find>heart.setBackgroundResource</find>
       <find>is_likeSQLTest</find>
+      <find>count_check</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Users\GomgomKim\StudioProjects\soundgram_basic_sin_kim\app\src\main\res\drawable-xxxhdpi</dir>
@@ -2585,7 +2612,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/ParseData.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/ParseGallaryData.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/interfaces/SongDataInterface.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/ParseSongData.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/events/SongInfoEvent.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/main/SplashActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/interfaces/HeartNumInterface.java" />
@@ -2604,14 +2630,15 @@
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DataBases.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/CoverFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/interfaces/GetSongDataInterface.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/main/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/NetworkTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/PlayListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DBOpenHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/GallaryListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/MusicFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DBOpenHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/main/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/ParseSongData.java" />
       </list>
     </option>
   </component>
@@ -2735,6 +2762,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2752,6 +2781,20 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="mobileplay" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="soundgram_basic_sin_kim" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="mobileplay" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="soundgram_basic_sin_kim" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="mobileplay" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="soundgram_basic_sin_kim" type="1abcf292:AndroidViewProjectNode" />
@@ -2801,8 +2844,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2814,7 +2855,7 @@
     <property name="ExportApk.SignV2" value="true" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/GomgomKim/StudioProjects/soundgram_basic_sin_kim/app/src/main/java/test/dahun/mobileplay/tab/MusicFragment.java" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="ce051715444fbf0f02" />
+    <property name="device.picker.selection" value="Pixel_2_API_28" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable-ldpi" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../BLock" />
     <property name="settings.editor.selected.configurable" value="Errors" />
@@ -3064,7 +3105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1558064652820</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="UI개선 / Gallary리스트 최적화 / DB연동 / 커버모션">
+      <created>1558327217416</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1558327217417</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3077,7 +3125,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
@@ -3087,7 +3135,7 @@
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Captures" order="6" side_tool="true" weight="0.24973147" />
-      <window_info content_ui="combo" id="Project" order="7" weight="0.38292158" />
+      <window_info content_ui="combo" id="Project" order="7" weight="0.5733333" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.26174498" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -3095,7 +3143,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32960895" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.22121896" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.22011173" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053704" side_tool="true" weight="0.5273743" />
       <window_info anchor="bottom" id="Logcat" order="10" sideWeight="0.49946293" weight="0.63910615" />
@@ -3128,7 +3176,8 @@
     <MESSAGE value="repair app out" />
     <MESSAGE value="이미지 선명하게 / 뮤직 오류 해결" />
     <MESSAGE value="외장플레이어 오류 해결 / 모션 레이아웃 안늘어나게 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="외장플레이어 오류 해결 / 모션 레이아웃 안늘어나게 수정" />
+    <MESSAGE value="UI개선 / Gallary리스트 최적화 / DB연동 / 커버모션" />
+    <option name="LAST_COMMIT_MESSAGE" value="UI개선 / Gallary리스트 최적화 / DB연동 / 커버모션" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/events/IsPlayEvent.java">
@@ -3321,13 +3370,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/ParseSongData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="55" column="12" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/interfaces/GetSongDataInterfacew.java" />
     <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/samsung-sm_g955n-ce051715444fbf0f02/data/data/test.dahun.soundgram_basic_sin_kim/databases/InnerDatabase(SQLite).db-journal" />
     <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/samsung-sm_g955n-ce051715444fbf0f02/data/data/test.dahun.soundgram_basic_sin_kim/databases/InnerDatabase(SQLite).db" />
@@ -3359,13 +3401,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DBOpenHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="74" column="74" selection-start-line="74" selection-start-column="74" selection-end-line="74" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/events/AddLikeFinishEvent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -3373,38 +3408,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DataBases.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="39" selection-start-column="39" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/main/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4484">
-          <caret line="287" column="5" selection-start-line="287" selection-start-column="5" selection-end-line="287" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/interfaces/GetSongDataInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1482">
-          <caret line="115" column="30" selection-start-line="115" selection-start-column="16" selection-end-line="115" selection-end-column="30" />
-          <folding>
-            <element signature="e#1831#1832#0" expanded="true" />
-            <element signature="e#1887#1888#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3417,14 +3424,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/adapter/GallaryListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
+        <state relative-caret-position="1824">
           <caret line="138" column="36" selection-start-line="138" selection-start-column="36" selection-end-line="138" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ThanksToFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1">
+        <state relative-caret-position="589">
           <caret line="63" column="18" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
         </state>
       </provider>
@@ -3436,6 +3443,48 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DataBases.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="62" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/DBOpenHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="592">
+          <caret line="87" column="21" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/tab/ListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="125" selection-start-line="125" selection-end-line="125" />
+          <folding>
+            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1887#1888#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/main/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="279" column="17" selection-start-line="279" selection-start-column="17" selection-end-line="279" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/test/dahun/mobileplay/database/ParseSongData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="36" column="69" lean-forward="true" selection-start-line="36" selection-start-column="69" selection-end-line="36" selection-end-column="69" />
         </state>
       </provider>
     </entry>

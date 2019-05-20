@@ -276,15 +276,15 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
     public void createSQL(){
         mDbOpenHelper = new DBOpenHelper(this);
         mDbOpenHelper.open();
-        mDbOpenHelper.create();
 
-        /*mDbOpenHelper.deleteAllColumns();
-
-        for(int i=0; i<6; i++){
-            mDbOpenHelper.insertColumn(i, 0);
-
-        }*/
-
+        int count = mDbOpenHelper.getCount();
+        Log.i("count_check", "count : "+count);
+        if(count == 0){
+            mDbOpenHelper.create();
+            for(int i=0; i<6; i++){
+                mDbOpenHelper.insertColumn(i, 0);
+            }
+        }
     }
 
     @Override

@@ -56,8 +56,8 @@ public class ParseSongData{
             BusProvider.getInstance().post(new SongInfoEvent(songDataArr));
 
             } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                e.printStackTrace();
+            }
 
 
     }

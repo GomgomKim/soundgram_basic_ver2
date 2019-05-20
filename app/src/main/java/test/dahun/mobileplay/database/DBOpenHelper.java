@@ -79,4 +79,12 @@ public class DBOpenHelper {
     public void deleteAllColumns() {
         mDB.delete(DataBases.CreateDB._TABLENAME0, null, null);
     }
+
+    // count
+    public int getCount(){
+        int count = 0;
+        Cursor cursor = mDB.rawQuery("select * from song_is_like", null);
+        count = cursor.getCount();
+        return count;
+    }
 }
