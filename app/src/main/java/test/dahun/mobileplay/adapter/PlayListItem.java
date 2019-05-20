@@ -16,6 +16,8 @@ public class PlayListItem {
     private String intro_title = "";
     private String intro_content = "";
 
+    private int song_id = 0;
+
     public PlayListItem(){}
 
     public void setType(int type){ this.type = type; }
@@ -47,4 +49,7 @@ public class PlayListItem {
 
     public void setIntro_content(String intro_content){ this.intro_content = intro_content; }
     public String getIntro_content() { return this.intro_content; }
+
+    public void setSong_id(int song_id){ this.song_id = song_id; }
+    public int getSong_id() { return this.song_id; }
 }

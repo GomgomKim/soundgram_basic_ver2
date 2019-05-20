@@ -1,10 +1,9 @@
 
 package test.dahun.mobileplay.tab;
 
-import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -15,7 +14,6 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -27,7 +25,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,46 +39,32 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.Authenticator;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.PasswordAuthentication;
-import java.net.ProtocolException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.http.HTTP;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.MusicCustomPagerAdapter;
 import test.dahun.mobileplay.adapter.MusicInfoItem;
+import test.dahun.mobileplay.database.NetworkTask;
+import test.dahun.mobileplay.database.SongData;
+import test.dahun.mobileplay.events.AddLikeFinishEvent;
 import test.dahun.mobileplay.events.DurationEvent;
 import test.dahun.mobileplay.events.EndFragEvent;
 import test.dahun.mobileplay.events.FinishMusicEvent;
-import test.dahun.mobileplay.events.GetSongPlayInfoEvent;
 import test.dahun.mobileplay.events.IsPlayEvent;
 import test.dahun.mobileplay.events.PositionEvent;
-import test.dahun.mobileplay.events.SeekbarEvent;
-import test.dahun.mobileplay.events.SelectSongEvent;
-import test.dahun.mobileplay.events.TimerEvent;
+import test.dahun.mobileplay.events.SongInfoEvent;
 import test.dahun.mobileplay.interfaces.AutoUiInterface;
 import test.dahun.mobileplay.interfaces.ButtonInterface;
+import test.dahun.mobileplay.interfaces.GetSongDataInterface;
 import test.dahun.mobileplay.interfaces.HeartNumInterface;
 import test.dahun.mobileplay.interfaces.ServiceStateInterface;
 import test.dahun.mobileplay.main.MainActivity;
@@ -91,8 +74,6 @@ import test.dahun.mobileplay.services.MusicService;
 import test.dahun.mobileplay.ui.VerticalViewPager;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
-import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
-
 
 
 /**
@@ -150,6 +131,9 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
     //like 갯수
     ArrayList<Integer> like_count;
 
+    // like 상태
+    ArrayList<Integer> is_like_arr;
+
     //auto play 할건지
     boolean isAutoPlay = false;
 
@@ -181,6 +165,10 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
 
     int service_flag = 0;
 
+    ArrayList<SongData> song_data_DB;
+
+    int created = 0;
+
     public MusicFragment() {
         super();
     }
@@ -192,7 +180,6 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_music, container, false);
         ButterKnife.bind(this, layout);
-        getDatabase();
         eventBus();
         makeData();
         initSetting();
@@ -273,18 +260,34 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
         }
     }
 
-  /*  // 플레이 이벤트
+    // DB곡 정보 이벤트
     @Subscribe
-    public void FinishLoad(SelectSongEvent mEvent) {
-//        auto_move = true;
-        index = mEvent.getPosition();
-        Log.i("testMusic", "index :"+index);
-        musicPager.setCurrentItem(index);
-        title.setText(musicarr.get(index));
-       *//* music_stop();
-        music_play();*//*
-        setViewPagerTabListener.setTab(2);
-    }*/
+    public void FinishLoad(SongInfoEvent mEvent) {
+        song_data_DB = new ArrayList<>();
+        song_data_DB = mEvent.getSong_arr();
+
+        like_count = new ArrayList<>();
+
+        for(int i=0; i<song_data_DB.size(); i++){
+            like_count.add(song_data_DB.get(i).getLikeCount());
+            Log.i("getSongLikeCount", "count : "+song_data_DB.get(i).getLikeCount());
+        }
+
+        is_like_arr.removeAll(is_like_arr);
+        is_like_arr.addAll(((GetSongDataInterface)getContext()).getIsLike());
+
+        if(created == 0){
+            setHeartNum(like_count.get(0));
+            if(is_like_arr.get(0) == 1) heart.setBackgroundResource(R.drawable.like_on);
+            created++;
+        }
+    }
+
+    // like add 후 DB내용에따라 업데이트
+    @Subscribe
+    public void FinishLoad(AddLikeFinishEvent mEvent) {
+        ((GetSongDataInterface)getContext()).getSongdata();
+    }
 
     // 플레이 이벤트
     @Subscribe
@@ -360,6 +363,7 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void initSetting() {
+        is_like_arr = new ArrayList<>();
 
         timerHandler = new TimerHandler();
         mService = ((ServiceStateInterface)getContext()).getServiceState();
@@ -379,8 +383,6 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
 
         heart.setTag(0); // 하트의 상태 / 0 : off / 1 : on
         title.setText(musicarr.get(0)); // 첫번째 노래제목
-//        heart_num.setText(String.valueOf(like_count.get(0))); // 첫번째 노래 하트개수
-        heart_num.setText(String.valueOf(HeartNumInterface.getHeartNum(0)));
 
         Glide.with(getContext()).load(R.drawable.bg_play1)
                 .apply(new RequestOptions().fitCenter()).into(pager_bg);
@@ -407,9 +409,11 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
 
     public void timer_start(){
         try {
-            mp = mService.getMp();
-            new MusicTimer().start();
-            new SeekbarTimer().start();
+            if(mService != null){
+                mp = mService.getMp();
+                new MusicTimer().start();
+                new SeekbarTimer().start();
+            }
         } catch (IllegalThreadStateException e){
             Log.i("gomgomKim", "illegal");
         }
@@ -463,8 +467,9 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
                 auto_move = false;
                 changePlay();
                 changeLyrics(index);
-                setHeartNum(HeartNumInterface.getHeartNum(index));
+                if(like_count != null) setHeartNum(like_count.get(index));
                 title.setText(musicarr.get(position));
+                heartSetting();
             }
 
             @Override
@@ -613,6 +618,11 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void heartSetting(){
+        if(is_like_arr.get(index) == 0) heart.setBackgroundResource(R.drawable.like_off);
+        else if(is_like_arr.get(index) == 1) heart.setBackgroundResource(R.drawable.like_on);
     }
 
 
@@ -789,19 +799,28 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             if(networkInfo != null && networkInfo.isConnected()){
 
-                if((Integer)heart.getTag() == 0){
+                if(is_like_arr.get(index) == 0){
                     heart.setBackgroundResource(R.drawable.like_on);
                     int current_like_count = like_count.get(index)+1;
                     setHeartNum(current_like_count);
                     heart.setTag(1);
                     HeartNumInterface.setIsHeart(index, 1);
                     viewGif();
-                } else if ((Integer)heart.getTag() == 1){
+
+
+                    ((GetSongDataInterface)getContext()).updateSQLDB(index, 1);
+                    if(song_data_DB != null) addLikeCount(song_data_DB.get(index).getSong_id(), true);
+
+                } else if (is_like_arr.get(index) == 1){
                     heart.setBackgroundResource(R.drawable.like_off);
                     int current_like_count = like_count.get(index)-1;
                     setHeartNum(current_like_count);
                     heart.setTag(0);
                     HeartNumInterface.setIsHeart(index, 0);
+
+
+                    ((GetSongDataInterface)getContext()).updateSQLDB(index, 0);
+                    if(song_data_DB != null) addLikeCount(song_data_DB.get(index).getSong_id(), false);
                 }
 
             } else{
@@ -812,6 +831,22 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
                 alert.show();
             }
         });
+    }
+
+    public void addLikeCount(int song_id, boolean is_add){
+        String url = "http://211.251.236.130:9000/API/song/addLike/";
+
+        Log.i("getSongIDTest", "id :"+song_id);
+
+        ContentValues param = new ContentValues();
+        param.put("id", song_id);
+
+        if(is_add) param.put("like", 1);
+        else param.put("like", -1);
+
+        // AsyncTask를 통해 HttpURLConnection 수행.
+        NetworkTask networkTask = new NetworkTask(url, param, "add_like");
+        networkTask.execute();
     }
 
     public void viewGif(){
@@ -849,33 +884,30 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
             heart_count = (current_like_count/1000)+"."+(rest/100)+"k";
         }
         else heart_count = String.valueOf(current_like_count);
-        like_count.set(index, current_like_count);
-//        heart_num.setText(heart_count);
+        if(like_count !=null) like_count.set(index, current_like_count);
 
-        HeartNumInterface.setHeartNum(index, current_like_count);
         heart_num.setText(heart_count);
     }
 
     public void makeData(){
         // make title data - database 연동예정
         musicarr = new ArrayList<>();
-        like_count = new ArrayList<>();
-        musicarr.add("신현희와김루트");  like_count.add(13);
-        musicarr.add("오빠야");  like_count.add(1789);
-        musicarr.add("Cap Song");   like_count.add(1142);
-        musicarr.add("집 비던날"); like_count.add(486);
-        musicarr.add("편한노래");  like_count.add(992);
-        musicarr.add("날개");  like_count.add(96);
+        musicarr.add("신현희와김루트");
+        musicarr.add("오빠야");
+        musicarr.add("Cap Song");
+        musicarr.add("집 비던날");
+        musicarr.add("편한노래");
+        musicarr.add("날개");
 
 
         // make music info - database 연동예정
         music_info = new ArrayList<>();
-        music_info.add(new MusicInfoItem("신현희와김루트", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
-        music_info.add(new MusicInfoItem("오빠야", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
-        music_info.add(new MusicInfoItem("Cap Song", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
-        music_info.add(new MusicInfoItem("집 비던날", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
-        music_info.add(new MusicInfoItem("편한노래", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
-        music_info.add(new MusicInfoItem("날개", "신현희와김루트", "신현희와김루트", "신현희와김루트"));
+        music_info.add(new MusicInfoItem("신현희와김루트", "신현희", "신현희, 김루트", "서정일"));
+        music_info.add(new MusicInfoItem("오빠야", "신현희", "신현희", "서정일"));
+        music_info.add(new MusicInfoItem("Cap Song", "신현희", "신현희", "서정일"));
+        music_info.add(new MusicInfoItem("집 비던날", "신현희", "신현희", "서정일"));
+        music_info.add(new MusicInfoItem("편한노래", "신현희", "신현희", "서정일"));
+        music_info.add(new MusicInfoItem("날개", "신현희", "신현희", "서정일"));
     }
 
     @Override
@@ -883,16 +915,15 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){ // 유저가 화면을 보고있을 때
             if(this.layout != null){
-                setHeartNum(HeartNumInterface.getHeartNum(index));
-                if(HeartNumInterface.getIsHeart(index) == 0) heart.setBackgroundResource(R.drawable.like_off);
-                else if(HeartNumInterface.getIsHeart(index) == 1) heart.setBackgroundResource(R.drawable.like_on);
-
-                if(refresh == 0){
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.detach(this).attach(this).commit();
-                    refresh++;
+                if(like_count != null) setHeartNum(like_count.get(index));
+                if(is_like_arr.size()>0){
+                    if(is_like_arr.get(index) == 0) {
+                        heart.setBackgroundResource(R.drawable.like_off);
+                    }
+                    else if(is_like_arr.get(index) == 1) {
+                        heart.setBackgroundResource(R.drawable.like_on);
+                    }
                 }
-
                 ((ButtonInterface)getContext()).reset();
                 if(!ApplicationStatus.isPlaying) ((ButtonInterface)getContext()).playOn();
 
@@ -927,10 +958,6 @@ public class MusicFragment extends Fragment implements HeartNumInterface, AutoUi
         }
         else
             Log.d("SetUserHint","Cover OFF");
-    }
-
-    public void getDatabase(){
-
     }
 
     public void setMusicImg(){

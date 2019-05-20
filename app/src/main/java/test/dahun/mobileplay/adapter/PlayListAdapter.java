@@ -1,5 +1,6 @@
 package test.dahun.mobileplay.adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.media.Image;
 import android.net.ConnectivityManager;
@@ -17,9 +18,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import test.dahun.mobileplay.R;
+import test.dahun.mobileplay.database.DBOpenHelper;
+import test.dahun.mobileplay.database.NetworkTask;
 import test.dahun.mobileplay.events.EndFragEvent;
 import test.dahun.mobileplay.events.PositionEvent;
 import test.dahun.mobileplay.events.SelectSongEvent;
+import test.dahun.mobileplay.interfaces.GetSongDataInterface;
 import test.dahun.mobileplay.interfaces.HeartNumInterface;
 import test.dahun.mobileplay.main.MainActivity;
 import test.dahun.mobileplay.services.BusProvider;
@@ -113,11 +117,10 @@ public class PlayListAdapter extends BaseAdapter {
 
                 if(current_item != null){
                     index.setText(current_item.getIndex());
-//                    heart.setBackgroundResource(current_item.getHeart());
-                    if(HeartNumInterface.getIsHeart(position) == 0) heart.setBackgroundResource(R.drawable.like_off);
-                    else if(HeartNumInterface.getIsHeart(position) == 1) heart.setBackgroundResource(R.drawable.like_on);
-                    heart_num.setText(setHeartNum(HeartNumInterface.getHeartNum(position)));
-//                    heart_num.setText(setHeartNum(current_item.getHeart_num()));
+                    heart.setBackgroundResource(current_item.getHeart());
+                    if(current_item.getHeart() == R.drawable.like_off) heart.setBackgroundResource(R.drawable.like_off);
+                    else if(current_item.getHeart() == R.drawable.like_on) heart.setBackgroundResource(R.drawable.like_on);
+                    heart_num.setText(setHeartNum(current_item.getHeart_num()));
                     title.setText(current_item.getTitle());
                     singer.setText(current_item.getSinger());
 
@@ -138,16 +141,16 @@ public class PlayListAdapter extends BaseAdapter {
 
                             int is_heart = mItems.get(position).getHeart();
                             if(is_heart == R.drawable.like_off){
+                                ((GetSongDataInterface)listFragment.getContext()).updateSQLDB(position, 1);
                                 mItems.get(position).setHeart(R.drawable.like_on);
-                                mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()+1);
-                                HeartNumInterface.setHeartNum(position, mItems.get(position).getHeart_num());
                                 HeartNumInterface.setIsHeart(position, 1);
-//                            listFragment.viewGif();
+                                addLikeCount(mItems.get(position).getSong_id(), true);
+
                             } else if (is_heart == R.drawable.like_on) {
+                                ((GetSongDataInterface)listFragment.getContext()).updateSQLDB(position, 0);
                                 mItems.get(position).setHeart(R.drawable.like_off);
-                                mItems.get(position).setHeart_num(mItems.get(position).getHeart_num()-1);
-                                HeartNumInterface.setHeartNum(position, mItems.get(position).getHeart_num());
                                 HeartNumInterface.setIsHeart(position, 0);
+                                addLikeCount(mItems.get(position).getSong_id(), false);
                             }
 
                         } else{
@@ -166,8 +169,6 @@ public class PlayListAdapter extends BaseAdapter {
                         MainActivity.setPosition(position);
                         MainActivity.setState(0);
                         setViewPagerTabListener.setTab(2);
-
-//                        BusProvider.getInstance().post(new SelectSongEvent(position));
                     });
 
                 }
@@ -196,7 +197,7 @@ public class PlayListAdapter extends BaseAdapter {
         return heart_count;
     }
 
-    public void addItem(int type, int index, int heart, int heart_num, String title, String singer, int isTitle) {
+    public void addItem(int type, int index, int heart, int heart_num, String title, String singer, int isTitle, int song_id) {
         PlayListItem mItem = new PlayListItem();
 
         mItem.setType(type);
@@ -206,6 +207,7 @@ public class PlayListAdapter extends BaseAdapter {
         mItem.setTitle(title);
         mItem.setSinger(singer);
         mItem.setIsTitle(isTitle);
+        mItem.setSong_id(song_id);
 
         mItems.add(mItem);
 
@@ -219,5 +221,19 @@ public class PlayListAdapter extends BaseAdapter {
         mItem.setIntro_content(content);
 
         mItems.add(mItem);
+    }
+
+    public void addLikeCount(int song_id, boolean is_add){
+        String url = "http://211.251.236.130:9000/API/song/addLike/";
+
+        ContentValues param = new ContentValues();
+        param.put("id", song_id);
+
+        if(is_add) param.put("like", 1);
+        else param.put("like", -1);
+
+        // AsyncTask를 통해 HttpURLConnection 수행.
+        NetworkTask networkTask = new NetworkTask(url, param, "add_like");
+        networkTask.execute();
     }
 }

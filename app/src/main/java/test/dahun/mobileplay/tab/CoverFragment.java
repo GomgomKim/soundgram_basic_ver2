@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
 import test.dahun.mobileplay.interfaces.ButtonInterface;
+import test.dahun.mobileplay.main.MainActivity;
 
 import static test.dahun.mobileplay.adapter.ViewPagerAdapter.setViewPagerTabListener;
 
@@ -81,11 +83,22 @@ public class CoverFragment extends Fragment
     }
 
     public void setAni() {
-        Animation animTransRight = AnimationUtils
-                .loadAnimation(getContext(), R.anim.cover_ani);
+        Animation animTransRight = AnimationUtils.loadAnimation(getContext(), R.anim.cover_ani);
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            playAni(animTransRight);
+            bottom_layout.bringToFront();
+        }, 4000);
+    }
+
+    public void playAni(Animation animTransRight){
         cover_img.startAnimation(animTransRight);
 
-        bottom_layout.bringToFront();
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            playAni(animTransRight);
+            bottom_layout.bringToFront();
+        }, 26000);
     }
 
     @Override

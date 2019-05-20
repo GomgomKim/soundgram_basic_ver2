@@ -19,10 +19,12 @@
     <RelativeLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="264dp"
+        android:layout_height="279dp"
         android:layout_alignParentTop="true"
         android:orientation="vertical"
+        android:layout_marginBottom="-25dp"
         >
+
         <ImageView
             android:id="@+id/list_bg"
             android:layout_width="match_parent"
@@ -32,7 +34,7 @@
         <LinearLayout
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:orientation="vertical"
             android:gravity="center"
             >
@@ -40,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="  A    L    B    U    M           L    I    S    T  "
+                android:text="  A   L   B   U   M         L   I   S   T  "
                 android:textSize="17dp"
                 android:textColor="#454545"
                 android:fontFamily="@font/daehan_regular"
@@ -83,7 +85,6 @@
                     android:textSize="22dp"
                     android:lineSpacingExtra="-5dp"
                     android:includeFontPadding="false"
-                    android:paddingBottom="4dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -92,7 +93,6 @@
                     android:textSize="14dp"
                     android:textColor="#333333"
                     android:includeFontPadding="false"
-                    android:paddingBottom="4dp"
                     android:fontFamily="@font/notosanskr_light"
                     />
                 <TextView
@@ -117,7 +117,7 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:background="#ffffff"
-        android:paddingBottom="23dp"
+        android:paddingBottom="17dp"
         android:clipToPadding="false"
         >
     </ListView>

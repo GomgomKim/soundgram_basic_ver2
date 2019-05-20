@@ -1,10 +1,11 @@
 package test.dahun.mobileplay.main;
 
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -14,26 +15,31 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.youtube.player.internal.v;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import test.dahun.mobileplay.R;
 import test.dahun.mobileplay.adapter.BackPressCloseHandler;
 import test.dahun.mobileplay.adapter.ViewPagerAdapter;
+import test.dahun.mobileplay.database.DBOpenHelper;
+import test.dahun.mobileplay.database.NetworkTask;
 import test.dahun.mobileplay.interfaces.ApplicationStatus;
 import test.dahun.mobileplay.interfaces.AutoUiInterface;
 import test.dahun.mobileplay.interfaces.ButtonInterface;
+import test.dahun.mobileplay.interfaces.GetSongDataInterface;
+import test.dahun.mobileplay.interfaces.HeartNumInterface;
 import test.dahun.mobileplay.interfaces.ServiceStateInterface;
 import test.dahun.mobileplay.services.MusicService;
 
 import test.dahun.mobileplay.services.MusicService.LocalBinder;
 import test.dahun.mobileplay.tab.MusicFragment;
 
-public class MainActivity extends AppCompatActivity implements ButtonInterface, ServiceStateInterface {
+public class MainActivity extends AppCompatActivity implements ButtonInterface, ServiceStateInterface, GetSongDataInterface {
     ViewPager mainPager;
     ViewPagerAdapter viewPagerAdapter;
     SetViewPagerTabListener setViewPagerTabListener;
@@ -48,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
     ServiceConnection conn;
 
     private AutoUiInterface autoUiInterface;
+
+    DBOpenHelper mDbOpenHelper;
 
     @Override
     public MusicService getServiceState() {
@@ -75,6 +83,9 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
         initSetting();
         btnSetting();
         setIsNetwork();
+        getSongdata();
+        interfaceSetting();
+        createSQL();
 
         Log.i("main_test", "one");
         String noti_massage = getIntent().getStringExtra("notificationMessage");
@@ -96,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
     protected void onDestroy() {
         super.onDestroy();
         unbindService(conn);
+        mDbOpenHelper.close();
     }
 
     public void getService(){
@@ -243,6 +255,57 @@ public class MainActivity extends AppCompatActivity implements ButtonInterface, 
     @Override
     public void snsOn() {
         Glide.with(this).load(R.drawable.mn_sns_on2).apply(new RequestOptions().fitCenter()).into(sns_btn);
+    }
+
+    @Override
+    public void getSongdata(){
+        String url = "http://211.251.236.130:9000/API/song/getList/";
+
+        ContentValues param = new ContentValues();
+        param.put("albumID", 3); // 신루트 앨범
+
+        // AsyncTask를 통해 HttpURLConnection 수행.
+        NetworkTask networkTask = new NetworkTask(url, param, "song_data");
+        networkTask.execute();
+    }
+
+    public void interfaceSetting(){
+        HeartNumInterface.numSetting();
+    }
+
+    public void createSQL(){
+        mDbOpenHelper = new DBOpenHelper(this);
+        mDbOpenHelper.open();
+        mDbOpenHelper.create();
+
+        /*mDbOpenHelper.deleteAllColumns();
+
+        for(int i=0; i<6; i++){
+            mDbOpenHelper.insertColumn(i, 0);
+
+        }*/
+
+    }
+
+    @Override
+    public ArrayList<Integer> getIsLike(){
+        ArrayList<Integer> is_like_arr = new ArrayList<>();
+
+        Cursor iCursor = mDbOpenHelper.selectColumns();
+        while(iCursor.moveToNext()){
+            int song_id = iCursor.getInt(iCursor.getColumnIndex("song_id"));
+            int is_like = iCursor.getInt(iCursor.getColumnIndex("is_like"));
+            Log.i("is_likeSQLTest", "song_id : "+song_id);
+            Log.i("is_likeSQLTest", "is like : "+is_like);
+            is_like_arr.add(is_like);
+        }
+
+        return is_like_arr;
+    }
+
+    @Override
+    public void updateSQLDB(int position, int is_like){
+        mDbOpenHelper.updateColumn(position, is_like);
     }
 
 }

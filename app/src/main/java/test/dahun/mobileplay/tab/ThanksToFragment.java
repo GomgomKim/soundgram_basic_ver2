@@ -4,6 +4,7 @@ package test.dahun.mobileplay.tab;
 import android.content.res.AssetManager;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,15 +60,27 @@ public class ThanksToFragment extends Fragment {
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_thanks_to, container, false);
         ButterKnife.bind(this, layout);
         initSetting();
-        //resizeLayout();
-        setAni();
+//        setAni();
         return layout;
     }
 
     public void setAni() {
         Animation animTransRight = AnimationUtils
                 .loadAnimation(getContext(), R.anim.cover_ani);
+
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            playAni(animTransRight);
+        }, 4000);
+    }
+
+    public void playAni(Animation animTransRight){
         singer_img.startAnimation(animTransRight);
+
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            playAni(animTransRight);
+        }, 26000);
     }
 
     public void initSetting(){

@@ -21,7 +21,7 @@
     <LinearLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="95dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="2dp"
@@ -175,7 +175,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/time_rate"
         android:layout_centerInParent="true"
-        android:paddingTop="15dp"
+        android:paddingTop="5dp"
         />
 
     <LinearLayout
